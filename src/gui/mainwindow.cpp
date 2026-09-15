@@ -375,9 +375,62 @@ void MainWindow::switchProject() {
     menu.exec(projectButton_->mapToGlobal(QPoint(0, projectButton_->height() + 4)));
 }
 
+bool MainWindow::event(QEvent* event) {
+    if (event->type() == QEvent::WindowActivate) reloadIfChangedElsewhere();
+    return QMainWindow::event(event);
+}
+
+// Somebody else wrote the record while this window had it open. With no edits
+// of our own there is nothing to weigh up, so take theirs.
+void MainWindow::reloadIfChangedElsewhere() {
+    if (!record_ || !record_->changedOnDisk()) return;
+    if (record_->dirty()) {
+        statusBar()->showMessage(
+            "This record was changed by something else while you had unsaved edits. Saving will "
+            "ask you which copy to keep.", 12000);
+        return;
+    }
+    std::string error;
+    const int page = pages_ ? pages_->currentIndex() : 0;
+    if (!record_->reload(error)) return;
+    rebuildPages();
+    buildRail();
+    showPage(page);
+    refreshStatus();
+    statusBar()->showMessage("Reloaded: this record was changed by something else.", 6000);
+}
+
 void MainWindow::save() {
     if (!record_) return;
     std::string error;
+
+    // Never write a copy loaded before somebody else's changes. Doing that
+    // destroys their work with no warning, which is exactly how a decision log
+    // loses entries.
+    if (record_->changedOnDisk()) {
+        QMessageBox box(this);
+        box.setWindowTitle("Changed elsewhere");
+        box.setText("This record has been written by something else since you opened it.");
+        box.setInformativeText(
+            "The MCP server and this window hold the same file. Saving now would overwrite "
+            "whatever it wrote.");
+        QPushButton* keepTheirs = box.addButton("Reload theirs, lose mine", QMessageBox::DestructiveRole);
+        QPushButton* keepMine = box.addButton("Overwrite with mine", QMessageBox::AcceptRole);
+        box.addButton(QMessageBox::Cancel);
+        box.exec();
+
+        if (box.clickedButton() == keepTheirs) {
+            const int page = pages_ ? pages_->currentIndex() : 0;
+            if (record_->reload(error)) {
+                rebuildPages();
+                buildRail();
+                showPage(page);
+                refreshStatus();
+            }
+            return;
+        }
+        if (box.clickedButton() != keepMine) return;
+    }
     if (!record_->save(record_->path, error)) {
         QMessageBox::warning(this, "AutoPM",
                              QString("Could not save the record.\n\n%1")

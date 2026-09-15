@@ -6,6 +6,7 @@
 #include <cctype>
 #include <cstdio>
 #include <ctime>
+#include <filesystem>
 #include <sstream>
 
 namespace pm {
@@ -93,6 +94,27 @@ std::string Record::nextRowId(const std::string& key, const std::string& prefix)
     return prefix + std::to_string(highest + 1);
 }
 
+namespace {
+
+long long stampOf(const std::string& file) {
+    std::error_code code;
+    const auto when = std::filesystem::last_write_time(file, code);
+    if (code) return 0;
+    return static_cast<long long>(when.time_since_epoch().count());
+}
+
+} // namespace
+
+bool Record::changedOnDisk() const {
+    if (path.empty() || stamp_ == 0) return false;
+    const long long now = stampOf(path);
+    return now != 0 && now != stamp_;
+}
+
+bool Record::reload(std::string& error) {
+    return load(path, error);
+}
+
 bool Record::load(const std::string& file, std::string& error) {
     std::string text;
     if (!readFile(file, text)) {
@@ -142,6 +164,7 @@ bool Record::load(const std::string& file, std::string& error) {
         entries_[node->id] = std::move(entry);
     }
 
+    stamp_ = stampOf(file);
     dirty_ = false;
     return true;
 }
@@ -206,6 +229,7 @@ bool Record::save(const std::string& file, std::string& error) {
         return false;
     }
     path = file;
+    stamp_ = stampOf(file);
     dirty_ = false;
     return true;
 }

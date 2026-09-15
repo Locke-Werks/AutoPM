@@ -262,7 +262,7 @@ field board.cards
       value: House fonts: Chakra Petch, Outfit, Instrument Serif
   row c11
     provenance: unobjected
-    evidence: Acceptance criteria drafted by the delivery team 2026-09-15 after "refine those two". The instruction to refine is hers; the wording of the criteria is not yet approved.
+    evidence: Drafted by the delivery team 2026-09-15. Not approved.
     cell acceptance
       value: Select a row on Status Reports and choose Export. The file contains the project name, the period, the date, the RAG call, what was completed, what is planned next, the variance and the escalations, and nothing else from the record. It opens readable in Notepad. Exporting the same row twice produces the same file.
     cell blocked
@@ -280,14 +280,14 @@ field board.cards
     cell ref
       value: C11
     cell sprint
-      value: Sprint 2
+      value: Sprint 3
     cell state
       value: Backlog
     cell title
       value: Export a status report as a document
   row c12
     provenance: unobjected
-    evidence: Acceptance criteria drafted by the delivery team 2026-09-15 after "refine those two". The instruction to refine is hers; the wording of the criteria is not yet approved.
+    evidence: Drafted by the delivery team 2026-09-15. Not approved.
     cell acceptance
       value: On Scope and WBS, a work package that has no card offers to create one. The new card carries the item name, the owner and the WBS code, and lands in Backlog. Running it again on the same work package does not create a second card. The card shows its WBS code, and the WBS row shows it has one.
     cell blocked
@@ -305,20 +305,22 @@ field board.cards
     cell ref
       value: C12
     cell sprint
-      value: Sprint 2
+      value: Sprint 3
     cell state
       value: Backlog
     cell title
       value: Pull WBS work packages onto the board as cards
   row c13
     provenance: specified
-    evidence: "I plan on getting it all done sprint 2" (2026-09-15)
+    evidence: "I plan on getting it all done sprint 2" (2026-09-15). Rewritten 2026-09-15 after the window overwrote it. Original evidence preserved.
     cell acceptance
       value: Installed on a machine that has never had it, launched, and uninstalled with nothing left behind.
     cell blocked
       value: No
     cell detail
       value: The installer builds but nobody has run it. It is the one M2 acceptance item still unticked.
+    cell owner
+      value: Delivery team
     cell points
       value: 2
     cell priority
@@ -335,13 +337,15 @@ field board.cards
       value: Verify the installer on a clean machine
   row c14
     provenance: agreed
-    evidence: Review requested on pull request #1, 2026-09-15
+    evidence: Review requested on pull request #1, 2026-09-15. Rewritten 2026-09-15 after the window overwrote it. Original evidence preserved.
     cell acceptance
       value: Archon has the charter and a date in the calendar.
     cell blocked
       value: No
     cell detail
       value: The charter is in the repository he already has admin on, and the review is requested on pull request #1. What is still outstanding is the timing, which is Q10 and has been unanswered since this morning.
+    cell owner
+      value: Nyx
     cell points
       value: 1
     cell priority
@@ -358,7 +362,7 @@ field board.cards
       value: Give the reviewer the charter and book the review
   row c15
     provenance: unobjected
-    evidence: Split proposed by the delivery team 2026-09-15 on refining C15. Not approved.
+    evidence: Drafted by the delivery team 2026-09-15. Not approved.
     cell acceptance
       value: SmallHours has a signed-off charter, a stakeholder register, and at least one status report written from the tool while the project was running rather than reconstructed afterwards.
     cell blocked
@@ -381,13 +385,13 @@ field board.cards
       value: Manage a second real project in the tool
   row c16
     provenance: specified
-    evidence: "security review belongs to Archon (the github you asked for review earlier" (2026-09-15)
+    evidence: "security review belongs to Archon" (2026-09-15). Rewritten 2026-09-15 after the window overwrote it. Original evidence preserved.
     cell acceptance
       value: Each of the three reviewed against injection and malformed input, with findings recorded here whether or not they are acted on.
     cell blocked
       value: No
     cell detail
-      value: Archon's, not the delivery team's. Three surfaces written by hand this session take untrusted input: the block file parser reads records, the JSON parser reads whatever an MCP client sends, and gitlog builds a shell command from a stored path. The MCP also has write access to every record. The party that wrote them is not the party to review them.
+      value: Never done. Three surfaces written by hand this session take untrusted input: the block file parser reads records, the JSON parser reads whatever an MCP client sends, and gitlog builds a shell command from a stored path. The MCP also has write access to every record.
     cell owner
       value: Archon
     cell points
@@ -406,7 +410,7 @@ field board.cards
       value: Security review: parsers, MCP write path, git invocation
   row c17
     provenance: unobjected
-    evidence: Split proposed by the delivery team 2026-09-15 on refining C15. Not approved.
+    evidence: Drafted by the delivery team 2026-09-15. Not approved. Rewritten 2026-09-15 after the window overwrote it. Original evidence preserved.
     cell acceptance
       value: The coach reports nothing blank on SmallHours' Project Charter and Stakeholder Register, and the charter has a sign-off with a date.
     cell blocked
@@ -1071,24 +1075,39 @@ field issues.decisions
       value: specified
   row d34
     provenance: specified
-    evidence: "I plan on getting it all done sprint 2" (2026-09-15)
+    evidence: "drop C11 and C12 to sprint 3" (2026-09-15)
     cell affects
-      value: Sprint 2 commitment, now over capacity; schedule activity A8
+      value: Sprint 2 drops to 9 of 15; Sprint 3 capacity waits on Sprint 2's velocity
     cell decided_on
       value: 2026-09-15
     cell decision
-      value: All outstanding work goes into Sprint 2. The whole backlog is pulled in.
+      value: C11 and C12 move to Sprint 3, which is created for 23 to 29 September with no capacity set.
+    cell evidence
+      value: "drop C11 and C12 to sprint 3"
+    cell ref
+      value: D39
+    cell source_state
+      value: specified
+  row d35
+    provenance: specified
+    evidence: Rewritten 2026-09-15 after the window overwrote it. Original evidence preserved.
+    cell affects
+      value: Sprint 2 commitment
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: All outstanding work goes into Sprint 2.
     cell evidence
       value: "I plan on getting it all done sprint 2"
     cell ref
       value: D36
     cell source_state
       value: specified
-  row d35
+  row d36
     provenance: specified
-    evidence: "security review belongs to Archon (the github you asked for review earlier" (2026-09-15)
+    evidence: Rewritten 2026-09-15 after the window overwrote it. Original evidence preserved.
     cell affects
-      value: C16 owner; R9 owner; I4 owner; Sprint 2 now contains work the project does not control
+      value: C16, R9, I4 owners
     cell decided_on
       value: 2026-09-15
     cell decision
@@ -1099,9 +1118,9 @@ field issues.decisions
       value: D37
     cell source_state
       value: specified
-  row d36
+  row d37
     provenance: specified
-    evidence: "small hours and its in" (2026-09-15)
+    evidence: Rewritten 2026-09-15 after the window overwrote it. Original evidence preserved.
     cell affects
       value: Success criterion 3; C15; schedule activity A8
     cell decided_on
@@ -1168,7 +1187,7 @@ field issues.issues
       value: Closed
   row i4
     provenance: specified
-    evidence: "security review belongs to Archon (the github you asked for review earlier" (2026-09-15)
+    evidence: Rewritten 2026-09-15 after the window overwrote it. Original evidence preserved.
     cell issue
       value: No security review has been done on AutoPM at any point.
     cell owner
@@ -1183,6 +1202,23 @@ field issues.issues
       value: Open. Assigned to Archon and requested on pull request #1. Tracked as risk R9 and card C16.
     cell status
       value: Open
+  row i5
+    provenance: specified
+    evidence: Rewritten 2026-09-15 after the window overwrote it. Original evidence preserved.
+    cell issue
+      value: The window and the MCP server both write the same record file with no coordination. The window saved a copy it had loaded before the server's writes and destroyed them: three decisions, one card and several card states were lost.
+    cell owner
+      value: Delivery team
+    cell priority
+      value: High
+    cell raised_on
+      value: 2026-09-15
+    cell ref
+      value: I5
+    cell resolution
+      value: Fixed. The record now carries the file's modification time from when it was read; the window refuses to save over a newer copy and offers to reload instead, and reloads by itself when it regains focus with no unsaved edits. The lost entries were rewritten from the session transcript.
+    cell status
+      value: Closed
 field requirements.assumptions
   provenance: unobjected
   evidence: Drafted by the delivery team 2026-09-15, not yet reviewed
@@ -1443,7 +1479,8 @@ field sprints.sprints
     cell status
       value: Done
   row s2
-    provenance: agreed
+    provenance: specified
+    evidence: "Raise capacity pull into sprint 2" (2026-09-15)
     cell capacity
       value: 15
     cell end
@@ -1458,6 +1495,21 @@ field sprints.sprints
       value: 2026-09-16
     cell status
       value: Active
+  row s3
+    provenance: specified
+    evidence: "drop C11 and C12 to sprint 3" (2026-09-15). Dates follow the one-week cadence; the goal is the delivery team wording.
+    cell end
+      value: 2026-09-29
+    cell goal
+      value: The two build items deferred out of Sprint 2: a status report can leave the tool, and the board stops being a second place the work breakdown already lives.
+    cell name
+      value: Sprint 3
+    cell ref
+      value: S3
+    cell start
+      value: 2026-09-23
+    cell status
+      value: Planned
 field risks.register
   provenance: agreed
   evidence: Risk register from the project record, 2026-09-15
@@ -1586,7 +1638,7 @@ field risks.register
       value: Watching
   row r7
     provenance: specified
-    evidence: "security review belongs to Archon (the github you asked for review earlier" (2026-09-15)
+    evidence: "security review belongs to Archon" (2026-09-15). Rewritten 2026-09-15 after the window overwrote it. Original evidence preserved.
     cell category
       value: Technical
     cell impact

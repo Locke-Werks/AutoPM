@@ -23,6 +23,9 @@ public:
     QSize sizeHint() const override;
     void setMinimumLines(int lines);
 
+    // Right-click offers corrections for the word under the cursor.
+    void showContextMenu(const QPoint& where);
+
 protected:
     void resizeEvent(QResizeEvent* event) override;
 
