@@ -1,0 +1,1724 @@
+# AutoPM project record. Plain text on purpose: it is meant to be read
+# and diffed. Keys are screen.field, matching the files in definitions/.
+# provenance is one of specified, agreed, unobjected. Anything else is
+# untagged, and only specified and agreed count as decisions.
+
+project: autopm
+name: AutoPM
+accent: #ff2d95
+created: 2026-09-15
+modified: 2026-09-15
+phase: Executing
+summary: |
+  Building my own project management software, run as a managed project from
+  day one. The product does three jobs: a study guide for the PM role, a
+  practical application I run real projects in, and where my projects live
+  afterwards.
+
+  This record is record #1: the tool's own project, managed inside the tool.
+field board.cards
+  provenance: agreed
+  evidence: Built 2026-09-15
+  row c1
+    provenance: agreed
+    cell acceptance
+      value: A record round-trips: load, save, no diff.
+    cell blocked
+      value: No
+    cell detail
+      value: One indentation-based format, used by both the definition files and the project records.
+    cell owner
+      value: Delivery team
+    cell points
+      value: 3
+    cell priority
+      value: High
+    cell ref
+      value: C1
+    cell sprint
+      value: Sprint 1
+    cell state
+      value: Done
+    cell title
+      value: Block file parser for definitions and records
+  row c2
+    provenance: agreed
+    cell acceptance
+      value: No default Qt grey anywhere in the window.
+    cell blocked
+      value: No
+    cell detail
+      value: Near-black ground, violet-warmed text, hairlines that are never white, one accent per project spent on emission.
+    cell owner
+      value: Delivery team
+    cell points
+      value: 5
+    cell priority
+      value: High
+    cell ref
+      value: C2
+    cell sprint
+      value: Sprint 1
+    cell state
+      value: Done
+    cell title
+      value: House style as a Qt stylesheet
+  row c3
+    provenance: agreed
+    cell acceptance
+      value: Editing the definition file changes the screen with no rebuild.
+    cell blocked
+      value: No
+    cell detail
+      value: Sixteen fields, none of them written in code.
+    cell owner
+      value: Delivery team
+    cell points
+      value: 5
+    cell priority
+      value: High
+    cell ref
+      value: C3
+    cell sprint
+      value: Sprint 1
+    cell state
+      value: Done
+    cell title
+      value: Charter screen, generated from its definition file
+  row c4
+    provenance: agreed
+    cell acceptance
+      value: Every field in every screen shows all four sections.
+    cell blocked
+      value: No
+    cell detail
+      value: The study guide. Focus a field and the panel explains it.
+    cell owner
+      value: Delivery team
+    cell points
+      value: 3
+    cell priority
+      value: High
+    cell ref
+      value: C4
+    cell sprint
+      value: Sprint 1
+    cell state
+      value: Done
+    cell title
+      value: Help panel: source, why, if-blank, example
+  row c5
+    provenance: agreed
+    cell acceptance
+      value: Dragging a card writes its new column into the record. Over the limit turns the count red.
+    cell blocked
+      value: No
+    cell detail
+      value: Columns come from the definition file's allowed values; WIP limits come from its wip line.
+    cell owner
+      value: Delivery team
+    cell points
+      value: 8
+    cell priority
+      value: High
+    cell ref
+      value: C5
+    cell sprint
+      value: Sprint 1
+    cell state
+      value: Done
+    cell title
+      value: Sprint board with drag-and-drop and WIP limits
+  row c6
+    provenance: agreed
+    cell acceptance
+      value: The timeline draws the dates entered. It does not calculate them.
+    cell blocked
+      value: No
+    cell detail
+      value: Probability by impact as a grid; activities as bars on a date axis, with milestones as diamonds.
+    cell owner
+      value: Delivery team
+    cell points
+      value: 5
+    cell priority
+      value: Medium
+    cell ref
+      value: C6
+    cell sprint
+      value: Sprint 1
+    cell state
+      value: Done
+    cell title
+      value: Risk matrix and schedule timeline
+  row c7
+    provenance: agreed
+    cell acceptance
+      value: Filling a field removes it from the gaps list.
+    cell blocked
+      value: No
+    cell detail
+      value: Every blank field already carries the sentence saying what breaks when nobody fills it in. The overview surfaces those.
+    cell owner
+      value: Delivery team
+    cell points
+      value: 3
+    cell priority
+      value: Medium
+    cell ref
+      value: C7
+    cell sprint
+      value: Sprint 1
+    cell state
+      value: Done
+    cell title
+      value: Overview screen with the gaps list
+  row c8
+    provenance: agreed
+    cell acceptance
+      value: Legible in the taskbar at 16px.
+    cell blocked
+      value: No
+    cell detail
+      value: Drawn rather than downscaled, with pixel-snapped geometry below 32px.
+    cell owner
+      value: Delivery team
+    cell points
+      value: 2
+    cell priority
+      value: Low
+    cell ref
+      value: C8
+    cell sprint
+      value: Sprint 1
+    cell state
+      value: Done
+    cell title
+      value: Multi-resolution application icon
+  row c9
+    provenance: agreed
+    cell acceptance
+      value: Installs, adds a Start Menu shortcut, uninstalls cleanly.
+    cell blocked
+      value: No
+    cell detail
+      value: scope = user, elevation on-demand. Unsigned: there is no signing certificate.
+    cell owner
+      value: Delivery team
+    cell points
+      value: 3
+    cell priority
+      value: High
+    cell ref
+      value: C9
+    cell sprint
+      value: Sprint 1
+    cell state
+      value: Ready
+    cell title
+      value: Forge installer, per-user with an uninstall entry
+  row c10
+    provenance: unobjected
+    evidence: Proposed, not yet approved
+    cell acceptance
+      value: The app reports the house faces as available.
+    cell blocked
+      value: Yes
+    cell detail
+      value: The three faces are not installed on this machine, so the app falls back to Segoe UI and Georgia. Dropping the files into assets/fonts completes the house type.
+    cell owner
+      value: Delivery team
+    cell points
+      value: 1
+    cell priority
+      value: Medium
+    cell ref
+      value: C10
+    cell sprint
+      value: Sprint 2
+    cell state
+      value: Backlog
+    cell title
+      value: House fonts: Chakra Petch, Outfit, Instrument Serif
+  row c11
+    provenance: unobjected
+    evidence: Proposed, not yet approved
+    cell acceptance
+      value: One report renders to a readable file.
+    cell blocked
+      value: No
+    cell detail
+      value: A status report you can send someone without giving them the record file.
+    cell owner
+      value: Delivery team
+    cell points
+      value: 5
+    cell priority
+      value: Low
+    cell ref
+      value: C11
+    cell sprint
+      value: Sprint 2
+    cell state
+      value: Backlog
+    cell title
+      value: Export a status report as a document
+  row c12
+    provenance: unobjected
+    evidence: Proposed, not yet approved
+    cell acceptance
+      value: A work package becomes a card without retyping it.
+    cell blocked
+      value: No
+    cell detail
+      value: Right now the board and the WBS are separate tables. The hybrid framework says the board should be the Executing view of the work packages.
+    cell owner
+      value: Delivery team
+    cell points
+      value: 5
+    cell priority
+      value: Medium
+    cell ref
+      value: C12
+    cell sprint
+      value: Sprint 2
+    cell state
+      value: Backlog
+    cell title
+      value: Pull WBS work packages onto the board as cards
+field board.definition_of_done
+  provenance: unobjected
+  evidence: Drafted by the delivery team 2026-09-15
+  value: |
+    Builds clean with no new warnings.
+    Runs from a fresh folder with only the staged definitions and assets.
+    The field's help panel is written: source, why, if-blank, example.
+    The record file still round-trips and diffs one line per changed cell.
+field board.sprint_goal
+  provenance: specified
+  evidence: Scope expanded 2026-09-15: "I want a full PM tool, Kanban boards, everything"
+  value: |
+    Sprint 1: every lifecycle screen usable end to end on this project's own
+    record, with the house style applied and record #1 pre-loaded.
+
+    Revised mid-sprint by CR5: the goal is now that a person who has never run
+    a project can be walked through one and understand what they just did.
+field changes.log
+  provenance: specified
+  evidence: Raised and decided by the sponsor, 2026-09-15
+  row x1
+    provenance: specified
+    evidence: "yes I want the forms but I want a full PM tool, Kanban boards, everything" (2026-09-15)
+    cell change
+      value: Expand scope from the Initiating screens (M2) to the full lifecycle, including a sprint board.
+    cell decided_by
+      value: Nyx (sponsor)
+    cell impact
+      value: Adds nine screens beyond the two in the M2 handoff. M3 and M4 content delivered early; no milestone date moved. Increases R4, scope creep, which is why it is logged rather than absorbed.
+    cell kind
+      value: Scope
+    cell raised_by
+      value: Nyx
+    cell raised_on
+      value: 2026-09-15
+    cell ref
+      value: CR1
+    cell status
+      value: Approved
+  row x2
+    provenance: specified
+    evidence: "name it AutoPM for now" (2026-09-15)
+    cell change
+      value: Name the product AutoPM, closing the open working-title question.
+    cell decided_by
+      value: Nyx (sponsor)
+    cell impact
+      value: Repository, icon, executable and installer all take the name. Marked as provisional, so a later rename is expected and costs one repo rename.
+    cell kind
+      value: Scope
+    cell raised_by
+      value: Nyx
+    cell raised_on
+      value: 2026-09-15
+    cell ref
+      value: CR2
+    cell status
+      value: Approved
+  row x3
+    provenance: specified
+    evidence: "make a repo in the lockewerks org, private for now" (2026-09-15)
+    cell change
+      value: Create a private repository in the Locke-Werks organisation.
+    cell decided_by
+      value: Nyx (sponsor)
+    cell impact
+      value: Reverses the M2 handoff line that there would be no repository until the product was named. The name arrived in the same session.
+    cell kind
+      value: Scope
+    cell raised_by
+      value: Nyx
+    cell raised_on
+      value: 2026-09-15
+    cell ref
+      value: CR3
+    cell status
+      value: Approved
+  row x4
+    provenance: specified
+    evidence: "make it pretty, use the house style translated into software instead of a webpage" (2026-09-15)
+    cell change
+      value: Apply the Locke Werks house material language to the application.
+    cell decided_by
+      value: Nyx (sponsor)
+    cell impact
+      value: Adds a theme layer and custom-painted chrome. No functional scope change.
+    cell kind
+      value: Quality
+    cell raised_by
+      value: Nyx
+    cell raised_on
+      value: 2026-09-15
+    cell ref
+      value: CR4
+    cell status
+      value: Approved
+  row x5
+    provenance: specified
+    evidence: "I want it to walk me through the steps, not just keep track of it for me- it needs to teach me how to be a pm... not be my pm" (2026-09-15)
+    cell change
+      value: Reframe the product from a recorder with help text into a guided walkthrough that teaches the role, with coaching on the answers.
+    cell decided_by
+      value: Nyx (sponsor)
+    cell impact
+      value: Adds a walkthrough mode, a teaching layer in every definition file, and a rule-based coach. The screens and the record are unchanged underneath. This is the largest change so far and it changes what the product is, not just what it contains.
+    cell kind
+      value: Scope
+    cell raised_by
+      value: Nyx
+    cell raised_on
+      value: 2026-09-15
+    cell ref
+      value: CR5
+    cell status
+      value: Approved
+field changes.process
+  provenance: agreed
+  evidence: Follows the charter approval rule, 2026-09-15
+  value: |
+    Anything that moves a milestone date, adds a screen, or changes what the
+    product is goes to the sponsor. Wording, layout and colour inside an approved
+    screen do not.
+
+    I am both PM and sponsor on this project, so the discipline is writing the
+    change down, not routing it to someone else.
+field charter.approval
+  provenance: specified
+  evidence: "charter approved" (2026-09-15)
+  value: Approved by the sponsor, 2026-09-15.
+field charter.approval_requirements
+  provenance: specified
+  evidence: "he does a review when i think we are done, and he tells me if it is right or not" (2026-09-15)
+  value: |
+    I accept each milestone. Acceptance means I used the screen on this project
+    and understood every field.
+
+    Final review by Archon, once, when I think we are done. His verdict decides
+    whether the product is right.
+field charter.budget
+  provenance: agreed
+  evidence: "yes to all proposals" (2026-09-15)
+  value: $0 beyond existing subscriptions and hosting.
+field charter.business_case
+  provenance: agreed
+  evidence: Summary approved with "yes to all proposals" (2026-09-15)
+  value: |
+    I do PM work by intuition and want to understand how it fits into a PM job,
+    which I am actively pursuing. No existing tool I have holds project-level
+    truth: charter, scope, decisions, risks, and status against a plan.
+
+    ProjectMan tracks git state. MemoryBook holds memory and loops. Neither holds
+    project intent.
+field charter.decision_rule
+  provenance: specified
+  evidence: My rule from 2026-08-27 about decisions attributed without evidence
+  value: |
+    Three states: specified (I said it, quote it), agreed (I approved a summary),
+    unobjected (proposed, no reply). Only specified and agreed are decisions.
+
+    Every entry in this tool carries one of those states plus an evidence line.
+field charter.description_deliverables
+  provenance: specified
+  evidence: "I want this to be personal installable software- like... project man" (2026-09-15)
+  value: |
+    Personal, installable desktop software covering the full project lifecycle.
+    Each person runs their own install.
+
+    Screens: charter, stakeholder register, requirements, scope and WBS, schedule,
+    risk register, sprint board, change log, issues and decisions, status reports,
+    closeout.
+field charter.exit_criteria
+  provenance: specified
+  evidence: "exit criteria approved" (2026-09-15)
+  value: |
+    Close: M5 reached and all four success criteria met.
+    Cancel or re-charter: no screen used on a real project for 30 days, or the
+    build pulls time off paid PM work for more than two weeks running.
+field charter.high_level_requirements
+  provenance: agreed
+  evidence: "yes to all proposals" (2026-09-15)
+  value: |
+    Guided input forms for each lifecycle artifact.
+    Built-in explanation for each field.
+    Decision log with a source field (my own).
+    Hybrid structure: predictive phases, with sprints inside Executing.
+field charter.key_stakeholders
+  provenance: specified
+  evidence: "Archon may use it, but he will definately review it" (2026-09-15)
+  value: |
+    Sponsor, PM and primary user: me.
+    Final reviewer: Archon, one review, with the verdict on whether it is right.
+    Delivery team: builds from my handoffs.
+
+    Details on the Stakeholder Register screen.
+field charter.milestones
+  provenance: specified
+  evidence: "M1- hopefully today / M2- Hopefully today / M3- tomorrow? / M4- Next week? / Closeout- October 15" (2026-09-15)
+  row m1
+    provenance: specified
+    evidence: milestones message, 2026-09-15
+    cell milestone
+      value: M1 Charter approved
+    cell notes
+      value: my words: "hopefully today"
+    cell status
+      value: Reached
+    cell target
+      value: 2026-09-15
+  row m2
+    provenance: specified
+    evidence: milestones message, 2026-09-15
+    cell milestone
+      value: M2 Initiating screens work
+    cell notes
+      value: my words: "Hopefully today". Built; my acceptance is the gate.
+    cell status
+      value: In progress
+    cell target
+      value: 2026-09-15
+  row m3
+    provenance: specified
+    evidence: milestones message, 2026-09-15
+    cell milestone
+      value: M3 Planning screens work
+    cell notes
+      value: my words: "tomorrow?". Built early with CR1.
+    cell status
+      value: In progress
+    cell target
+      value: 2026-09-16
+  row m4
+    provenance: specified
+    evidence: milestones message, 2026-09-15
+    cell milestone
+      value: M4 Executing works
+    cell notes
+      value: my words: "Next week?". Board, change log and status built early with CR1.
+    cell status
+      value: In progress
+    cell target
+      value: 2026-09-21
+  row m5
+    provenance: specified
+    evidence: milestones message, 2026-09-15
+    cell milestone
+      value: M5 Closeout
+    cell notes
+      value: my words: "Closeout- October 15". This project closes inside its own tool.
+    cell status
+      value: Not started
+    cell target
+      value: 2026-10-15
+field charter.out_of_scope
+  provenance: agreed
+  evidence: "yes to all proposals" (2026-09-15)
+  value: |
+    Budget and cost accounting beyond one simple field.
+    Multi-user permissions. Each person runs their own install.
+    Replacing ProjectMan's git tracking.
+    Resource leveling and Gantt scheduling math.
+field charter.overall_risk
+  provenance: agreed
+  evidence: Risks R1-R6 in the project record, agreed 2026-09-15
+  value: |
+    Moderate, and mostly about me rather than the technology. The two that
+    matter: learning the tool I designed instead of the job it is modelled on, and
+    a single late review gate that surfaces defects at the most expensive moment.
+field charter.pm_authority
+  provenance: specified
+  evidence: "I am being the PM...." (2026-09-15)
+  value: |
+    PM: me. I own scope, priorities and acceptance.
+    The delivery team builds from my handoffs. It implements; it does not decide.
+field charter.purpose
+  provenance: specified
+  evidence: "this project will produce a product that acts as a study guide, practical application, and future orginization" (2026-09-15)
+  value: |
+    Build a PM product that works as a study guide, practical application and
+    future organization.
+
+    Working title: AutoPM (2026-09-15).
+field charter.sponsor
+  provenance: specified
+  evidence: Charter approval, 2026-09-15
+  value: Me. Sponsor, PM and primary user.
+field charter.success_criteria
+  provenance: agreed
+  evidence: "yes to all proposals" (2026-09-15)
+  value: |
+    1. Every field in the tool has a source tag and a "why" explanation.
+    2. This project runs start to finish inside the tool, charter through closeout.
+    3. At least one other real project is managed in it after this one.
+    4. I can explain each PM artifact and when it is used without opening the tool.
+field closeout.outcome
+  evidence: The four success criteria from the charter, waiting to be answered at closeout
+  row o1
+    cell criterion
+      value: Every field in the tool has a source tag and a why explanation.
+  row o2
+    cell criterion
+      value: This project runs start to finish inside the tool, charter through closeout.
+  row o3
+    cell criterion
+      value: At least one other real project is managed in it after this one.
+  row o4
+    cell criterion
+      value: I can explain each PM artifact and when it is used without opening the tool.
+field issues.decisions
+  provenance: specified
+  evidence: The decision log from the project record, 2026-09-15
+  row d1
+    provenance: specified
+    evidence: "lets start handing my projects properly... lets talk about building my own PM software"
+    cell affects
+      value: Charter
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: Build my own PM software.
+    cell evidence
+      value: "but first lets talk about building my own PM software, so that I can start keeping track of things the way I want to"
+    cell ref
+      value: D1
+    cell source_state
+      value: specified
+  row d2
+    provenance: specified
+    evidence: Opening message
+    cell affects
+      value: Project record
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: Document the build as it happens.
+    cell evidence
+      value: "But lets doccument doing it right the whole time"
+    cell ref
+      value: D2
+    cell source_state
+      value: specified
+  row d3
+    provenance: specified
+    evidence: Purpose message
+    cell affects
+      value: Charter purpose
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: The main purpose is learning the role by building its workflow as input forms.
+    cell evidence
+      value: "The best way to do that is to build the virtual workflow as an imput field and learn how to use it"
+    cell ref
+      value: D3
+    cell source_state
+      value: specified
+  row d4
+    provenance: specified
+    evidence: Purpose message
+    cell affects
+      value: Approach
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: Build first. No paper or manual phase.
+    cell evidence
+      value: "im not going to go buy a million postits- but I just might use the software"
+    cell ref
+      value: D4
+    cell source_state
+      value: specified
+  row d5
+    provenance: specified
+    evidence: Framework message
+    cell affects
+      value: Lifecycle, sprint board
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: Hybrid framework: predictive phases, agile sprints inside Executing.
+    cell evidence
+      value: "hybrid sounds like the best option for us at the current moment"
+    cell ref
+      value: D5
+    cell source_state
+      value: specified
+  row d6
+    provenance: specified
+    evidence: Framework message
+    cell affects
+      value: Charter purpose
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: The product has three jobs: study guide, practical application, future organization.
+    cell evidence
+      value: "a product that acts as a study guide, practical application, and future orginization"
+    cell ref
+      value: D6
+    cell source_state
+      value: specified
+  row d7
+    provenance: agreed
+    evidence: Reply to the study-guide proposal
+    cell affects
+      value: Every screen
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: Every field is sourced to the standard and explains itself.
+    cell evidence
+      value: "yes exatly", replying to the study-guide proposal
+    cell ref
+      value: D7
+    cell source_state
+      value: agreed
+  row d8
+    provenance: agreed
+    evidence: Reply to the charter draft
+    cell affects
+      value: Charter
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: Adopt every proposed charter entry: business case, success criteria, requirements, out-of-scope list, milestones, budget, approval rule, PM authority.
+    cell evidence
+      value: "yes to all proposals"
+    cell ref
+      value: D8
+    cell source_state
+      value: agreed
+  row d9
+    provenance: specified
+    evidence: Form factor message
+    cell affects
+      value: Architecture, installer
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: Personal, installable desktop software, modelled on ProjectMan.
+    cell evidence
+      value: "I want this to be personal installable software- like... project man"
+    cell ref
+      value: D9
+    cell source_state
+      value: specified
+  row d10
+    provenance: specified
+    evidence: Milestones message
+    cell affects
+      value: Schedule
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: Schedule baseline: M1-M2 Sep 15, M3 Sep 16, M4 week of Sep 21, M5 Oct 15.
+    cell evidence
+      value: "I want to TRY to get this done by October 15th"
+    cell ref
+      value: D10
+    cell source_state
+      value: specified
+  row d11
+    provenance: specified
+    evidence: Exit criteria message
+    cell affects
+      value: Charter exit criteria
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: Exit criteria approved.
+    cell evidence
+      value: "exit criteria approved"
+    cell ref
+      value: D11
+    cell source_state
+      value: specified
+  row d12
+    provenance: specified
+    evidence: Archon message
+    cell affects
+      value: Stakeholder register
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: Archon is a definite reviewer and a possible user.
+    cell evidence
+      value: "Archon may use it, but he will definately review it"
+    cell ref
+      value: D12
+    cell source_state
+      value: specified
+  row d13
+    provenance: specified
+    evidence: Archon message
+    cell affects
+      value: Approval requirements, R5
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: Archon reviews once, when I think it is done, and says whether it is right.
+    cell evidence
+      value: "he does a review when i think we are done, and he tells me if it is right or not"
+    cell ref
+      value: D13
+    cell source_state
+      value: specified
+  row d14
+    provenance: specified
+    evidence: Approval message
+    cell affects
+      value: M1
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: Charter approved. M1 reached.
+    cell evidence
+      value: "charter approved"
+    cell ref
+      value: D14
+    cell source_state
+      value: specified
+  row d15
+    provenance: agreed
+    evidence: Approval message
+    cell affects
+      value: Architecture
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: Stack: C++ and Qt like ProjectMan, with field definitions in readable data files.
+    cell evidence
+      value: "go with recommended stack"
+    cell ref
+      value: D15
+    cell source_state
+      value: agreed
+  row d18
+    provenance: specified
+    evidence: Roles message
+    cell affects
+      value: PM authority
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: I am the PM. The delivery team builds from my handoffs; it implements, it does not decide.
+    cell evidence
+      value: "I expected a handoff" / "I am being the PM...."
+    cell ref
+      value: D18
+    cell source_state
+      value: specified
+  row d19
+    provenance: specified
+    evidence: Scope expansion message
+    cell affects
+      value: Scope, CR1
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: Build the full PM tool, not just the Initiating screens. Kanban boards included.
+    cell evidence
+      value: "yes I want the forms but I want a full PM tool, Kanban boards, everything"
+    cell ref
+      value: D19
+    cell source_state
+      value: specified
+  row d20
+    provenance: specified
+    evidence: Naming message
+    cell affects
+      value: Product name, repository
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: The product is named AutoPM, for now.
+    cell evidence
+      value: "name it AutoPM for now"
+    cell ref
+      value: D20
+    cell source_state
+      value: specified
+  row d21
+    provenance: unobjected
+    evidence: Proposed 2026-09-15, no reply
+    cell affects
+      value: R5, schedule A7
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: Hold Archon's review after M4 rather than on October 15, and give him the charter up front.
+    cell evidence
+      value: Proposed in the project record as Q10. No reply. This is not a decision.
+    cell ref
+      value: Q10
+    cell source_state
+      value: unobjected
+  row d23
+    provenance: specified
+    evidence: Teaching message, 2026-09-15
+    cell affects
+      value: The whole product; CR5
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: The product teaches the role rather than recording it. Guided walkthrough, one question at a time, with coaching on the answers.
+    cell evidence
+      value: "it needs to teach me how to be a pm... not be my pm"
+    cell ref
+      value: D23
+    cell source_state
+      value: specified
+field issues.issues
+  provenance: agreed
+  evidence: Raised during the build, 2026-09-15
+  row i1
+    provenance: agreed
+    cell issue
+      value: The three house fonts are not installed on this machine, so the application falls back to Segoe UI and Georgia.
+    cell owner
+      value: Delivery team
+    cell priority
+      value: Medium
+    cell raised_on
+      value: 2026-09-15
+    cell ref
+      value: I1
+    cell resolution
+      value: The app loads any font files placed in assets/fonts at startup. Dropping the three files in completes the house type with no rebuild.
+    cell status
+      value: Open
+  row i2
+    provenance: specified
+    evidence: Noted in the M2 handoff technical constraints
+    cell issue
+      value: No Azure signing credentials, so the installer cannot be signed. Windows will warn on first run.
+    cell owner
+      value: Nyx
+    cell priority
+      value: Low
+    cell raised_on
+      value: 2026-09-15
+    cell ref
+      value: I2
+    cell resolution
+      value: Accepted for a personal install. Revisit if the tool is ever distributed.
+    cell status
+      value: Closed
+  row i3
+    provenance: agreed
+    cell issue
+      value: A bare Qt executable will not start: the Qt libraries have to be deployed next to it first.
+    cell owner
+      value: Delivery team
+    cell priority
+      value: High
+    cell raised_on
+      value: 2026-09-15
+    cell ref
+      value: I3
+    cell resolution
+      value: windeployqt is run before launching or packaging. Folded into the build steps.
+    cell status
+      value: Closed
+field requirements.assumptions
+  provenance: unobjected
+  evidence: Drafted by the delivery team 2026-09-15, not yet reviewed
+  value: |
+    The Qt 6.8 toolchain stays working on this machine for the length of the
+    project.
+    The PMBOK 6th edition field lists stay the reference, even though later
+    editions moved to principles.
+    Definition files stay hand-editable; nobody needs a definition editor UI.
+field requirements.constraints
+  provenance: specified
+  evidence: Stack and packaging decided 2026-09-15 ("go with recommended stack")
+  value: |
+    Windows only. C++17, Qt 6.8.3, MSVC 2022.
+    $0 budget.
+    No code signing certificate, so installers are unsigned.
+    Records must stay plain text and diffable, because Archon reviews them.
+field requirements.items
+  provenance: agreed
+  evidence: From the charter high-level requirements and the M2 acceptance list, 2026-09-15
+  row q1
+    provenance: specified
+    evidence: "yes exatly" to the study-guide proposal (2026-09-15)
+    cell acceptance
+      value: Focus any field: the help panel shows source, why, if-blank and an example.
+    cell kind
+      value: Functional
+    cell priority
+      value: Must
+    cell ref
+      value: R1
+    cell requirement
+      value: Every field names its source in the standard and explains why a PM fills it in.
+    cell status
+      value: Built
+    cell traces
+      value: Success criterion 1
+  row q2
+    provenance: specified
+    evidence: "build the virtual workflow as an imput field" (2026-09-15)
+    cell acceptance
+      value: Eleven screens from Initiating to Closing, each generated from a definition file.
+    cell kind
+      value: Functional
+    cell priority
+      value: Must
+    cell ref
+      value: R2
+    cell requirement
+      value: One guided input screen per lifecycle artifact, in lifecycle order.
+    cell status
+      value: Built
+    cell traces
+      value: Charter: high-level requirements
+  row q3
+    provenance: agreed
+    evidence: "yes to all proposals" (2026-09-15)
+    cell acceptance
+      value: Change a label or a why in definitions/ and the app changes with no rebuild.
+    cell kind
+      value: Non-functional
+    cell priority
+      value: Must
+    cell ref
+      value: R3
+    cell requirement
+      value: No field is hard-coded. Definitions live in readable data files.
+    cell status
+      value: Built
+    cell traces
+      value: Charter: study guide
+  row q4
+    provenance: specified
+    evidence: Decision provenance rule, 2026-08-27
+    cell acceptance
+      value: Three states plus untagged. Only specified and agreed count as decisions.
+    cell kind
+      value: Functional
+    cell priority
+      value: Must
+    cell ref
+      value: R4
+    cell requirement
+      value: Every field and every table row carries a source tag and an evidence line.
+    cell status
+      value: Built
+    cell traces
+      value: Charter field 15
+  row q5
+    provenance: specified
+    evidence: "personal installable software- like... project man" (2026-09-15)
+    cell acceptance
+      value: Setup.exe installs, launches and uninstalls without leaving files behind.
+    cell kind
+      value: Transition
+    cell priority
+      value: Must
+    cell ref
+      value: R5
+    cell requirement
+      value: Installs per-user with a Start Menu shortcut and a clean uninstall.
+    cell status
+      value: Proposed
+    cell traces
+      value: Charter: deliverable
+  row q6
+    provenance: specified
+    evidence: "I want a full PM tool, Kanban boards, everything" (2026-09-15)
+    cell acceptance
+      value: Cards move between columns; the column header turns red over its WIP limit.
+    cell kind
+      value: Functional
+    cell priority
+      value: Must
+    cell ref
+      value: R6
+    cell requirement
+      value: A sprint board with drag-and-drop cards and WIP limits, inside Executing.
+    cell status
+      value: Built
+    cell traces
+      value: Charter: hybrid framework
+  row q7
+    provenance: agreed
+    evidence: Record format agreed with the stack, 2026-09-15
+    cell acceptance
+      value: git diff on a record shows only what actually changed.
+    cell kind
+      value: Non-functional
+    cell priority
+      value: Should
+    cell ref
+      value: R7
+    cell requirement
+      value: Records are plain text, one file per project, diffable one line per changed cell.
+    cell status
+      value: Built
+    cell traces
+      value: Archon reviews the record
+  row q8
+    provenance: specified
+    evidence: "make it pretty, use the house style translated into software" (2026-09-15)
+    cell acceptance
+      value: Near-black ground, violet-warmed text, hairlines, one accent per project.
+    cell kind
+      value: Quality
+    cell priority
+      value: Should
+    cell ref
+      value: R8
+    cell requirement
+      value: The application uses the Locke Werks house material language, not a default Qt theme.
+    cell status
+      value: Built
+    cell traces
+      value: House style
+field risks.register
+  provenance: agreed
+  evidence: Risk register from the project record, 2026-09-15
+  row r1
+    provenance: agreed
+    evidence: Revised 2026-09-15 after the purpose was reframed to learning
+    cell category
+      value: Quality
+    cell impact
+      value: High
+    cell owner
+      value: Nyx
+    cell probability
+      value: Medium
+    cell ref
+      value: R1
+    cell response
+      value: Every field names its source in the standard and uses industry vocabulary, so what I learn transfers to Jira, Asana and MS Project.
+    cell response_type
+      value: Mitigate
+    cell risk
+      value: Because the tool is my own design, I may learn the tool instead of the job it is modelled on, which would leave me no better prepared for a PM role.
+    cell status
+      value: Open
+  row r2
+    provenance: agreed
+    cell category
+      value: Scope
+    cell impact
+      value: Medium
+    cell owner
+      value: Nyx
+    cell probability
+      value: Medium
+    cell ref
+      value: R2
+    cell response
+      value: AutoPM holds project intent only. Git state stays in ProjectMan; the boundary is written into the charter.
+    cell response_type
+      value: Mitigate
+    cell risk
+      value: Because I already run ProjectMan, MemoryBook and MindTether, a fourth tracker may split where the truth lives.
+    cell status
+      value: Watching
+  row r3
+    provenance: specified
+    evidence: My rule from 2026-08-27
+    cell category
+      value: Quality
+    cell impact
+      value: Medium
+    cell owner
+      value: Nyx
+    cell probability
+      value: High
+    cell ref
+      value: R3
+    cell response
+      value: Three-state source tag plus an evidence line on every field and every row. Only specified and agreed count as decisions.
+    cell response_type
+      value: Mitigate
+    cell risk
+      value: Because decisions get summarised, they may be attributed to me without evidence, which makes the record untrustworthy.
+    cell status
+      value: Closed
+  row r4
+    provenance: agreed
+    cell category
+      value: Scope
+    cell impact
+      value: High
+    cell owner
+      value: Nyx
+    cell probability
+      value: High
+    cell ref
+      value: R4
+    cell response
+      value: Explicit out-of-scope list in the charter, and every expansion goes through the change log. CR1 is the first one.
+    cell response_type
+      value: Mitigate
+    cell risk
+      value: Because a full PM suite is large, scope may creep until the project never finishes.
+    cell status
+      value: Open
+  row r5
+    provenance: agreed
+    evidence: Revised 2026-09-15 when the review was defined as a single gate
+    cell category
+      value: Schedule
+    cell impact
+      value: High
+    cell owner
+      value: Nyx
+    cell probability
+      value: Medium
+    cell ref
+      value: R5
+    cell response
+      value: Proposed: review after M4, inside the slack before October 15, and give him the charter up front. Not yet answered.
+    cell response_type
+      value: Mitigate
+    cell risk
+      value: Because Archon reviews once at the end, anything he finds wrong surfaces at the most expensive moment, and his availability is outside my control.
+    cell status
+      value: Open
+  row r6
+    provenance: agreed
+    cell category
+      value: Technical
+    cell impact
+      value: Medium
+    cell owner
+      value: Nyx
+    cell probability
+      value: Medium
+    cell ref
+      value: R6
+    cell response
+      value: Accepted knowingly. The help panel is the counterweight: if I cannot explain a field from its panel, that is the signal.
+    cell response_type
+      value: Accept
+    cell risk
+      value: Because the front end of the schedule is aggressive, architecture decisions get made fast, which works against me understanding every field.
+    cell status
+      value: Watching
+field risks.thresholds
+  provenance: agreed
+  evidence: Agreed with the charter risk posture, 2026-09-15
+  value: |
+    Any risk to the October 15 closeout date gets acted on. Anything that only
+    costs rework is watched.
+
+    If the build starts pulling time from paid PM work for more than two weeks
+    running, that is an exit condition, not a risk.
+field schedule.activities
+  provenance: agreed
+  evidence: Sequenced from the WBS, 2026-09-15
+  row a1
+    provenance: specified
+    evidence: Charter approved 2026-09-15
+    cell activity
+      value: Charter and stakeholder register
+    cell finish
+      value: 2026-09-15
+    cell owner
+      value: Nyx
+    cell percent
+      value: 100
+    cell ref
+      value: A1
+    cell start
+      value: 2026-09-15
+    cell status
+      value: Done
+  row a2
+    provenance: agreed
+    cell activity
+      value: Core: parser, definitions, records
+    cell depends
+      value: A1
+    cell finish
+      value: 2026-09-15
+    cell owner
+      value: Delivery team
+    cell percent
+      value: 100
+    cell ref
+      value: A2
+    cell start
+      value: 2026-09-15
+    cell status
+      value: Done
+  row a3
+    provenance: agreed
+    cell activity
+      value: House style and window chrome
+    cell depends
+      value: A2
+    cell finish
+      value: 2026-09-15
+    cell owner
+      value: Delivery team
+    cell percent
+      value: 100
+    cell ref
+      value: A3
+    cell start
+      value: 2026-09-15
+    cell status
+      value: Done
+  row a4
+    provenance: agreed
+    cell activity
+      value: Initiating and Planning screens
+    cell depends
+      value: A3
+    cell finish
+      value: 2026-09-16
+    cell owner
+      value: Delivery team
+    cell percent
+      value: 100
+    cell ref
+      value: A4
+    cell start
+      value: 2026-09-15
+    cell status
+      value: Done
+  row a5
+    provenance: agreed
+    cell activity
+      value: Sprint board and Monitoring screens
+    cell depends
+      value: A3
+    cell finish
+      value: 2026-09-16
+    cell owner
+      value: Delivery team
+    cell percent
+      value: 100
+    cell ref
+      value: A5
+    cell start
+      value: 2026-09-15
+    cell status
+      value: Done
+  row a6
+    provenance: agreed
+    cell activity
+      value: Forge installer
+    cell depends
+      value: A5
+    cell finish
+      value: 2026-09-17
+    cell owner
+      value: Delivery team
+    cell percent
+      value: 0
+    cell ref
+      value: A6
+    cell start
+      value: 2026-09-16
+    cell status
+      value: Not started
+  row a7
+    provenance: specified
+    evidence: "he does a review when i think we are done" (2026-09-15)
+    cell activity
+      value: Archon's review
+    cell depends
+      value: A6
+    cell finish
+      value: 2026-09-25
+    cell owner
+      value: Archon
+    cell percent
+      value: 0
+    cell ref
+      value: A7
+    cell start
+      value: 2026-09-22
+    cell status
+      value: Not started
+  row a8
+    provenance: agreed
+    cell activity
+      value: Second real project managed in the tool
+    cell depends
+      value: A7
+    cell finish
+      value: 2026-10-12
+    cell owner
+      value: Nyx
+    cell percent
+      value: 0
+    cell ref
+      value: A8
+    cell start
+      value: 2026-09-28
+    cell status
+      value: Not started
+  row a9
+    provenance: specified
+    evidence: "Closeout- October 15" (2026-09-15)
+    cell activity
+      value: Closeout
+    cell depends
+      value: A8
+    cell finish
+      value: 2026-10-15
+    cell owner
+      value: Nyx
+    cell percent
+      value: 0
+    cell ref
+      value: A9
+    cell start
+      value: 2026-10-15
+    cell status
+      value: Not started
+field schedule.baseline
+  provenance: specified
+  evidence: "I want to TRY to get this done by October 15th" (2026-09-15)
+  value: |
+    Baselined 2026-09-15 from the charter milestone dates. The hedges in my own
+    words are kept on purpose: these are targets, not commitments.
+
+    One change so far: scope expanded to the full lifecycle on 2026-09-15 without
+    moving any date. Logged as CR1.
+field schedule.basis
+  provenance: unobjected
+  evidence: Drafted by the delivery team 2026-09-15
+  value: |
+    Single-point estimates, assuming uninterrupted days. No contingency reserve.
+    M4 and M5 are three weeks apart on purpose: that slack is where success
+    criterion 3, a second real project managed in the tool, actually happens.
+field scope.acceptance_criteria
+  provenance: agreed
+  evidence: From the M2 handoff acceptance list, 2026-09-15
+  value: |
+    Installs per-user, adds a Start Menu shortcut, uninstalls cleanly.
+    Launches to a project with record #1 present.
+    Every screen is generated from its definition file.
+    Changing a label or a "why" in a definition file changes the app with no code
+    change.
+    Focusing any field shows its source, why, if-blank and example.
+    Every field and every table row carries a source tag and an evidence line.
+    Save writes a readable record file; unsaved changes are shown.
+field scope.exclusions
+  provenance: agreed
+  evidence: Charter boundaries, agreed 2026-09-15
+  value: |
+    No resource leveling. No critical path calculation. The schedule screen draws
+    the dates you enter; it does not compute them.
+    No multi-user sync or permissions.
+    No git tracking. ProjectMan already does that.
+field scope.product_scope
+  provenance: agreed
+  evidence: Elaborated from the charter by the delivery team, 2026-09-15
+  value: |
+    A single-window desktop application. A lifecycle rail on the left, one screen
+    per PM artifact in the middle, and a help panel on the right that explains the
+    focused field.
+
+    Every screen is generated from a definition file. No field is written in code,
+    so changing a label or an explanation is a text edit, not a build.
+field scope.wbs
+  provenance: agreed
+  evidence: Decomposed by the delivery team from the charter deliverable, 2026-09-15
+  row w1
+    provenance: agreed
+    cell code
+      value: 1
+    cell item
+      value: AutoPM application
+    cell kind
+      value: Deliverable
+    cell notes
+      value: The installable product. Everything below adds up to this and no more.
+    cell owner
+      value: Delivery team
+    cell status
+      value: In progress
+  row w2
+    provenance: agreed
+    cell code
+      value: 1.1
+    cell item
+      value: Core
+    cell kind
+      value: Deliverable
+    cell notes
+      value: Toolkit-free: reads definition files and records, knows nothing about windows.
+    cell owner
+      value: Delivery team
+    cell status
+      value: Done
+  row w3
+    provenance: agreed
+    cell code
+      value: 1.1.1
+    cell item
+      value: Block file parser
+    cell kind
+      value: Work package
+    cell notes
+      value: One format for both definitions and records.
+    cell owner
+      value: Delivery team
+    cell status
+      value: Done
+  row w4
+    provenance: agreed
+    cell code
+      value: 1.1.2
+    cell item
+      value: Record read and write
+    cell kind
+      value: Work package
+    cell notes
+      value: Atomic save. One line per cell so a diff is readable.
+    cell owner
+      value: Delivery team
+    cell status
+      value: Done
+  row w5
+    provenance: agreed
+    cell code
+      value: 1.2
+    cell item
+      value: Screens
+    cell kind
+      value: Deliverable
+    cell notes
+      value: One definition file per artifact. Adding a screen is adding a file.
+    cell owner
+      value: Delivery team
+    cell status
+      value: In progress
+  row w6
+    provenance: agreed
+    cell code
+      value: 1.2.1
+    cell item
+      value: Initiating: charter, stakeholders
+    cell kind
+      value: Work package
+    cell notes
+      value: M2 scope.
+    cell owner
+      value: Delivery team
+    cell status
+      value: Done
+  row w7
+    provenance: agreed
+    cell code
+      value: 1.2.2
+    cell item
+      value: Planning: requirements, scope, schedule, risks
+    cell kind
+      value: Work package
+    cell notes
+      value: M3 scope, pulled forward by CR1.
+    cell owner
+      value: Delivery team
+    cell status
+      value: Done
+  row w8
+    provenance: agreed
+    cell code
+      value: 1.2.3
+    cell item
+      value: Executing: sprint board
+    cell kind
+      value: Work package
+    cell notes
+      value: M4 scope, pulled forward by CR1.
+    cell owner
+      value: Delivery team
+    cell status
+      value: Done
+  row w9
+    provenance: agreed
+    cell code
+      value: 1.2.4
+    cell item
+      value: Monitoring: changes, issues, decisions, status
+    cell kind
+      value: Work package
+    cell notes
+      value: M4 scope, pulled forward by CR1.
+    cell owner
+      value: Delivery team
+    cell status
+      value: Done
+  row w10
+    provenance: agreed
+    cell code
+      value: 1.2.5
+    cell item
+      value: Closing: closeout and lessons
+    cell kind
+      value: Work package
+    cell notes
+      value: Screen built. Content is written at closeout, not now.
+    cell owner
+      value: Delivery team
+    cell status
+      value: Done
+  row w11
+    provenance: agreed
+    cell code
+      value: 1.3
+    cell item
+      value: House style
+    cell kind
+      value: Work package
+    cell notes
+      value: The Locke Werks material language as a desktop application.
+    cell owner
+      value: Delivery team
+    cell status
+      value: Done
+  row w12
+    provenance: agreed
+    cell code
+      value: 1.4
+    cell item
+      value: Icon and installer
+    cell kind
+      value: Deliverable
+    cell notes
+      value: Multi-resolution icon done. Forge installer outstanding.
+    cell owner
+      value: Delivery team
+    cell status
+      value: In progress
+  row w13
+    provenance: specified
+    evidence: "charter approved" (2026-09-15)
+    cell code
+      value: 1.5
+    cell item
+      value: Charter approved
+    cell kind
+      value: Milestone
+    cell notes
+      value: M1.
+    cell owner
+      value: Nyx
+    cell status
+      value: Done
+field stakeholders.register
+  provenance: specified
+  evidence: Charter stakeholder list, 2026-09-15
+  row s1
+    provenance: specified
+    evidence: "I am being the PM...." (2026-09-15)
+    cell current
+      value: Leading
+    cell desired
+      value: Leading
+    cell expectations
+      value: Understand the PM role by building its workflow, and end up with somewhere her projects actually live.
+    cell interest
+      value: High
+    cell name
+      value: Nyx
+    cell power
+      value: High
+    cell role
+      value: Sponsor, PM, primary user
+  row s2
+    provenance: specified
+    evidence: "Archon may use it, but he will definately review it" (2026-09-15)
+    cell expectations
+      value: One review when I think it is done. He says whether it is right. Power, interest and engagement are mine to fill in.
+    cell name
+      value: Archon
+    cell role
+      value: Final reviewer; possible user on his own install
+  row s3
+    provenance: specified
+    evidence: "I expected a handoff" (2026-09-15)
+    cell current
+      value: Supportive
+    cell desired
+      value: Supportive
+    cell expectations
+      value: A handoff that says what to build and what not to decide.
+    cell interest
+      value: High
+    cell name
+      value: Delivery team
+    cell power
+      value: Low
+    cell role
+      value: Builds from the PM's handoffs
+field stakeholders.strategy
+  provenance: unobjected
+  evidence: Proposed 2026-09-15 as Q10. No reply yet, so this is not a decision.
+  value: |
+    Proposed: give Archon the charter up front, so "right" is judged against
+    written criteria rather than discovered at the review. And hold his review once
+    M4 is reached rather than on October 15, so there is slack left to fix what he
+    finds.
+
+    Neither has been answered. Chase or drop.
+field status.reports
+  provenance: agreed
+  evidence: Written by the delivery team, 2026-09-15
+  row p1
+    provenance: agreed
+    cell accomplished
+      value: Charter approved (M1). All eleven lifecycle screens built and generated from definition files. House style applied. Record #1 pre-loaded with this project's own charter, risks, decisions and board.
+    cell escalations
+      value: Archon's review timing is still unanswered (Q10). It is the only thing between here and a defensible closeout date.
+    cell period
+      value: Week of Sep 15
+    cell planned_next
+      value: Forge installer. My own acceptance pass: open record #1 and click into every field. Then Archon's review.
+    cell rag
+      value: Green
+    cell reported_on
+      value: 2026-09-15
+    cell variance
+      value: Ahead of plan on scope, because CR1 pulled M3 and M4 content into M2's day. No date moved.
+field status.summary
+  provenance: unobjected
+  evidence: Drafted by the delivery team 2026-09-15
+  value: |
+    All eleven lifecycle screens are built and usable on this project's own
+    record. Initiating and Planning are filled in; Executing is in progress;
+    Closing is empty on purpose.
+
+    Closeout date unchanged at October 15. The open question is Archon's review
+    timing, proposed on 09-15 and still unanswered.

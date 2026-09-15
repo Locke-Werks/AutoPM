@@ -1,0 +1,114 @@
+# Stakeholder Register — Initiating
+#
+# PMBOK Guide 6th ed., 13.1 Identify Stakeholders. Engagement levels come from
+# the Stakeholder Engagement Assessment Matrix used in 13.2.
+
+screen: stakeholders
+title: Stakeholder Register
+phase: Initiating
+process: 13.1 Identify Stakeholders
+order: 20
+requires: charter
+teaches: |
+  How to find the people who can affect the project or be affected by it, and
+  what to do about the gap between how engaged someone is and how engaged the
+  project needs them to be. By the end you should be able to explain why power
+  and interest are tracked separately.
+before: |
+  The charter, because its key stakeholder list is what you expand here. If
+  you do not know who is sponsoring the work, you are not ready to plan how to
+  manage them.
+after: |
+  How you communicate for the rest of the project. Every stakeholder whose
+  current engagement is below what the project needs is a piece of work you now
+  own.
+intro: |
+  The stakeholder register lists everyone who can affect the project or is
+  affected by it, records how much each one matters, and compares how engaged
+  they are now with how engaged they need to be.
+
+  The gap between current and desired engagement is the work.
+source: |
+  PMBOK Guide, 6th ed., process 13.1 Identify Stakeholders, in the Initiating
+  process group. The engagement levels come from the Stakeholder Engagement
+  Assessment Matrix used in 13.2 Plan Stakeholder Engagement.
+
+field register
+  prompt: Who are the people around this project, and how engaged does each one need to be?
+  check rows>=2: A project with one stakeholder is a hobby. Include anyone who can affect the outcome, not only the people asking for it.
+  check column:role: Every stakeholder needs a role in the project. 'Interested' is not a role.
+  label: Stakeholders
+  type: table
+  origin: standard
+  view: matrix
+  title_column: name
+  rows_column: power
+  cols_column: interest
+  tone_column: current
+  source: |
+    Stakeholder register contents: identification information, assessment
+    information and classification.
+  why: |
+    You cannot manage expectations you have not written down. Power and
+    interest decide how much attention each person gets; the gap between
+    current and desired engagement is what you actually have to do about it.
+
+    The classic grid: high power + high interest means manage closely; high
+    power + low interest means keep satisfied; low power + high interest means
+    keep informed; low power + low interest means monitor.
+  if_blank: |
+    The person with the most power over the outcome is the one you forgot to
+    ask.
+  example: |
+    Archon | Final reviewer | Says whether it is right | High | High | Neutral | Supportive
+  column name
+    label: Name
+    type: line
+    width: 2
+  column role
+    label: Role in project
+    type: line
+    width: 2
+  column expectations
+    label: Expectations / requirements
+    type: text
+    width: 4
+  column power
+    label: Power
+    type: choice
+    options: High=accent, Low=faint
+    width: 1
+  column interest
+    label: Interest
+    type: choice
+    options: High=accent, Low=faint
+    width: 1
+  column current
+    label: Current engagement
+    type: choice
+    options: Unaware=faint, Resistant=danger, Neutral=neutral, Supportive=ok, Leading=accent
+    width: 2
+  column desired
+    label: Desired engagement
+    type: choice
+    options: Unaware=faint, Resistant=danger, Neutral=neutral, Supportive=ok, Leading=accent
+    width: 2
+
+field strategy
+  prompt: For anyone not as engaged as the project needs, what will you actually do about it?
+  check filled: Without this the register is a list of names. The gap between current and desired engagement is the work.
+  label: Engagement notes
+  type: text
+  origin: standard
+  source: |
+    13.2 Plan Stakeholder Engagement: strategies to move stakeholders from
+    their current engagement to the level the project needs.
+  why: |
+    For every stakeholder whose current engagement is below the desired level,
+    this says what you will do about it. A register without this is a list of
+    names.
+  if_blank: |
+    The gaps in the table stay gaps.
+  example: |
+    Give the final reviewer the charter up front, so "right" is judged against
+    written criteria rather than discovered at the review.

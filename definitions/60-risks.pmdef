@@ -1,0 +1,126 @@
+# Risk Register — Planning
+#
+# PMBOK Guide 6th ed., 11.2 Identify Risks, 11.3 Perform Qualitative Risk
+# Analysis, 11.5 Plan Risk Responses.
+
+screen: risks
+title: Risk Register
+phase: Planning
+process: 11.2 Identify Risks / 11.5 Plan Risk Responses
+order: 60
+requires: charter
+teaches: |
+  How to write a risk so that someone can act on it, how probability and
+  impact rank a register, and what the five response strategies actually mean.
+  By the end you should be able to explain the difference between a risk and an
+  issue without hesitating.
+before: |
+  The charter's overall risk posture. You can identify risks at any point,
+  and should; this screen is where they get owners and planned responses.
+after: |
+  Everything you watch for the rest of the project. A risk with an owner and
+  a response is managed; one without is a worry you wrote down.
+intro: |
+  A risk is an uncertain event that would affect the project if it happened. It
+  is not a problem: a problem has already happened, and belongs on the Issue
+  Log.
+
+  Risks are scored by probability and impact, and each one gets an owner and a
+  planned response. A register without owners and responses is a worry list.
+source: |
+  PMBOK Guide, 6th ed., Project Risk Management: 11.2 Identify Risks (output:
+  the risk register), 11.3 Perform Qualitative Risk Analysis (probability and
+  impact assessment) and 11.5 Plan Risk Responses.
+
+field register
+  prompt: What might happen that would affect this project? Write cause, event and effect.
+  check rows>=3: Three risks is the floor for a register worth reviewing. A project with no risks identified is a project nobody has thought about hard yet.
+  check column:owner: A risk with no owner is a worry. Name the person who watches it.
+  check column:response: A risk with no planned response is a risk you have accepted without saying so.
+  label: Risks
+  type: table
+  origin: standard
+  view: matrix
+  title_column: risk
+  rows_column: probability
+  cols_column: impact
+  tone_column: status
+  source: |
+    Risk register (11.2 output), scored in 11.3 Perform Qualitative Risk
+    Analysis and given responses in 11.5 Plan Risk Responses.
+  why: |
+    Probability times impact is what ranks the register, so attention goes to
+    the risks that matter rather than the ones most recently mentioned.
+
+    The five response strategies for threats are: avoid (remove the cause),
+    transfer (make it someone else's exposure), mitigate (reduce probability or
+    impact), accept (do nothing, knowingly), and escalate (it is outside the
+    project's authority). Opportunities get the mirror set: exploit, share,
+    enhance, accept, escalate.
+
+    A good risk statement has a cause, an event and an effect: "because X, Y
+    may happen, which would lead to Z."
+  if_blank: |
+    Risks are discovered as problems, at the point where the only option left
+    is to react.
+  example: |
+    R5 | One late review gate means defects surface at the most expensive moment | Schedule | High | High | Mitigate | Review after M4, inside the slack | You | Open
+  column ref
+    label: ID
+    type: line
+    width: 1
+  column risk
+    label: Risk (cause, event, effect)
+    type: text
+    width: 5
+  column category
+    label: Category
+    type: choice
+    options: Schedule, Scope, Technical, External, Quality, Resource
+    width: 2
+  column probability
+    label: Probability
+    type: choice
+    options: High=danger, Medium=warn, Low=faint
+    width: 2
+  column impact
+    label: Impact
+    type: choice
+    options: High=danger, Medium=warn, Low=faint
+    width: 2
+  column response_type
+    label: Strategy
+    type: choice
+    options: Avoid=ok, Transfer=neutral, Mitigate=accent, Accept=faint, Escalate=warn
+    width: 2
+  column response
+    label: Planned response
+    type: text
+    width: 5
+  column owner
+    label: Owner
+    type: line
+    width: 2
+  column status
+    label: Status
+    type: choice
+    options: Open=accent, Watching=neutral, Closed=ok, Occurred=danger
+    width: 2
+
+field thresholds
+  prompt: How much risk is acceptable before you have to act?
+  check filled: Without a threshold, every risk is argued from scratch and the loudest concern wins.
+  label: Risk thresholds and appetite
+  type: text
+  origin: standard
+  source: |
+    11.1 Plan Risk Management: risk thresholds, the level of risk exposure
+    above which action is required.
+  why: |
+    It states in advance how much risk is acceptable, so the decision to act is
+    not made in the moment by whoever is most worried.
+  if_blank: |
+    Every risk is argued from scratch, and the loudest concern wins.
+  example: |
+    Any risk to the October 15 closeout date is acted on. Anything that only
+    costs rework is watched.

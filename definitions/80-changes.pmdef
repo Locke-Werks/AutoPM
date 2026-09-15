@@ -1,0 +1,111 @@
+# Change Log — Monitoring and Controlling
+#
+# PMBOK Guide 6th ed., 4.6 Perform Integrated Change Control.
+
+screen: changes
+title: Change Log
+phase: Monitoring and Controlling
+process: 4.6 Perform Integrated Change Control
+order: 80
+requires: charter,scope
+teaches: |
+  Why a baseline turns a change into a decision rather than an edit, and what
+  integrated change control actually asks of you. By the end you should be able
+  to explain why a change log where everything is approved means the control is
+  not real.
+before: |
+  Something baselined to change. Until the charter is signed and the scope
+  agreed, you are still writing the plan, not changing it.
+after: |
+  Your defence at closeout. Five approved changes explain a missed date
+  better than any excuse.
+intro: |
+  Once something is baselined, changing it is a decision, not an edit. A change
+  request is raised, its impact on scope, schedule and cost is assessed, and
+  someone with the authority approves or rejects it.
+
+  The log is the record of that. Its value is that it makes the cost of change
+  visible: five approved changes explain a missed date better than any excuse.
+source: |
+  PMBOK Guide, 6th ed., process 4.6 Perform Integrated Change Control, in the
+  Monitoring and Controlling process group. The change log is an output, and
+  approved change requests are inputs to the executing processes.
+
+field log
+  prompt: What has been asked for since the plan was agreed, and what did you decide?
+  check column:impact: A change nobody priced is a change somebody else pays for later. Say what each one costs in scope, schedule or quality.
+  label: Change requests
+  type: table
+  origin: standard
+  view: log
+  title_column: change
+  tone_column: status
+  source: |
+    Change log (4.6 output). Change requests themselves may be corrective
+    action, preventive action, defect repair, or updates.
+  why: |
+    Every row records what was asked for, what it costs, who decided, and when.
+    The impact columns are the point: a change nobody priced is a change
+    somebody else pays for later.
+
+    Rejecting changes is a normal, healthy outcome. A log where everything is
+    approved means the control is not real.
+  if_blank: |
+    The baseline erodes silently, and by the end nobody can explain why the
+    project looks nothing like the plan.
+  example: |
+    CR2 | Expand scope to the full lifecycle, not just Initiating | Scope | Sponsor | 2026-09-15 | Approved | Adds four screens; M3 to M5 unchanged
+  column ref
+    label: ID
+    type: line
+    width: 1
+  column change
+    label: Requested change
+    type: text
+    width: 5
+  column kind
+    label: Type
+    type: choice
+    options: Scope=accent, Schedule=warn, Cost=warn, Quality=neutral, Defect repair=neutral, Corrective action=neutral, Preventive action=neutral
+    width: 2
+  column raised_by
+    label: Raised by
+    type: line
+    width: 2
+  column raised_on
+    label: Raised
+    type: date
+    width: 2
+  column impact
+    label: Impact assessment
+    type: text
+    width: 5
+  column decided_by
+    label: Decided by
+    type: line
+    width: 2
+  column status
+    label: Status
+    type: choice
+    options: Proposed=faint, Under review=accent, Approved=ok, Rejected=danger, Deferred=warn
+    width: 2
+
+field process
+  prompt: Who can approve what, and what goes to the sponsor?
+  check filled: Decide this before the first urgent request, or the first urgent request will decide it for you, permanently.
+  label: Change control process
+  type: text
+  origin: standard
+  source: |
+    Change management plan (a component of the project management plan, 4.2
+    Develop Project Management Plan): how changes are requested, assessed and
+    approved, and by whom.
+  why: |
+    It says in advance who can approve what, so an urgent change does not get
+    waved through by whoever happens to be in the room.
+  if_blank: |
+    Change control exists on paper only, and the first urgent request bypasses
+    it permanently.
+  example: |
+    Anything that moves a milestone date or adds a screen goes to the sponsor.
+    Wording and layout changes inside an approved screen do not.

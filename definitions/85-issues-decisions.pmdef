@@ -1,0 +1,147 @@
+# Issue Log and Decision Log — Monitoring and Controlling
+#
+# The issue log is PMBOK Guide 6th ed., 4.3 Direct and Manage Project Work.
+# The decision log with its provenance states is not in the standard: it is
+# Nyx's own rule, from 2026-08-27.
+
+screen: issues
+title: Issues and Decisions
+phase: Monitoring and Controlling
+process: 4.3 Direct and Manage Project Work
+order: 85
+requires: charter
+teaches: |
+  How to keep problems and uncertainties apart, and why a decision record is
+  only worth having if every entry shows where it came from. By the end you
+  should be able to explain why an issue with no owner and no date is not being
+  managed.
+before: |
+  Nothing. Issues and decisions accumulate from day one, so this screen is
+  worth keeping open from the start rather than filling in at the end.
+after: |
+  An honest closeout. Lessons learned written from a decision log are
+  specific; lessons written from memory are generous to the person writing
+  them.
+intro: |
+  An issue is something that has already happened and needs resolving. A risk
+  is something that might happen. Keeping them apart matters: a risk gets a
+  response plan, an issue gets an owner and a due date.
+
+  The decision log underneath is not from the standard. It exists because a
+  decision record is only trustworthy if every entry shows where it came from.
+source: |
+  Issue log: PMBOK Guide, 6th ed., 4.3 Direct and Manage Project Work (output),
+  maintained through 4.5 Monitor and Control Project Work.
+
+  Decision log with source states: your own, from your 2026-08-27 rule about
+  decisions being attributed without evidence.
+
+field issues
+  prompt: What has already gone wrong and still needs resolving?
+  check column:owner: An issue with no owner is not being managed. Shared ownership means nobody owns it.
+  label: Issues
+  type: table
+  origin: standard
+  view: log
+  title_column: issue
+  tone_column: status
+  source: Issue log (4.3 output).
+  why: |
+    Every issue needs one named owner and one date. Shared ownership of an
+    issue means nobody owns it.
+
+    The escalation column matters more than it looks: an issue that has been
+    open past its due date with no escalation is really a decision to do
+    nothing, taken quietly.
+  if_blank: |
+    Problems live in conversations, get re-explained every week, and the same
+    one is solved twice by different people.
+  example: |
+    I1 | Qt deploy step missed, app will not start from a clean folder | High | Delivery team | 2026-09-16 | Closed
+  column ref
+    label: ID
+    type: line
+    width: 1
+  column issue
+    label: Issue
+    type: text
+    width: 5
+  column raised_on
+    label: Raised
+    type: date
+    width: 2
+  column priority
+    label: Priority
+    type: choice
+    options: High=danger, Medium=warn, Low=faint
+    width: 1
+  column owner
+    label: Owner
+    type: line
+    width: 2
+  column due
+    label: Due
+    type: date
+    width: 2
+  column resolution
+    label: Resolution
+    type: text
+    width: 4
+  column status
+    label: Status
+    type: choice
+    options: Open=danger, In progress=accent, Escalated=warn, Closed=ok
+    width: 2
+
+field decisions
+  prompt: What has been decided, and how do you know?
+  check rows>=3: A project with fewer than three recorded decisions has been making them somewhere else.
+  check column:source_state: Every entry needs a source. Specified, agreed, or unobjected: only the first two are decisions.
+  label: Decision log
+  type: table
+  origin: yours
+  view: log
+  title_column: decision
+  tone_column: source_state
+  source: |
+    Not in the standard. Your rule: a decision is only attributed to you with a
+    quote and a date. Three states — specified (you said it), agreed (you
+    approved a summary), unobjected (proposed, no reply). Only the first two
+    count as decisions.
+  why: |
+    Projects accumulate "we decided X" claims that nobody can trace. The source
+    column makes the difference between a decision and an assumption visible at
+    a glance, and the evidence column makes it checkable.
+
+    An unobjected entry is not a decision. It is a proposal that has not been
+    answered, and it should either be chased or dropped.
+  if_blank: |
+    Decisions get attributed to people who never made them, and the record
+    stops being worth consulting.
+  example: |
+    D5 | Hybrid framework: predictive phases, sprints inside Executing | specified | "hybrid sounds like the best option" | 2026-09-15
+  column ref
+    label: ID
+    type: line
+    width: 1
+  column decided_on
+    label: Date
+    type: date
+    width: 2
+  column decision
+    label: Decision
+    type: text
+    width: 5
+  column source_state
+    label: Source
+    type: choice
+    options: specified=ok, agreed=accent, unobjected=warn
+    width: 2
+  column evidence
+    label: Evidence (quote)
+    type: text
+    width: 5
+  column affects
+    label: Affects
+    type: line
+    width: 2

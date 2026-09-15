@@ -1,0 +1,140 @@
+# Scope statement and WBS — Planning
+#
+# PMBOK Guide 6th ed., 5.3 Define Scope and 5.4 Create WBS.
+
+screen: scope
+title: Scope and WBS
+phase: Planning
+process: 5.3 Define Scope / 5.4 Create WBS
+order: 40
+requires: charter,requirements
+teaches: |
+  How to describe the deliverable precisely enough that everyone means the
+  same thing by it, and how to cut it into pieces small enough to estimate. By
+  the end you should be able to explain the 100% rule and why a WBS decomposes
+  deliverables rather than activities.
+before: |
+  Requirements, because the scope statement is what satisfies them. Writing a
+  WBS before you know what the thing has to do produces a tidy breakdown of the
+  wrong product.
+after: |
+  The schedule and the estimates. Work packages are what get sequenced, dated
+  and assigned; nothing else in the plan attaches to anything smaller.
+intro: |
+  The scope statement describes the deliverable in enough detail that everyone
+  means the same thing by it. The work breakdown structure then cuts that scope
+  into pieces small enough to estimate, assign and check off.
+
+  The WBS decomposes deliverables, not activities. Each item is a noun: a thing
+  that will exist when the work is done.
+source: |
+  PMBOK Guide, 6th ed., processes 5.3 Define Scope (output: the project scope
+  statement) and 5.4 Create WBS (outputs: the WBS and the WBS dictionary), both
+  in the Planning process group.
+
+field product_scope
+  prompt: Describe the deliverable in enough detail that two people would build the same thing.
+  check words>=15: Too vague to build against. 'Done' will be judged against each person's mental picture.
+  label: Product scope description
+  type: text
+  origin: standard
+  source: Project scope statement contents: product scope description.
+  why: |
+    It describes the characteristics of the thing being produced, elaborated
+    from the charter as more becomes known. The charter says what; this says
+    what it is like.
+  if_blank: |
+    "Done" is judged against each person's mental picture of the product.
+  example: |
+    A single-window desktop application with one screen per lifecycle artifact,
+    a help panel that explains every field, and plain-text project records.
+
+field acceptance_criteria
+  prompt: What has to be true before the sponsor accepts it?
+  check words>=10: These are the conditions you will be held to at validation. Vague ones become an argument on the last day.
+  label: Deliverable acceptance criteria
+  type: text
+  origin: standard
+  source: Project scope statement contents: acceptance criteria.
+  why: |
+    These are the conditions the deliverable must meet before the sponsor
+    accepts it. They are the checklist used in 5.5 Validate Scope, when
+    deliverables are formally accepted.
+  if_blank: |
+    Acceptance becomes a matter of mood on the day.
+  example: |
+    Installs per-user, launches to the project list, and every field's help
+    panel names its source in the standard.
+
+field exclusions
+  prompt: What is explicitly out of scope?
+  check filled: Without exclusions, scope creep has nothing to run into.
+  label: Exclusions
+  type: text
+  origin: standard
+  source: |
+    Project scope statement contents: project exclusions. Formalizes the
+    charter's boundaries.
+  why: |
+    Explicitly stating what is out of scope manages stakeholder expectations
+    and prevents the slow accumulation of "while you're in there" work.
+  if_blank: |
+    Scope creep has nothing to run into.
+  example: |
+    No resource leveling. No critical path calculation. No multi-user sync.
+
+field wbs
+  prompt: Break the deliverable into pieces small enough to estimate. What are they?
+  check rows>=4: A breakdown with fewer than four items has not decomposed anything yet.
+  check column:item: Every row needs a name. A WBS item is a noun: a thing that will exist when the work is done.
+  label: Work breakdown structure
+  type: table
+  origin: standard
+  view: tree
+  outline_column: code
+  title_column: item
+  tone_column: status
+  source: |
+    5.4 Create WBS. The WBS is a hierarchical decomposition of the total scope
+    of work to be carried out by the project team. The lowest level is the work
+    package.
+  why: |
+    Decomposition turns a deliverable that is too big to estimate into pieces
+    that are not. The rule of thumb is the 100% rule: the children of any node
+    add up to all of the parent, no more and no less.
+
+    Work packages are where estimates and assignments attach. If you cannot
+    estimate an item, it is not decomposed far enough; if you are tracking
+    hours on it, it is decomposed too far.
+  if_blank: |
+    Estimates are made against a whole deliverable at once, which is the least
+    accurate way to make them, and progress can only be described as a
+    percentage somebody felt.
+  example: |
+    1.2 | Charter screen | Deliverable | Delivery team | In progress
+  column code
+    label: WBS code
+    type: line
+    width: 1
+  column item
+    label: Item
+    type: line
+    width: 5
+  column kind
+    label: Level
+    type: choice
+    options: Deliverable=accent, Work package=neutral, Milestone=warn
+    width: 2
+  column owner
+    label: Owner
+    type: line
+    width: 2
+  column status
+    label: Status
+    type: choice
+    options: Not started=faint, In progress=accent, Done=ok, Blocked=danger
+    width: 2
+  column notes
+    label: WBS dictionary note
+    type: text
+    width: 4

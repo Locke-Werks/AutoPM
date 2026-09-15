@@ -1,10 +1,11 @@
 # PM Tool — Project Record
 
-**Status:** Charter approved (M1 reached, 09-15). M2 not reached; the M2 handoff is ready (`02-handoff-m2.md`).
+**Status:** Charter approved (M1 reached, 09-15). M2 built and handed back (`03-handback-m2.md`); the PM acceptance check is outstanding. M3 and M4 content delivered early under CR1.
 **Opened:** 2026-09-15
 **Sponsor / PM:** Nyx
-**Working name:** none yet
-**Files:** `00-project-record.md` (this file) · `01-charter.md` · `02-handoff-m2.md`
+**Product name:** **AutoPM** (D20, 09-15, "for now")
+**Repository:** `Locke-Werks/AutoPM`, private (D21)
+**Files:** `00-project-record.md` (this file) · `01-charter.md` · `02-handoff-m2.md` · `03-handback-m2.md`
 
 This file is the record for building your own project management software, run as a managed project from day one. Nothing below is a decision unless the Decision Log says so.
 
@@ -65,6 +66,11 @@ Every entry records where the decision came from, using one of these four source
 | D15 | 09-15 | Stack: C++/Qt like ProjectMan, with field definitions in readable data files | agreed | "go with recommended stack" |
 | D18 | 09-15 | **How the work is split:** you are the PM. This workstream documents and writes handoffs. The delivery team builds from those handoffs | specified | "I expected you to doccument it" · "I expected a handoff" · "I am being the PM...." |
 | D8 | 09-15 | Adopt P3–P5 and every proposed charter entry in v0.1 (business case, success criteria, high-level requirements, out-of-scope list, milestones M1–M5, $0 budget, approval rule, PM authority) | agreed | "yes to all proposals" |
+| D19 | 09-15 | **Build the full lifecycle, not just the Initiating screens.** Kanban boards included | specified | "yes I want the forms but I want a full PM tool, Kanban boards, everything" |
+| D20 | 09-15 | **Product is named AutoPM**, provisionally. Closes Q7 | specified | "name it AutoPM for now" |
+| D21 | 09-15 | Private repository in the Locke-Werks organisation | specified | "make a repo in the lockewerks org, private for now" |
+| D22 | 09-15 | The house material language is applied to the application, translated from the web stylesheet rather than copied | specified | "make it pretty, use the house style translated into software instead of a webpage" |
+| D23 | 09-15 | **The product teaches the role; it does not just record it.** Guided walkthrough, one question at a time, with coaching on the answers | specified | "I want it to walk me through the steps, not just keep track of it for me- it needs to teach me how to be a pm... not be my pm" |
 
 ⚠ Your "yes exatly" answered a message that contained P1–P5. P1 and P2 were what the reply echoed ("study guide"), so only they are logged as agreed. P3–P5 are still proposed.
 
@@ -84,9 +90,11 @@ Every entry records where the decision came from, using one of these four source
 - Q4. How does it relate to ProjectMan, MemoryBook and MindTether? (See §6.)
 - ~~Q5. Build first or paper first?~~ → D4
 - ~~Q6. Which framework?~~ → D5
-- ~~Q7. Charter gaps~~ → D10–D12. Working title still open (doesn't block).
+- ~~Q7. Charter gaps~~ → D10–D12. ~~Working title~~ → D20: AutoPM.
 - ~~Q9. When does Archon review?~~ → D13: once, at the end
-- Q10. Schedule his review after M4 instead of on Oct 15? Share the charter with him up front? (proposed)
+- Q10. Schedule his review after M4 instead of on Oct 15? Share the charter with him up front? (proposed 09-15, **still unanswered**)
+- Q15. Fetch the three house fonts (Chakra Petch, Outfit, Instrument Serif), or leave the app on system faces? (proposed 09-15)
+- Q16. Keep the code and the written record in one folder, or split them? (built as one; ask)
 - ~~Q11. Charter sign-off~~ → D14
 - ~~Q8. Architecture~~ → D15
 - ~~Q14. How is M2 delivered?~~ → D18: handoff here (`02-handoff-m2.md`); the delivery team builds
@@ -108,6 +116,9 @@ Every entry records where the decision came from, using one of these four source
 - R5. **One late review gate.** With a single review at the end, anything Archon finds wrong shows up at the most expensive moment, and his availability is outside the schedule's control. Mitigation (proposed): review after M4, inside the slack before Oct 15, and give him the charter up front.
 - R6. **Aggressive front end.** M2 today needs the architecture decided today. Moving fast works against P2 (you understanding every field).
 
+- R7. **The record looks finished before the learning has happened.** Record #1 was pre-loaded with this project's charter, risks, decisions and board, which makes the tool look 93% complete on first run. That is a demonstration, not your work. Mitigation: the walkthrough and the coach exist precisely so completeness is not the measure; success criterion 4 (explaining each artifact without opening the tool) is the real test.
+- R8. **Unsigned installer.** No signing certificate, so Windows warns on first run and Archon will see that warning too. Accepted for a personal install; revisit before any distribution.
+
 ## 8. Planned artifacts (these double as the tool's screens)
 
 Charter → stakeholder register → requirements + acceptance criteria → scope / WBS → schedule → risk register → change log → status reports → closeout + lessons learned.
@@ -126,3 +137,6 @@ Charter → stakeholder register → requirements + acceptance criteria → scop
 - 09-15 · Archon's review defined as a single final gate (D13); R5 revised; review timing proposed (Q10)
 - 09-15 · Charter approved (D14); stack chosen (D15)
 - 09-15 · Roles set (D18); M2 handoff written for the delivery team (`02-handoff-m2.md`)
+- 09-15 · Scope expanded to the full lifecycle (D19, CR1); named AutoPM (D20, CR2); private repo created (D21, CR3); house style applied (D22, CR4)
+- 09-15 · **Product reframed from recorder to teacher** (D23, CR5): guided walkthrough, per-field coaching, lifecycle order taught rather than enforced
+- 09-15 · M2 built and handed back (`03-handback-m2.md`). Eleven screens, installer builds unsigned. PM acceptance check outstanding; R7 and R8 opened

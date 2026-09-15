@@ -6,3 +6,4 @@ CMakeSettings.json
 *.tmp
 dist/
 assets/fonts/*.ttf
+forge/*.ico
