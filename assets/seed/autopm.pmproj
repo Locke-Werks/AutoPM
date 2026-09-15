@@ -21,8 +21,6 @@ field board.cards
   evidence: Built 2026-09-15
   row c1
     provenance: agreed
-    cell ready
-      value: Refined
     cell acceptance
       value: A record round-trips: load, save, no diff.
     cell blocked
@@ -35,6 +33,8 @@ field board.cards
       value: 3
     cell priority
       value: High
+    cell ready
+      value: Refined
     cell ref
       value: C1
     cell sprint
@@ -45,8 +45,6 @@ field board.cards
       value: Block file parser for definitions and records
   row c2
     provenance: agreed
-    cell ready
-      value: Refined
     cell acceptance
       value: No default Qt grey anywhere in the window.
     cell blocked
@@ -59,6 +57,8 @@ field board.cards
       value: 5
     cell priority
       value: High
+    cell ready
+      value: Refined
     cell ref
       value: C2
     cell sprint
@@ -69,8 +69,6 @@ field board.cards
       value: House style as a Qt stylesheet
   row c3
     provenance: agreed
-    cell ready
-      value: Refined
     cell acceptance
       value: Editing the definition file changes the screen with no rebuild.
     cell blocked
@@ -83,6 +81,8 @@ field board.cards
       value: 5
     cell priority
       value: High
+    cell ready
+      value: Refined
     cell ref
       value: C3
     cell sprint
@@ -93,8 +93,6 @@ field board.cards
       value: Charter screen, generated from its definition file
   row c4
     provenance: agreed
-    cell ready
-      value: Refined
     cell acceptance
       value: Every field in every screen shows all four sections.
     cell blocked
@@ -107,6 +105,8 @@ field board.cards
       value: 3
     cell priority
       value: High
+    cell ready
+      value: Refined
     cell ref
       value: C4
     cell sprint
@@ -117,8 +117,6 @@ field board.cards
       value: Help panel: source, why, if-blank, example
   row c5
     provenance: agreed
-    cell ready
-      value: Refined
     cell acceptance
       value: Dragging a card writes its new column into the record. Over the limit turns the count red.
     cell blocked
@@ -131,6 +129,8 @@ field board.cards
       value: 8
     cell priority
       value: High
+    cell ready
+      value: Refined
     cell ref
       value: C5
     cell sprint
@@ -141,8 +141,6 @@ field board.cards
       value: Sprint board with drag-and-drop and WIP limits
   row c6
     provenance: agreed
-    cell ready
-      value: Refined
     cell acceptance
       value: The timeline draws the dates entered. It does not calculate them.
     cell blocked
@@ -155,6 +153,8 @@ field board.cards
       value: 5
     cell priority
       value: Medium
+    cell ready
+      value: Refined
     cell ref
       value: C6
     cell sprint
@@ -165,8 +165,6 @@ field board.cards
       value: Risk matrix and schedule timeline
   row c7
     provenance: agreed
-    cell ready
-      value: Refined
     cell acceptance
       value: Filling a field removes it from the gaps list.
     cell blocked
@@ -179,6 +177,8 @@ field board.cards
       value: 3
     cell priority
       value: Medium
+    cell ready
+      value: Refined
     cell ref
       value: C7
     cell sprint
@@ -189,8 +189,6 @@ field board.cards
       value: Overview screen with the gaps list
   row c8
     provenance: agreed
-    cell ready
-      value: Refined
     cell acceptance
       value: Legible in the taskbar at 16px.
     cell blocked
@@ -203,6 +201,8 @@ field board.cards
       value: 2
     cell priority
       value: Low
+    cell ready
+      value: Refined
     cell ref
       value: C8
     cell sprint
@@ -213,8 +213,6 @@ field board.cards
       value: Multi-resolution application icon
   row c9
     provenance: agreed
-    cell ready
-      value: Refined
     cell acceptance
       value: Installs, adds a Start Menu shortcut, uninstalls cleanly.
     cell blocked
@@ -227,6 +225,8 @@ field board.cards
       value: 3
     cell priority
       value: High
+    cell ready
+      value: Refined
     cell ref
       value: C9
     cell sprint
@@ -238,8 +238,6 @@ field board.cards
   row c10
     provenance: unobjected
     evidence: Proposed, not yet approved
-    cell ready
-      value: Refined
     cell acceptance
       value: The app reports the house faces as available.
     cell blocked
@@ -252,6 +250,8 @@ field board.cards
       value: 1
     cell priority
       value: Medium
+    cell ready
+      value: Refined
     cell ref
       value: C10
     cell sprint
@@ -262,21 +262,21 @@ field board.cards
       value: House fonts: Chakra Petch, Outfit, Instrument Serif
   row c11
     provenance: unobjected
-    evidence: Proposed, not yet approved
-    cell ready
-      value: Needs refinement
+    evidence: Acceptance criteria drafted by the delivery team 2026-09-15 after "refine those two". The instruction to refine is hers; the wording of the criteria is not yet approved.
     cell acceptance
-      value: One report renders to a readable file.
+      value: Select a row on Status Reports and choose Export. The file contains the project name, the period, the date, the RAG call, what was completed, what is planned next, the variance and the escalations, and nothing else from the record. It opens readable in Notepad. Exporting the same row twice produces the same file.
     cell blocked
       value: No
     cell detail
-      value: A status report you can send someone without giving them the record file.
+      value: One period from the Status Reports table, written to a file a stakeholder can open without AutoPM installed. Markdown: it reads as plain text and renders where it needs to. It exports one report, not the record.
     cell owner
       value: Delivery team
     cell points
-      value: 5
+      value: 3
     cell priority
       value: Low
+    cell ready
+      value: Refined
     cell ref
       value: C11
     cell sprint
@@ -287,21 +287,21 @@ field board.cards
       value: Export a status report as a document
   row c12
     provenance: unobjected
-    evidence: Proposed, not yet approved
-    cell ready
-      value: Needs refinement
+    evidence: Acceptance criteria drafted by the delivery team 2026-09-15 after "refine those two". The instruction to refine is hers; the wording of the criteria is not yet approved.
     cell acceptance
-      value: A work package becomes a card without retyping it.
+      value: On Scope and WBS, a work package that has no card offers to create one. The new card carries the item name, the owner and the WBS code, and lands in Backlog. Running it again on the same work package does not create a second card. The card shows its WBS code, and the WBS row shows it has one.
     cell blocked
       value: No
     cell detail
-      value: Right now the board and the WBS are separate tables. The hybrid framework says the board should be the Executing view of the work packages.
+      value: The board and the WBS hold the same work in two tables. A work package should become a card without retyping, and the card should keep its WBS code so the traceability survives. Adds a wbs column to the card definition.
     cell owner
       value: Delivery team
     cell points
       value: 5
     cell priority
       value: Medium
+    cell ready
+      value: Refined
     cell ref
       value: C12
     cell sprint
@@ -311,11 +311,10 @@ field board.cards
     cell title
       value: Pull WBS work packages onto the board as cards
   row c13
-    provenance: agreed
+    provenance: specified
+    evidence: "I plan on getting it all done sprint 2" (2026-09-15)
     cell acceptance
       value: Installed on a machine that has never had it, launched, and uninstalled with nothing left behind.
-    cell ready
-      value: Refined
     cell blocked
       value: No
     cell detail
@@ -324,40 +323,44 @@ field board.cards
       value: 2
     cell priority
       value: High
+    cell ready
+      value: Refined
     cell ref
       value: C13
+    cell sprint
+      value: Sprint 2
     cell state
-      value: Backlog
+      value: Ready
     cell title
       value: Verify the installer on a clean machine
   row c14
-    provenance: specified
-    evidence: "he does a review when i think we are done" (2026-09-15)
+    provenance: agreed
+    evidence: Review requested on pull request #1, 2026-09-15
     cell acceptance
       value: Archon has the charter and a date in the calendar.
-    cell ready
-      value: Refined
     cell blocked
       value: No
     cell detail
-      value: Q10 is still unanswered: whether he reviews after M4 or on October 15, and whether he gets the charter up front.
+      value: The charter is in the repository he already has admin on, and the review is requested on pull request #1. What is still outstanding is the timing, which is Q10 and has been unanswered since this morning.
     cell points
       value: 1
     cell priority
       value: High
+    cell ready
+      value: Refined
     cell ref
       value: C14
+    cell sprint
+      value: Sprint 2
     cell state
-      value: Backlog
+      value: Doing
     cell title
       value: Give the reviewer the charter and book the review
   row c15
-    provenance: agreed
-    evidence: Success criterion 3 in the charter
+    provenance: specified
+    evidence: "I plan on getting it all done sprint 2" (2026-09-15)
     cell acceptance
       value: A second project runs charter through closeout in AutoPM.
-    cell ready
-      value: Needs refinement
     cell blocked
       value: No
     cell detail
@@ -366,21 +369,27 @@ field board.cards
       value: 8
     cell priority
       value: Medium
+    cell ready
+      value: Needs refinement
     cell ref
       value: C15
+    cell sprint
+      value: Sprint 2
     cell state
       value: Backlog
     cell title
       value: Manage a second real project in the tool
   row c16
     provenance: specified
-    evidence: "security check is a known not done step" (2026-09-15)
+    evidence: "security review belongs to Archon (the github you asked for review earlier" (2026-09-15)
     cell acceptance
       value: Each of the three reviewed against injection and malformed input, with findings recorded here whether or not they are acted on.
     cell blocked
       value: No
     cell detail
-      value: Never done. Three surfaces written by hand this session take untrusted input: the block file parser reads records, the JSON parser reads whatever an MCP client sends, and gitlog builds a shell command from a stored path. The MCP also has write access to every record.
+      value: Archon's, not the delivery team's. Three surfaces written by hand this session take untrusted input: the block file parser reads records, the JSON parser reads whatever an MCP client sends, and gitlog builds a shell command from a stored path. The MCP also has write access to every record. The party that wrote them is not the party to review them.
+    cell owner
+      value: Archon
     cell points
       value: 3
     cell priority
@@ -1035,6 +1044,36 @@ field issues.decisions
       value: D35
     cell source_state
       value: specified
+  row d34
+    provenance: specified
+    evidence: "I plan on getting it all done sprint 2" (2026-09-15)
+    cell affects
+      value: Sprint 2 commitment, now over capacity; schedule activity A8
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: All outstanding work goes into Sprint 2. The whole backlog is pulled in.
+    cell evidence
+      value: "I plan on getting it all done sprint 2"
+    cell ref
+      value: D36
+    cell source_state
+      value: specified
+  row d35
+    provenance: specified
+    evidence: "security review belongs to Archon (the github you asked for review earlier" (2026-09-15)
+    cell affects
+      value: C16 owner; R9 owner; I4 owner; Sprint 2 now contains work the project does not control
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: The security review is Archon's work, not the delivery team's. C16, R9 and I4 are reassigned to him.
+    cell evidence
+      value: "security review belongs to Archon (the github you asked for review earlier"
+    cell ref
+      value: D37
+    cell source_state
+      value: specified
 field issues.issues
   provenance: agreed
   evidence: Raised during the build, 2026-09-15
@@ -1089,11 +1128,11 @@ field issues.issues
       value: Closed
   row i4
     provenance: specified
-    evidence: "security check is a known not done step" (2026-09-15)
+    evidence: "security review belongs to Archon (the github you asked for review earlier" (2026-09-15)
     cell issue
       value: No security review has been done on AutoPM at any point.
     cell owner
-      value: Nyx
+      value: Archon
     cell priority
       value: High
     cell raised_on
@@ -1101,7 +1140,7 @@ field issues.issues
     cell ref
       value: I4
     cell resolution
-      value: Open. Tracked as risk R9 and card C16.
+      value: Open. Assigned to Archon and requested on pull request #1. Tracked as risk R9 and card C16.
     cell status
       value: Open
 field requirements.assumptions
@@ -1507,19 +1546,19 @@ field risks.register
       value: Watching
   row r7
     provenance: specified
-    evidence: "security check is a known not done step" (2026-09-15)
+    evidence: "security review belongs to Archon (the github you asked for review earlier" (2026-09-15)
     cell category
       value: Technical
     cell impact
       value: High
     cell owner
-      value: Nyx
+      value: Archon
     cell probability
       value: Medium
     cell ref
       value: R9
     cell response
-      value: Run a security review over the parsers, the MCP write path and the git invocation before the tool is used on anything but this machine. Not started.
+      value: Archon reviews the parsers, the MCP write path and the git invocation. Requested on pull request #1. Not started, and his availability is outside the schedule's control, which is the same exposure as R5.
     cell response_type
       value: Mitigate
     cell risk
