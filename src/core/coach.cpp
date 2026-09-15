@@ -184,8 +184,26 @@ std::vector<std::string> unmetPrerequisites(const Screen& screen, const Definiti
 }
 
 std::string nextScreen(const Definitions& definitions, const Record& record) {
+    const std::vector<std::string> phases = definitions.phases();
+
+    // A screen in a phase the project has not reached is not the next thing to
+    // do. Closing is empty on a project that is still running because it has
+    // not closed, and telling somebody to go and write its lessons learned is
+    // worse advice than saying nothing.
+    size_t reach = phases.size();
+    for (size_t i = 0; i < phases.size(); ++i)
+        if (phases[i] == record.phase) { reach = i; break; }
+
     for (const Screen& screen : definitions.screens()) {
-        if (!progressOf(screen, record).complete()) return screen.id;
+        if (progressOf(screen, record).complete()) continue;
+        if (reach < phases.size()) {
+            size_t at = 0;
+            bool known = false;
+            for (size_t i = 0; i < phases.size(); ++i)
+                if (phases[i] == screen.phase) { at = i; known = true; break; }
+            if (known && at > reach) continue;
+        }
+        return screen.id;
     }
     return std::string();
 }

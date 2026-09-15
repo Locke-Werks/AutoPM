@@ -179,9 +179,18 @@ QWidget* Dashboard::buildNextStep() {
 
     if (!screen) {
         card->body()->addWidget(chrome::label("nothing outstanding", 11, theme::ok()));
+        const QString phase = QString::fromStdString(record_->phase);
         card->body()->addWidget(chrome::bodyText(
-            "Every screen has an answer in every field. What is left is judgement: open any "
-            "screen and read what the coach says about the answers you gave.",
+            phase.isEmpty()
+                ? QString("Every screen has an answer in every field. What is left is judgement: "
+                          "open any screen and read what the coach says about the answers you "
+                          "gave.")
+                : QString("Everything up to and including %1 is answered. The screens after it "
+                          "are blank because the project has not got there yet, which is the "
+                          "right state for them to be in: a closeout written before a project "
+                          "closes is a guess.\n\nWhat is left is judgement. Open any screen and "
+                          "read what the coach says about the answers you gave.")
+                      .arg(phase),
             theme::textSecondary(), 14));
         auto* again = chrome::button("walk it again", QString(), card);
         connect(again, &QPushButton::clicked, this, [this] { emit walkThrough(QString()); });
