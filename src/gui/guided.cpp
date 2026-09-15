@@ -174,8 +174,10 @@ void GuidedView::showStep(int index) {
     auto* centred = new QWidget;
     auto* row = new QHBoxLayout(centred);
     row->setContentsMargins(0, 0, 0, 0);
+    // The page carries the stretch, or the two spacers squeeze the column down
+    // to whatever width the wrapped text would prefer, which is very little.
     row->addStretch(1);
-    row->addWidget(page);
+    row->addWidget(page, 8);
     row->addStretch(1);
 
     if (QWidget* old = scroll_->takeWidget()) old->deleteLater();
