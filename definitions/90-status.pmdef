@@ -1,0 +1,107 @@
+# Status Reports — Monitoring and Controlling
+#
+# PMBOK Guide 6th ed., 4.5 Monitor and Control Project Work and 10.2 Manage
+# Communications.
+
+screen: status
+title: Status Reports
+phase: Monitoring and Controlling
+process: 4.5 Monitor and Control Project Work
+order: 90
+requires: schedule
+teaches: |
+  How to report against a plan rather than describe activity, and what makes
+  a status report worth someone's attention. By the end you should be able to
+  explain why a report that is always green is not a report.
+before: |
+  A baseline to report against. Without one, a status report can only say
+  what happened, never whether it was what was supposed to happen.
+after: |
+  The decisions your stakeholders make. A report exists to generate a
+  decision, not to prove you were busy.
+intro: |
+  A status report compares where the project is against where the plan said it
+  would be. Work performance data becomes information becomes a report: raw
+  observations, then analysis, then something a stakeholder can act on.
+
+  The useful ones are short, dated, and honest about the difference between
+  planned and actual. A report that is always green is not a report.
+source: |
+  PMBOK Guide, 6th ed., process 4.5 Monitor and Control Project Work (work
+  performance reports are an output) and 10.2 Manage Communications, which is
+  how those reports reach stakeholders.
+
+field reports
+  prompt: Where is the project against the plan, this period?
+  check column:rag: A report with no overall call is a description of activity. Green, amber or red is a judgement you have to make.
+  label: Status reports
+  type: table
+  origin: standard
+  view: log
+  title_column: period
+  tone_column: rag
+  source: |
+    Work performance reports (4.5 output): the physical or electronic
+    representation of work performance information, compiled to raise
+    awareness and generate decisions.
+  why: |
+    The RAG column is a judgement, not a calculation: green means the plan
+    still holds, amber means it holds only if something changes, red means it
+    does not hold. Stating it forces the call to be made rather than implied.
+
+    Planned versus actual is the body of the report. The next-period column is
+    what makes it a forecast instead of a history.
+  if_blank: |
+    Nobody can see a slip forming, and the first honest status report is the
+    post-mortem.
+  example: |
+    Week of Sep 15 | Green | Charter approved, Initiating screens built | Planning screens | Qt deploy step
+  column period
+    label: Period
+    type: line
+    width: 2
+  column reported_on
+    label: Date
+    type: date
+    width: 2
+  column rag
+    label: Status
+    type: choice
+    options: Green=ok, Amber=warn, Red=danger
+    width: 1
+  column accomplished
+    label: Completed this period
+    type: text
+    width: 5
+  column planned_next
+    label: Planned next period
+    type: text
+    width: 5
+  column variance
+    label: Variance from plan
+    type: text
+    width: 4
+  column escalations
+    label: Escalations / help needed
+    type: text
+    width: 4
+
+field summary
+  prompt: In one paragraph, how is it actually going?
+  check words>=12: If this takes more than a paragraph, the project has a problem the reports are not naming.
+  label: Current status summary
+  type: text
+  origin: standard
+  source: |
+    4.5 Monitor and Control Project Work: the current, stand-alone statement of
+    where the project is.
+  why: |
+    One paragraph a stakeholder can read without opening anything else. If it
+    takes more than a paragraph, the project has a problem the reports are not
+    naming.
+  if_blank: |
+    Anyone asking "how is it going" gets a different answer depending on who
+    they ask.
+  example: |
+    Initiating and Planning screens are usable on the tool's own record.
+    Executing is in progress. Closeout date unchanged.

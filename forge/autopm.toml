@@ -1,0 +1,24 @@
+[product]
+name         = "AutoPM"
+version      = "0.1.0"
+publisher    = "Locke Werks"
+description  = "Learn the project manager's job by doing it, one question at a time."
+url          = "https://github.com/Locke-Werks/AutoPM"
+icon         = "autopm.ico"
+upgrade_code = "6f2c9d41-5b3e-4a77-9c12-0e8a4d6b21f5"
+aumid        = "LockeWerks.AutoPM"
+
+# Per-user: each person runs their own install, and records live under their
+# own Documents. Nothing here needs the machine.
+[install]
+scope     = "user"
+dir       = '{LocalPrograms}\AutoPM'
+elevation = "on-demand"
+
+[[actions]]
+type   = "shortcut"
+target = '{InstallDir}\AutoPM.exe'
+name   = "AutoPM"
+
+[[actions]]
+type = "arp"

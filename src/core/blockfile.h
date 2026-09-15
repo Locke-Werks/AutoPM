@@ -27,6 +27,7 @@ public:
 
     bool has(const std::string& key) const;
     std::string get(const std::string& key, const std::string& fallback = std::string()) const;
+    std::vector<std::string> getAll(const std::string& key) const;   // repeated keys, in order
     int getInt(const std::string& key, int fallback = 0) const;
     void set(const std::string& key, const std::string& value);   // replaces, or appends
     void add(const std::string& key, const std::string& value);   // always appends

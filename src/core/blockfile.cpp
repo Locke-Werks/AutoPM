@@ -174,6 +174,13 @@ std::string Node::get(const std::string& key, const std::string& fallback) const
     return fallback;
 }
 
+std::vector<std::string> Node::getAll(const std::string& key) const {
+    std::vector<std::string> found;
+    for (const auto& attr : attrs)
+        if (attr.first == key) found.push_back(attr.second);
+    return found;
+}
+
 int Node::getInt(const std::string& key, int fallback) const {
     if (!has(key)) return fallback;
     try {

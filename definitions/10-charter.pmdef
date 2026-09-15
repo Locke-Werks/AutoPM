@@ -1,0 +1,336 @@
+# Project Charter — Initiating
+#
+# Field list follows PMBOK Guide 6th ed., process 4.1 Develop Project Charter.
+# Origin "yours" marks a field that is not in the standard.
+#
+# This file is the study guide. Edit the wording here and the app changes with
+# no code change.
+
+screen: charter
+title: Project Charter
+phase: Initiating
+process: 4.1 Develop Project Charter
+order: 10
+teaches: |
+  Why a project has to be authorized before anyone works on it, and what a
+  sponsor is actually signing. By the end you should be able to say what a
+  charter contains, who signs it, and why starting the plan before it is signed
+  is the most common way a project goes wrong early.
+before: |
+  Nothing. The charter is where a project starts. If work has already been
+  going on for weeks, that is normal, and writing the charter now is how you
+  find out what everyone has been assuming.
+after: |
+  Everything downstream. The charter's stakeholder list becomes the
+  stakeholder register; its high-level requirements become the requirements
+  screen; its milestones become the schedule; its boundaries become the scope
+  statement's exclusions.
+intro: |
+  The charter is the document that formally authorizes a project to exist. It
+  names the project, says why it exists, draws its boundaries, and gives the
+  project manager authority to spend resources on it.
+
+  Nothing downstream — requirements, schedule, risks — should be started until
+  the sponsor signs it.
+source: |
+  PMBOK Guide, 6th ed., process 4.1 Develop Project Charter, in the Initiating
+  process group. The field list below follows that process's charter contents.
+  Later editions (7th onward) teach principles rather than fixed lists; this
+  list is still the recognized checklist.
+
+field purpose
+  prompt: Why does this project exist, and what will it produce?
+  check words>=10: A purpose in under ten words is a title. Say what it produces and why that matters, because this is the sentence you will hold every later suggestion up against.
+  label: Project title and purpose
+  type: text
+  origin: standard
+  source: Charter content: project purpose.
+  why: |
+    It is the "why are we doing this" that every later choice gets checked
+    against. When someone proposes a feature, this is the sentence you hold it
+    up against.
+  if_blank: |
+    Scope drifts, because nothing can be ruled out. Every suggestion sounds
+    reasonable when there is no stated purpose to contradict it.
+  example: |
+    Build a PM product that works as a study guide, practical application and
+    future organization.
+
+field business_case
+  prompt: Why is this worth the time compared with everything else you could be doing?
+  check words>=12: Too short to defend. A business case has to beat the alternatives, including doing nothing at all.
+  label: Business case / justification
+  type: text
+  origin: standard
+  source: |
+    Business documents (the business case and benefits management plan), which
+    are inputs to 4.1 and feed the charter.
+  why: |
+    It answers "why is this worth the time and money compared to anything
+    else." The purpose says what the project is; the business case says why it
+    beats the alternatives, including doing nothing.
+  if_blank: |
+    The project has no defense when priorities shift. Sponsors cancel projects
+    that cannot say why they matter.
+  example: |
+    No existing tool holds project-level truth: charter, scope, decisions,
+    risks and status against a plan.
+
+field success_criteria
+  prompt: How will you know it worked? Write conditions you could check as true or false.
+  check words>=12: Thin for success criteria. Each one should be something a person could check without arguing about it.
+  label: Measurable objectives and success criteria
+  type: text
+  origin: standard
+  source: Charter content: measurable project objectives and related success criteria.
+  why: |
+    It is how you will know the project worked, which is a different question
+    from whether it shipped. "Measurable" is the whole point: each criterion
+    should be something you can check as true or false without arguing.
+  if_blank: |
+    The project cannot succeed or fail. It just stops, and nobody can say
+    whether it was worth doing.
+  example: |
+    Every field in the tool has a source tag and a "why" explanation.
+    This project runs start to finish inside the tool.
+
+field high_level_requirements
+  prompt: At this level, what does it have to do? Just enough to size the work.
+  check filled: Without this, nobody can tell whether the project is sized right until the build is underway.
+  label: High-level requirements
+  type: text
+  origin: standard
+  source: |
+    Charter content: high-level requirements. Detailed requirements come later,
+    in Planning (5.2 Collect Requirements).
+  why: |
+    Just enough to size the work and catch a wrong direction early.
+  if_blank: |
+    Nobody can tell whether the project is sized right until the build is
+    already underway. Too much detail here is also a failure: it is Planning
+    work done before the project is authorized.
+  example: |
+    Guided input forms for each lifecycle artifact.
+    Built-in explanation for each field.
+
+field description_deliverables
+  prompt: What will actually be handed over when this is done?
+  check words>=8: Name the thing that will exist at the end. A deliverable nobody can picture gets built as whatever seemed obvious.
+  label: High-level description and key deliverables
+  type: text
+  origin: standard
+  source: Charter content: high-level project description, boundaries and key deliverables.
+  why: |
+    It says what the project will actually hand over when it is done.
+  if_blank: |
+    The team builds whatever seems obvious, and each person's version of
+    obvious is different.
+  example: |
+    Personal, installable desktop software covering the full project lifecycle.
+
+field out_of_scope
+  prompt: What will this project deliberately NOT do?
+  check words>=6: An empty exclusions list is how scope creep starts. Name at least one thing you are refusing to do.
+  label: Boundaries: out of scope
+  type: text
+  origin: standard
+  source: |
+    Charter content: project boundaries. Formalized later in the scope
+    statement's exclusions (5.3 Define Scope).
+  why: |
+    Writing down what the project will NOT do prevents more scope creep than
+    any in-scope list does. An in-scope list grows; an out-of-scope list is
+    something you can point at.
+  if_blank: |
+    Every good idea becomes an implied requirement, and the project never
+    finishes.
+  example: |
+    Multi-user permissions. Gantt and resource-leveling math.
+
+field overall_risk
+  prompt: Overall, how risky is this, and what worries you most?
+  check filled: Without a stated risk posture, bad news later arrives as a surprise instead of as something you were watching.
+  label: Overall project risk
+  type: text
+  origin: standard
+  source: |
+    Charter content: overall project risk. The full risk register comes in
+    Planning (11.2 Identify Risks).
+  why: |
+    It sets the project's risk posture at the start, so bad news later is not a
+    surprise.
+  if_blank: |
+    Risks are discovered as problems instead of being watched as possibilities.
+  example: |
+    A single late review gate: defects found at the most expensive moment.
+
+field milestones
+  prompt: What are the dated checkpoints between now and done?
+  check rows>=3: Fewer than three checkpoints is a start date and a hope. Milestones are what turn 'in progress' into something that can be late.
+  check column:target: A milestone with no date is not a milestone. Give every row a target.
+  label: Summary milestone schedule
+  type: table
+  origin: standard
+  view: timeline
+  start_column: target
+  finish_column: target
+  title_column: milestone
+  tone_column: status
+  source: |
+    Charter content: summary milestone schedule. The detailed schedule comes in
+    Planning (6.5 Develop Schedule).
+  why: |
+    Milestones are dated checkpoints, not tasks. They are what turn "in
+    progress" into something that can be on time or late.
+  if_blank: |
+    "In progress" never ends, and nobody notices a slip until it is large.
+  example: |
+    M1 Charter approved | 2026-09-15 | Reached | "hopefully today"
+  column milestone
+    label: Milestone
+    type: line
+    width: 4
+  column target
+    label: Target date
+    type: date
+    width: 2
+  column status
+    label: Status
+    type: choice
+    options: Not started=faint, In progress=accent, Reached=ok, Missed=danger, Rebaselined=warn
+    width: 2
+  column notes
+    label: Notes
+    type: line
+    width: 4
+
+field budget
+  prompt: How much can be spent before you have to go back to the sponsor?
+  check filled: Without a cap, either every purchase needs a conversation or spending grows unchecked. Zero is a valid answer; write it down.
+  label: Pre-approved financial resources
+  type: line
+  origin: standard
+  source: Charter content: preapproved financial resources.
+  why: |
+    It sets how much can be spent before anyone has to go back to the sponsor.
+  if_blank: |
+    Either every purchase needs a conversation, or spending grows unchecked.
+  example: $0 beyond existing subscriptions and hosting.
+
+field key_stakeholders
+  prompt: Who can affect this project, or be affected by it?
+  check filled: The stakeholder you forget is the one who turns up late with an objection nobody planned for.
+  label: Key stakeholder list
+  type: text
+  origin: standard
+  source: |
+    Charter content: key stakeholder list. Expanded in the Stakeholder Register
+    (13.1 Identify Stakeholders).
+  why: |
+    Everyone who is affected by the project, or can affect it, gets named up
+    front.
+  if_blank: |
+    An unlisted stakeholder shows up late with an objection nobody planned for.
+  example: |
+    Sponsor / PM / primary user; final reviewer; delivery team. Details on the
+    Stakeholder Register screen.
+
+field approval_requirements
+  prompt: What does 'done and accepted' mean, and who decides?
+  check words>=10: Say who signs off and against what. 'Done' argued about at the end is the most expensive argument on a project.
+  label: Project approval requirements
+  type: text
+  origin: standard
+  source: |
+    Charter content: project approval requirements — what constitutes success,
+    who decides, and who signs off.
+  why: |
+    It defines what "done and accepted" means, and who has the authority to say
+    so.
+  if_blank: |
+    "Done" gets argued about at the end, when it is most expensive to disagree.
+  example: |
+    You accept each milestone. The final reviewer gives the verdict on whether
+    it is right.
+
+field exit_criteria
+  prompt: What would make you close this project, and what would make you cancel it?
+  check mentions:cancel,stop,abandon,close early,kill: Only the closing half is here. Say what would make you cancel it too: most personal projects never end on purpose, they just fade out.
+  label: Project exit criteria
+  type: text
+  origin: standard
+  source: |
+    Charter content: project exit criteria — the conditions to close or cancel
+    the project or phase.
+  why: |
+    It sets the conditions for closing the project, or for cancelling it on
+    purpose. Cancelling on purpose is a legitimate outcome; fading out is not.
+  if_blank: |
+    The project never ends on purpose. It just fades out, and nothing is
+    learned from it.
+  example: |
+    Cancel if no screen is used on a real project for 30 days.
+
+field pm_authority
+  prompt: What can the project manager decide without asking anyone?
+  check filled: Without this, every decision becomes a negotiation, or someone makes a call they did not have the authority to make.
+  label: Assigned project manager, responsibility and authority
+  type: text
+  origin: standard
+  source: Charter content: assigned project manager, responsibility and authority level.
+  why: |
+    It says who can make which calls without asking.
+  if_blank: |
+    Every decision becomes a negotiation, or someone makes a call they did not
+    have the authority to make.
+  example: |
+    PM: you. The delivery team implements but does not decide.
+
+field sponsor
+  prompt: Who is sponsoring this, and what authority do they have?
+  check filled: Without a named sponsor, nobody has the standing to approve, defend or end the project.
+  label: Sponsor and authority
+  type: line
+  origin: standard
+  source: |
+    Charter content: name and authority of the sponsor or other person(s)
+    authorizing the charter.
+  why: |
+    The sponsor funds the project, protects it, and signs the charter.
+  if_blank: |
+    Nobody has the standing to approve, defend or end the project.
+  example: You.
+
+field decision_rule
+  prompt: How will you record where a decision came from?
+  check filled: Without a rule, 'we decided X' gets said about things nobody decided.
+  label: Decision provenance rule
+  type: text
+  origin: yours
+  source: |
+    Not in the standard. Your rule, from 2026-08-27: a decision is only
+    attributed to you with a quote and a date.
+  why: |
+    A decision record is only trustworthy if it shows where each decision came
+    from. Three states: specified (you said it), agreed (you approved a
+    summary), unobjected (proposed, no reply). Only the first two are
+    decisions.
+  if_blank: |
+    "You decided X" gets said about things nobody decided.
+  example: |
+    Every decision-log entry carries one of the three states plus evidence.
+
+field approval
+  prompt: Has the sponsor signed this off? Write who, and when.
+  check date: A sign-off with no date is not a sign-off. Say who approved it and on what day.
+  label: Charter sign-off
+  type: line
+  origin: standard
+  source: |
+    Output of 4.1 Develop Project Charter: the charter is approved by the
+    sponsor.
+  why: |
+    The signature is what turns a draft into an authorized project.
+  if_blank: |
+    Planning work starts on something nobody authorized.
+  example: Approved by the sponsor, 2026-09-15.

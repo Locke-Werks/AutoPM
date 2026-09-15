@@ -1,0 +1,133 @@
+# Requirements — Planning
+#
+# PMBOK Guide 6th ed., 5.2 Collect Requirements and 5.1 Plan Scope Management.
+# The table is a requirements traceability matrix in miniature.
+
+screen: requirements
+title: Requirements
+phase: Planning
+process: 5.2 Collect Requirements
+order: 30
+requires: charter
+teaches: |
+  How to turn a sponsor's intent into conditions someone can build and test
+  against, and why every requirement needs acceptance criteria written at the
+  same time. By the end you should be able to explain the difference between a
+  requirement and a wish.
+before: |
+  The charter has to be signed. Detailed requirements are Planning work, and
+  Planning happens on an authorized project. Gathering them earlier means
+  gathering them for something that may not go ahead.
+after: |
+  The scope statement and the WBS. A requirement with no work package behind
+  it will not get built; a work package with no requirement behind it is
+  someone's idea rather than the project's.
+intro: |
+  Requirements are the conditions the deliverable has to meet. This is where
+  the charter's high-level requirements get broken down into things you can
+  actually build and test.
+
+  Each requirement carries its own acceptance criteria, because a requirement
+  nobody can test is an opinion.
+source: |
+  PMBOK Guide, 6th ed., process 5.2 Collect Requirements, in the Planning
+  process group. Outputs: the requirements documentation and the requirements
+  traceability matrix, which is what the table below is.
+
+field items
+  prompt: What conditions does the deliverable have to meet? One per row, each with a way to test it.
+  check rows>=3: Three requirements is the minimum for this to be worth a table. Break the charter's high-level requirements down.
+  check column:acceptance: A requirement with no acceptance criteria is an opinion. Say how you would prove it was met.
+  label: Requirements
+  type: table
+  origin: standard
+  view: log
+  title_column: requirement
+  tone_column: status
+  source: |
+    Requirements documentation (5.2 output), plus the requirements traceability
+    matrix that links each requirement back to the objective it serves.
+  why: |
+    Each row is one testable condition. The priority column is what you argue
+    about when the schedule gets tight: MoSCoW (Must, Should, Could, Won't) is
+    the common scheme because it forces a real ranking instead of everything
+    being "high".
+
+    The "traces to" column is the traceability matrix: it links the requirement
+    back to a charter objective, so you can prove every requirement earns its
+    place and every objective is covered.
+  if_blank: |
+    The build is steered by whoever remembers the conversation best, and
+    finished work gets rejected for missing a condition nobody wrote down.
+  example: |
+    R1 | Every field shows its source | Functional | Must | Focus any field and the panel names its PMBOK process | Charter §3
+  column ref
+    label: ID
+    type: line
+    width: 1
+  column requirement
+    label: Requirement
+    type: text
+    width: 5
+  column kind
+    label: Type
+    type: choice
+    options: Functional, Non-functional, Business, Stakeholder, Transition, Quality
+    width: 2
+  column priority
+    label: Priority
+    type: choice
+    options: Must=danger, Should=accent, Could=neutral, Won't=faint
+    width: 1
+  column acceptance
+    label: Acceptance criteria
+    type: text
+    width: 5
+  column traces
+    label: Traces to
+    type: line
+    width: 2
+  column status
+    label: Status
+    type: choice
+    options: Proposed=faint, Agreed=accent, Built=ok, Verified=ok, Dropped=danger
+    width: 2
+
+field assumptions
+  prompt: What are you treating as true without proof?
+  check filled: Plans rest on beliefs nobody stated. Writing one down turns a silent bet into something that can be checked, or into a risk.
+  label: Assumptions
+  type: text
+  origin: standard
+  source: |
+    Assumption log (4.1 output, maintained throughout). Assumptions and
+    constraints are recorded together because both limit what the plan can be.
+  why: |
+    An assumption is something you are treating as true without proof. Writing
+    it down converts a silent bet into something that can be checked, and into
+    a risk if it turns out to be wrong.
+  if_blank: |
+    Plans rest on beliefs nobody stated, and when one turns out to be false the
+    failure looks like bad luck instead of an unchecked assumption.
+  example: |
+    The delivery machine keeps a working Qt 6.8 toolchain for the length of the
+    project.
+
+field constraints
+  prompt: What fixed limits does this project have to work inside?
+  check filled: Name the dates, budgets, platforms and rules you do not get to negotiate, or the plan will quietly assume them away.
+  label: Constraints
+  type: text
+  origin: standard
+  source: |
+    Charter and 5.2 Collect Requirements: the limiting factors the project has
+    to work inside.
+  why: |
+    A constraint is a fixed limit you do not get to negotiate: a date, a
+    budget, a platform, a regulation. Naming them stops the plan from quietly
+    assuming them away.
+  if_blank: |
+    The plan promises something the constraints make impossible, and the
+    conflict surfaces as a missed date.
+  example: |
+    Windows only. $0 budget. No code signing certificate available.
