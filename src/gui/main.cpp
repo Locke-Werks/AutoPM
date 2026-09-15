@@ -68,7 +68,7 @@ int main(int argc, char** argv) {
             report.write(theme::resolvedFaces().toUtf8());
         return 0;
     }
-    theme::setAccent(QColor("#ff2d95"));
+    theme::setAccent(QColor("#b76bff"));
     app.setFont(theme::bodyFont(14));
     app.setStyleSheet(theme::styleSheet());
     app.setWindowIcon(QIcon(assetsDir + "/autopm.ico"));

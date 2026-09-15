@@ -67,7 +67,7 @@ void Card::paintEvent(QPaintEvent*) {
     painter.drawRoundedRect(outer, radius, radius);
 
     // The echo three pixels inside the stroke: the suite's traced edge.
-    painter.setPen(QPen(theme::accentAt(highlighted_ ? 60 : 38), 1));
+    painter.setPen(QPen(theme::accentAt(highlighted_ ? 80 : 56), 1));
     painter.drawRoundedRect(outer.adjusted(3, 3, -3, -3), radius - 3, radius - 3);
 }
 
