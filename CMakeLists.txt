@@ -36,6 +36,7 @@ qt_add_executable(autopm WIN32
     src/gui/tableeditor.cpp
     src/gui/screenview.cpp
     src/gui/boardview.cpp
+    src/gui/planningview.cpp
     src/gui/planviews.cpp
     src/gui/dashboard.cpp
     src/gui/guided.cpp

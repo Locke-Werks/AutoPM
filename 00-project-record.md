@@ -76,6 +76,8 @@ Every entry records where the decision came from, using one of these four source
 | D26 | 09-15 | Accent is violet, not pink | specified | "Pink is soooo not the color- lets try... purple" |
 | D27 | 09-15 | **Colour values are taken from the house palette families** ("House Palette - What The Colours Do", MindTether2 zip). The values only. AutoPM is not a suite app and is not bound by that sheet's rules, so crimson is not reserved here and there is no obligation to spend hue on a single axis | specified | "make the colors all from the color families listed in mindtether's second style zip" · corrected by "this is not directly mindtether- we are just stealing colors" |
 | D28 | 09-15 | **The accent is a per-project choice**, from five families, set from the project menu and stored in the record | specified | "and make it a choice on a project" |
+| D30 | 09-15 | **Build out the agile half**: Sprint Planning and Review and Retrospective, alongside the board. Thirteen screens | specified | "add tools like the kanban board, sprint planning" · "add agile" |
+| D31 | 09-15 | Sprint planning moves the board's own cards rather than keeping a second list. A field may name another field's rows with `reads:` | agreed | Follows from D30; a sprint that does not contain the actual work is a spreadsheet |
 | D29 | 09-15 | **Status colours are fixed across every project**: blue solid, ember unresolved, crimson wrong. The accent moves, these do not, so a colour means the same thing in every record | agreed | Practical, not inherited. An earlier version of this entry claimed the house sheet's one-axis rule applied to AutoPM; it does not |
 
 ⚠ Your "yes exatly" answered a message that contained P1–P5. P1 and P2 were what the reply echoed ("study guide"), so only they are logged as agreed. P3–P5 are still proposed.
@@ -150,4 +152,5 @@ Charter → stakeholder register → requirements + acceptance criteria → scop
 - 09-15 · House faces bundled (D24) and licence set to all rights reserved (D25). Installer rebuilt at 11.2 MB
 - 09-15 · Accent changed from pink to violet (D26). Icon, seed record, new-project default and README badges all follow it
 - 09-15 · Whole palette rebuilt on the house family values (D27), status colours fixed (D29), accent made a per-project choice (D28). Two layout bugs fixed on the way: wrapped text was measured at one width and drawn at another
+- 09-15 · Agile half built (D30): Sprint Planning with capacity, velocity and a refinement warning; Review and Retrospective. Cards gained a `ready` column and a view can now read another field's rows (D31)
 - 09-15 · **Correction.** The first pass imported the house sheet's rules along with its colours: crimson treated as reserved, a single-axis obligation, a mono-label invariant raised as an open question. AutoPM is not a suite app and none of that binds it. Crimson restored as both a status colour and an accent choice; the doctrine removed from the code, the dialog and this record

@@ -18,12 +18,12 @@
 
 namespace {
 
-constexpr int kRowIdRole = Qt::UserRole + 1;
-constexpr int kTitleRole = Qt::UserRole + 2;
-constexpr int kMetaRole = Qt::UserRole + 3;
-constexpr int kToneRole = Qt::UserRole + 4;
-constexpr int kBlockedRole = Qt::UserRole + 5;
-constexpr int kPointsRole = Qt::UserRole + 6;
+constexpr int kRowIdRole = card::RowId;
+constexpr int kTitleRole = card::Title;
+constexpr int kMetaRole = card::Meta;
+constexpr int kToneRole = card::Tone;
+constexpr int kBlockedRole = card::Blocked;
+constexpr int kPointsRole = card::Points;
 
 // "Doing=3, Review=2" from the definition file.
 QHash<QString, int> parseWip(const std::string& spec) {

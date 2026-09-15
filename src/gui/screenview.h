@@ -19,7 +19,7 @@ class ScreenView : public QWidget {
     Q_OBJECT
 public:
     ScreenView(const pm::Screen& screen, const std::shared_ptr<pm::Record>& record,
-               QWidget* parent = nullptr);
+               const pm::Definitions* definitions, QWidget* parent = nullptr);
 
     const pm::Screen& screen() const { return screen_; }
     void reload();
@@ -43,6 +43,7 @@ private:
 
     const pm::Screen screen_;
     std::shared_ptr<pm::Record> record_;
+    const pm::Definitions* definitions_ = nullptr;
     QVBoxLayout* column_ = nullptr;
     QHash<QObject*, QString> focusOwners_;
 };

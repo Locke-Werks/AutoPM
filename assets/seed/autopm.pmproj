@@ -21,6 +21,8 @@ field board.cards
   evidence: Built 2026-09-15
   row c1
     provenance: agreed
+    cell ready
+      value: Refined
     cell acceptance
       value: A record round-trips: load, save, no diff.
     cell blocked
@@ -43,6 +45,8 @@ field board.cards
       value: Block file parser for definitions and records
   row c2
     provenance: agreed
+    cell ready
+      value: Refined
     cell acceptance
       value: No default Qt grey anywhere in the window.
     cell blocked
@@ -65,6 +69,8 @@ field board.cards
       value: House style as a Qt stylesheet
   row c3
     provenance: agreed
+    cell ready
+      value: Refined
     cell acceptance
       value: Editing the definition file changes the screen with no rebuild.
     cell blocked
@@ -87,6 +93,8 @@ field board.cards
       value: Charter screen, generated from its definition file
   row c4
     provenance: agreed
+    cell ready
+      value: Refined
     cell acceptance
       value: Every field in every screen shows all four sections.
     cell blocked
@@ -109,6 +117,8 @@ field board.cards
       value: Help panel: source, why, if-blank, example
   row c5
     provenance: agreed
+    cell ready
+      value: Refined
     cell acceptance
       value: Dragging a card writes its new column into the record. Over the limit turns the count red.
     cell blocked
@@ -131,6 +141,8 @@ field board.cards
       value: Sprint board with drag-and-drop and WIP limits
   row c6
     provenance: agreed
+    cell ready
+      value: Refined
     cell acceptance
       value: The timeline draws the dates entered. It does not calculate them.
     cell blocked
@@ -153,6 +165,8 @@ field board.cards
       value: Risk matrix and schedule timeline
   row c7
     provenance: agreed
+    cell ready
+      value: Refined
     cell acceptance
       value: Filling a field removes it from the gaps list.
     cell blocked
@@ -175,6 +189,8 @@ field board.cards
       value: Overview screen with the gaps list
   row c8
     provenance: agreed
+    cell ready
+      value: Refined
     cell acceptance
       value: Legible in the taskbar at 16px.
     cell blocked
@@ -197,6 +213,8 @@ field board.cards
       value: Multi-resolution application icon
   row c9
     provenance: agreed
+    cell ready
+      value: Refined
     cell acceptance
       value: Installs, adds a Start Menu shortcut, uninstalls cleanly.
     cell blocked
@@ -220,10 +238,12 @@ field board.cards
   row c10
     provenance: unobjected
     evidence: Proposed, not yet approved
+    cell ready
+      value: Refined
     cell acceptance
       value: The app reports the house faces as available.
     cell blocked
-      value: Yes
+      value: No
     cell detail
       value: The three faces are not installed on this machine, so the app falls back to Segoe UI and Georgia. Dropping the files into assets/fonts completes the house type.
     cell owner
@@ -235,14 +255,16 @@ field board.cards
     cell ref
       value: C10
     cell sprint
-      value: Sprint 2
+      value: Sprint 1
     cell state
-      value: Backlog
+      value: Done
     cell title
       value: House fonts: Chakra Petch, Outfit, Instrument Serif
   row c11
     provenance: unobjected
     evidence: Proposed, not yet approved
+    cell ready
+      value: Needs refinement
     cell acceptance
       value: One report renders to a readable file.
     cell blocked
@@ -266,6 +288,8 @@ field board.cards
   row c12
     provenance: unobjected
     evidence: Proposed, not yet approved
+    cell ready
+      value: Needs refinement
     cell acceptance
       value: A work package becomes a card without retyping it.
     cell blocked
@@ -286,6 +310,68 @@ field board.cards
       value: Backlog
     cell title
       value: Pull WBS work packages onto the board as cards
+  row c13
+    provenance: agreed
+    cell acceptance
+      value: Installed on a machine that has never had it, launched, and uninstalled with nothing left behind.
+    cell ready
+      value: Refined
+    cell blocked
+      value: No
+    cell detail
+      value: The installer builds but nobody has run it. It is the one M2 acceptance item still unticked.
+    cell points
+      value: 2
+    cell priority
+      value: High
+    cell ref
+      value: C13
+    cell state
+      value: Backlog
+    cell title
+      value: Verify the installer on a clean machine
+  row c14
+    provenance: specified
+    evidence: "he does a review when i think we are done" (2026-09-15)
+    cell acceptance
+      value: Archon has the charter and a date in the calendar.
+    cell ready
+      value: Refined
+    cell blocked
+      value: No
+    cell detail
+      value: Q10 is still unanswered: whether he reviews after M4 or on October 15, and whether he gets the charter up front.
+    cell points
+      value: 1
+    cell priority
+      value: High
+    cell ref
+      value: C14
+    cell state
+      value: Backlog
+    cell title
+      value: Give the reviewer the charter and book the review
+  row c15
+    provenance: agreed
+    evidence: Success criterion 3 in the charter
+    cell acceptance
+      value: A second project runs charter through closeout in AutoPM.
+    cell ready
+      value: Needs refinement
+    cell blocked
+      value: No
+    cell detail
+      value: Which project has not been chosen. That is the refinement this card needs before it can be pulled in.
+    cell points
+      value: 8
+    cell priority
+      value: Medium
+    cell ref
+      value: C15
+    cell state
+      value: Backlog
+    cell title
+      value: Manage a second real project in the tool
 field board.definition_of_done
   provenance: unobjected
   evidence: Drafted by the delivery team 2026-09-15
@@ -1104,6 +1190,125 @@ field requirements.items
       value: Built
     cell traces
       value: House style
+field review.retro
+  provenance: agreed
+  evidence: Held 2026-09-15 at the end of sprint 1
+  row t1
+    provenance: agreed
+    cell action
+      value: Log a change request the moment scope moves, before building anything against it. CR1 and CR5 were written after the fact.
+    cell done
+      value: Yes
+    cell kind
+      value: What to change
+    cell observation
+      value: Scope changed three times during the sprint: full lifecycle, then a name and a repo, then the reframe from recorder to teacher.
+    cell owner
+      value: Nyx
+    cell sprint
+      value: Sprint 1
+  row t2
+    provenance: agreed
+    cell action
+      value: Keep new surfaces data-driven by default, even when hard-coding one would be quicker.
+    cell done
+      value: Yes
+    cell kind
+      value: What worked
+    cell observation
+      value: Every screen came out of a definition file, so the reframe to a walkthrough cost a teaching layer in data rather than eleven rewritten screens.
+    cell owner
+      value: Delivery team
+    cell sprint
+      value: Sprint 1
+  row t3
+    provenance: agreed
+    cell action
+      value: When borrowing from another product, take the values and re-decide the rules.
+    cell done
+      value: Yes
+    cell kind
+      value: Surprise
+    cell observation
+      value: The house palette was applied along with the suite rules that came with it, which do not bind this project.
+    cell owner
+      value: Nyx
+    cell sprint
+      value: Sprint 1
+field review.reviews
+  provenance: agreed
+  evidence: Sprint 1 review, 2026-09-15
+  row v1
+    provenance: specified
+    evidence: "yes I want the forms but I want a full PM tool, Kanban boards, everything" and "it needs to teach me how to be a pm" (2026-09-15)
+    cell accepted
+      value: Accepted with changes
+    cell decided_by
+      value: Nyx (sponsor)
+    cell demonstrated
+      value: Eleven lifecycle screens generated from definition files, the house style, record #1 pre-loaded, and a per-user installer.
+    cell feedback
+      value: Two changes came out of the review: the full lifecycle rather than the Initiating screens, and the product reframed from a recorder into a walkthrough that teaches. Logged as CR1 and CR5.
+    cell held_on
+      value: 2026-09-15
+    cell sprint
+      value: Sprint 1
+field sprints.cadence
+  provenance: agreed
+  evidence: Derived from the charter schedule, 2026-09-15
+  value: |
+    One week. The whole project runs from September 15 to October 15, so a
+    two-week sprint would give it two feedback points and a one-week sprint gives
+    it four.
+
+    Short enough that a wrong turn costs a week. That has already paid for itself
+    once: the reframe from recorder to teacher arrived inside sprint 1 rather than
+    at the end of the project.
+field sprints.definition_of_ready
+  provenance: unobjected
+  evidence: Drafted by the delivery team 2026-09-15, not yet reviewed
+  value: |
+    A card may be pulled into a sprint when it is small enough to finish inside
+    the week, has an estimate, and has a done-when line somebody other than the
+    author could check.
+
+    Anything failing those three is refined first or left in the backlog. The
+    planning screen marks unrefined cards and warns when one is pulled in anyway.
+field sprints.sprints
+  provenance: agreed
+  evidence: Iterations run against the charter schedule, 2026-09-15
+  row s1
+    provenance: agreed
+    cell capacity
+      value: 40
+    cell end
+      value: 2026-09-15
+    cell goal
+      value: Every lifecycle screen usable end to end on this project own record, with the house style applied and record #1 pre-loaded.
+    cell name
+      value: Sprint 1
+    cell ref
+      value: S1
+    cell start
+      value: 2026-09-15
+    cell status
+      value: Done
+  row s2
+    provenance: agreed
+    cell capacity
+      value: 12
+    cell end
+      value: 2026-09-22
+    cell goal
+      value: The agile half: sprint planning, review and retrospective, and the installer verified on a real machine.
+    cell name
+      value: Sprint 2
+    cell ref
+      value: S2
+    cell start
+      value: 2026-09-16
+    cell status
+      value: Active
 field risks.register
   provenance: agreed
   evidence: Risk register from the project record, 2026-09-15

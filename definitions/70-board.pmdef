@@ -117,6 +117,15 @@ field cards
     type: choice
     options: High=danger, Medium=warn, Low=faint
     width: 1
+  column ready
+    label: Ready
+    type: choice
+    options: Refined=ok, Needs refinement=warn
+    help: |
+      Whether this card meets the definition of ready on the Sprint Planning
+      screen. Sprint planning shows it on the card and warns when unrefined
+      work is pulled into a sprint.
+    width: 2
   column blocked
     label: Blocked
     type: choice

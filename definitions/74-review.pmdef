@@ -1,0 +1,139 @@
+# Sprint Review and Retrospective — Executing
+#
+# The two events that close an iteration. They are different meetings about
+# different things, and running them as one is the usual way both get lost.
+
+screen: review
+title: Review and Retrospective
+phase: Executing
+process: Agile Practice Guide — iteration review and retrospective
+order: 74
+requires: sprints
+teaches: |
+  The difference between reviewing the product and reviewing the way you work,
+  and why they are separate events. By the end you should be able to say what
+  a retrospective produces, and why a retrospective with no action from it is
+  a complaints meeting.
+before: |
+  A sprint that has ended. Both of these are backward-looking: there is nothing
+  to review until something was finished or was not.
+after: |
+  The next sprint's capacity, and one change to how the work is done. A
+  retrospective that does not change the next iteration did not happen.
+intro: |
+  Two events, deliberately not one. The review asks whether the product is
+  right: what got built, what the sponsor accepts, what comes back. The
+  retrospective asks whether the process is right: what worked, what did not,
+  and the one thing being changed next time.
+
+  Keeping them apart matters because they have different audiences and
+  different outputs. A review that drifts into process talk wastes the
+  stakeholder's time; a retrospective with stakeholders in the room stops being
+  honest.
+source: |
+  Agile Practice Guide, published with the PMBOK Guide 6th ed.: iteration
+  review and retrospective. Acceptance of what was built is 5.5 Validate Scope;
+  the lessons are 4.4 Manage Project Knowledge, and they end up on the Closeout
+  screen.
+
+field reviews
+  prompt: For each finished sprint: what was demonstrated, and what was actually accepted?
+  check column:accepted: A review with no acceptance decision is a demo. Say what was accepted, what came back, and who decided.
+  label: Sprint reviews
+  type: table
+  origin: standard
+  view: log
+  title_column: demonstrated
+  tone_column: accepted
+  source: |
+    Agile Practice Guide: the iteration review, where the increment is shown to
+    stakeholders and accepted or not. Formal acceptance is 5.5 Validate Scope.
+  why: |
+    The point of the review is a decision, not a demonstration. Somebody with
+    the authority to accept the work either accepts it or says what is wrong,
+    and that answer is what makes the increment real.
+
+    Work that comes back is the most useful row in this table. It is the
+    cheapest possible feedback: found at the end of one iteration rather than
+    at the end of the project.
+  if_blank: |
+    Sprints end without anybody saying whether what came out of them was any
+    good, and the first real acceptance conversation happens at closeout.
+  example: |
+    Sprint 1 | Eleven screens generated from definition files | Accepted | Sponsor | Walkthrough asked for, logged as CR5
+  column sprint
+    label: Sprint
+    type: line
+    width: 2
+  column held_on
+    label: Date
+    type: date
+    width: 2
+  column demonstrated
+    label: What was demonstrated
+    type: text
+    width: 5
+  column accepted
+    label: Outcome
+    type: choice
+    options: Accepted=ok, Accepted with changes=warn, Rejected=danger, Not reviewed=faint
+    width: 2
+  column decided_by
+    label: Accepted by
+    type: line
+    width: 2
+  column feedback
+    label: What came back
+    type: text
+    width: 5
+
+field retro
+  prompt: For each finished sprint: what worked, what did not, and what will you change?
+  check column:action: A retrospective entry with no action is a complaint. Say what changes next sprint.
+  label: Retrospectives
+  type: table
+  origin: standard
+  view: log
+  title_column: observation
+  tone_column: kind
+  source: |
+    Agile Practice Guide: the iteration retrospective. Its output feeds the
+    lessons learned register (4.4 Manage Project Knowledge).
+  why: |
+    One action per retrospective, not ten. A retrospective that produces a list
+    changes nothing, because nobody can hold a list in their head through a
+    sprint; one change, actually made, compounds.
+
+    The honest ones are specific. "Communication was poor" is not a finding;
+    "the reviewer got the charter after the build started, so his first
+    feedback was about scope" is, and you can do something about it.
+  if_blank: |
+    The same problem recurs every sprint and each time it feels like bad luck.
+  example: |
+    Sprint 1 | Scope changed twice mid-sprint | What to change | Log a change request the moment scope moves, before building | Nyx
+  column sprint
+    label: Sprint
+    type: line
+    width: 2
+  column observation
+    label: What happened
+    type: text
+    width: 5
+  column kind
+    label: Type
+    type: choice
+    options: What worked=ok, What to change=warn, Surprise=accent
+    width: 2
+  column action
+    label: What changes next sprint
+    type: text
+    width: 5
+  column owner
+    label: Owner
+    type: line
+    width: 2
+  column done
+    label: Carried out
+    type: choice
+    options: Yes=ok, Not yet=warn, Dropped=danger
+    width: 1

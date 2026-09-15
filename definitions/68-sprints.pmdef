@@ -1,0 +1,143 @@
+# Sprint Planning — Executing
+#
+# The agile half of the hybrid framework. Not a PMBOK process: iteration
+# planning comes from Scrum and from the Agile Practice Guide published with
+# the PMBOK Guide 6th edition.
+
+screen: sprints
+title: Sprint Planning
+phase: Executing
+process: Agile Practice Guide — iteration planning
+order: 68
+requires: scope
+teaches: |
+  How an iteration is committed to: what capacity is, where it comes from, and
+  why pulling work is different from being assigned it. By the end you should
+  be able to explain what velocity measures and why it is useless as a target.
+before: |
+  Work packages, so the backlog holds the project's actual work rather than
+  whatever came up this week. And a sense of how long an iteration is, which
+  is the cadence field below.
+after: |
+  The board. Everything pulled into a sprint here is what the board shows in
+  flight, and what the review and retrospective screen asks about afterwards.
+intro: |
+  Planning a sprint is choosing what to commit to, out of a backlog, against a
+  capacity. Three numbers make it honest: what a card is estimated at, what the
+  team can actually finish, and what it finished last time.
+
+  Pull, do not push. Work is taken when there is room for it, not handed out to
+  fill a quota. The difference sounds like manners and is actually the whole
+  mechanism: a team that pulls stops when it is full, and a team that is pushed
+  cannot.
+source: |
+  Agile Practice Guide, published with the PMBOK Guide 6th ed.: iteration
+  planning, backlog refinement and velocity. The work itself is 4.3 Direct and
+  Manage Project Work.
+
+field cadence
+  prompt: How long is a sprint here, and why that long?
+  check words>=8: Say the length and the reason. A cadence nobody chose is a cadence nobody keeps.
+  label: Cadence
+  type: text
+  origin: standard
+  source: |
+    Agile Practice Guide: iteration length, fixed for the life of the project
+    so that velocity from one sprint can be compared with the next.
+  why: |
+    A fixed length is what makes velocity mean anything: twelve points in two
+    weeks and twelve points in three are not the same measurement. Short
+    iterations give you feedback sooner and cost more overhead per iteration;
+    long ones are cheaper to run and hide problems for longer.
+  if_blank: |
+    Sprints end when the work happens to finish, which means they are not
+    sprints and nothing can be measured against anything.
+  example: |
+    One week. Short enough that a wrong turn costs a week, and this project has
+    a month in total.
+
+field definition_of_ready
+  prompt: What has to be true about a card before it can be pulled into a sprint?
+  check filled: Without this, refinement never happens and every sprint starts by working out what the work is.
+  label: Definition of ready
+  type: text
+  origin: standard
+  source: |
+    Agile practice: the definition of ready, the counterpart to the definition
+    of done on the board.
+  why: |
+    It is the gate on the way in, the way the definition of done is the gate on
+    the way out. A card that is not ready will spend the sprint being
+    understood rather than being built, and that time comes out of the
+    commitment you already made.
+
+    Keep it short. A long definition of ready turns into a second planning
+    process that has to be done before planning.
+  if_blank: |
+    Unrefined work gets pulled in because it is the most urgent-sounding thing
+    in the backlog, and the sprint quietly becomes a research project.
+  example: |
+    Small enough to finish in the sprint, estimated, and with a done-when line
+    somebody other than the author could check.
+
+field sprints
+  prompt: What are the iterations, and what is each one committed to?
+  check rows>=1: A planning screen with no sprint on it has nothing to plan into.
+  check column:name: Every sprint needs a name, because the cards refer to it by name.
+  check column:capacity: A sprint with no capacity cannot be over-committed, which means the number is not doing its job.
+  label: Sprints
+  type: table
+  origin: yours
+  view: planning
+  reads: board.cards
+  title_column: title
+  source: |
+    Not a PMBOK artifact. The iteration list from agile practice, with the
+    capacity number that iteration planning is done against.
+  why: |
+    Drag a card from the backlog into the sprint and the bar shows what you
+    have committed against what you said you could finish. Going over is not
+    blocked, it is shown: deciding what to drop is the planning, and the tool's
+    job is to make sure the decision is made now rather than on the last day.
+
+    Capacity is a measurement, not an ambition. It comes from the velocity
+    strip at the bottom, which is what previous sprints actually finished
+    against what they planned. Setting capacity above every past result is how
+    a team commits to a number it has never once hit.
+
+    Velocity is a planning input and nothing else. The moment it becomes a
+    target, cards get estimated higher and the number stops measuring anything.
+  if_blank: |
+    Work is picked up in whatever order it is noticed, nobody can say what the
+    iteration was for, and "how much can we do" stays a feeling.
+  example: |
+    Sprint 2 | Planning screens usable end to end | 2026-09-16 | 2026-09-22 | 18 | Active
+  column ref
+    label: ID
+    type: line
+    width: 1
+  column name
+    label: Sprint
+    type: line
+    width: 2
+  column goal
+    label: Sprint goal
+    type: text
+    width: 5
+  column start
+    label: Start
+    type: date
+    width: 2
+  column end
+    label: End
+    type: date
+    width: 2
+  column capacity
+    label: Capacity (points)
+    type: number
+    width: 1
+  column status
+    label: Status
+    type: choice
+    options: Planned=faint, Active=accent, Done=ok, Cancelled=danger
+    width: 2
