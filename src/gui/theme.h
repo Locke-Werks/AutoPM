@@ -49,6 +49,7 @@ QColor toneColour(pm::Tone tone);
 // installed. Drop the .ttf files into assets/fonts to get the real type.
 void loadFonts(const QString& assetsDir);
 bool houseFontsAvailable();
+QString resolvedFaces();   // what the three roles actually landed on
 
 QFont labelFont(int pixelSize = 11, bool heavy = true);   // uppercase, letterspaced
 QFont serifFont(int pixelSize = 22);                      // display headings

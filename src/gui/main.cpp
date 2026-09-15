@@ -57,6 +57,17 @@ int main(int argc, char** argv) {
     const QString definitionsDir = findDefinitions(executableDir);
 
     theme::loadFonts(assetsDir);
+
+    // --fonts <file> reports which faces resolved and exits. A machine without
+    // the house faces falls back silently, and this is how you find out.
+    const QStringList early = QCoreApplication::arguments();
+    const int fontsAt = early.indexOf("--fonts");
+    if (fontsAt >= 0 && fontsAt + 1 < early.size()) {
+        QFile report(early[fontsAt + 1]);
+        if (report.open(QIODevice::WriteOnly | QIODevice::Text))
+            report.write(theme::resolvedFaces().toUtf8());
+        return 0;
+    }
     theme::setAccent(QColor("#ff2d95"));
     app.setFont(theme::bodyFont(14));
     app.setStyleSheet(theme::styleSheet());

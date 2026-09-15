@@ -84,6 +84,11 @@ void loadFonts(const QString& assetsDir) {
 
 bool houseFontsAvailable() { return g_houseFonts; }
 
+QString resolvedFaces() {
+    return QString("label: %1\nserif: %2\nbody:  %3\nmono:  %4\nhouse faces: %5\n")
+        .arg(g_label, g_serif, g_body, g_mono, g_houseFonts ? "yes" : "no (falling back)");
+}
+
 QFont labelFont(int pixelSize, bool heavy) {
     QFont font(g_label);
     font.setPixelSize(pixelSize);

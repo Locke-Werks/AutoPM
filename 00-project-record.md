@@ -71,6 +71,8 @@ Every entry records where the decision came from, using one of these four source
 | D21 | 09-15 | Private repository in the Locke-Werks organisation | specified | "make a repo in the lockewerks org, private for now" |
 | D22 | 09-15 | The house material language is applied to the application, translated from the web stylesheet rather than copied | specified | "make it pretty, use the house style translated into software instead of a webpage" |
 | D23 | 09-15 | **The product teaches the role; it does not just record it.** Guided walkthrough, one question at a time, with coaching on the answers | specified | "I want it to walk me through the steps, not just keep track of it for me- it needs to teach me how to be a pm... not be my pm" |
+| D24 | 09-15 | Bundle the three house faces (Chakra Petch, Outfit, Instrument Serif) with the product rather than depending on the machine | specified | "yes get the fonts" |
+| D25 | 09-15 | **Licence: all rights reserved.** Not GPLv3, unlike the other Locke Werks repos | specified | "and all rights" |
 
 ⚠ Your "yes exatly" answered a message that contained P1–P5. P1 and P2 were what the reply echoed ("study guide"), so only they are logged as agreed. P3–P5 are still proposed.
 
@@ -93,7 +95,8 @@ Every entry records where the decision came from, using one of these four source
 - ~~Q7. Charter gaps~~ → D10–D12. ~~Working title~~ → D20: AutoPM.
 - ~~Q9. When does Archon review?~~ → D13: once, at the end
 - Q10. Schedule his review after M4 instead of on Oct 15? Share the charter with him up front? (proposed 09-15, **still unanswered**)
-- Q15. Fetch the three house fonts (Chakra Petch, Outfit, Instrument Serif), or leave the app on system faces? (proposed 09-15)
+- ~~Q15. Fetch the house fonts?~~ → D24: bundled, OFL, loaded at startup
+- ~~Q17. Licence?~~ → D25: all rights reserved
 - Q16. Keep the code and the written record in one folder, or split them? (built as one; ask)
 - ~~Q11. Charter sign-off~~ → D14
 - ~~Q8. Architecture~~ → D15
@@ -140,3 +143,4 @@ Charter → stakeholder register → requirements + acceptance criteria → scop
 - 09-15 · Scope expanded to the full lifecycle (D19, CR1); named AutoPM (D20, CR2); private repo created (D21, CR3); house style applied (D22, CR4)
 - 09-15 · **Product reframed from recorder to teacher** (D23, CR5): guided walkthrough, per-field coaching, lifecycle order taught rather than enforced
 - 09-15 · M2 built and handed back (`03-handback-m2.md`). Eleven screens, installer builds unsigned. PM acceptance check outstanding; R7 and R8 opened
+- 09-15 · House faces bundled (D24) and licence set to all rights reserved (D25). Installer rebuilt at 11.2 MB

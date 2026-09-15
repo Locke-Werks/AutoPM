@@ -6,6 +6,7 @@
 
 **Learn the project manager's job by doing it, one question at a time.**
 
+[![licence](https://img.shields.io/badge/licence-all%20rights%20reserved-ff2d95?style=flat-square)](LICENSE)
 [![platform](https://img.shields.io/badge/platform-Windows%2011-ff2d95?style=flat-square)](#requirements)
 [![stack](https://img.shields.io/badge/C%2B%2B17-Qt%206.8-ff2d95?style=flat-square)](#requirements)
 
@@ -106,6 +107,19 @@ a bare Qt executable will not start.
 
 `AutoPM.exe --screen <id>` opens straight onto one screen and
 `AutoPM.exe --walk [id]` opens the walkthrough.
+
+## Type
+
+The three house faces ship with the product, in `assets/fonts`: Chakra Petch
+for labels, Outfit for body, Instrument Serif for display. They are loaded at
+startup, so no installation is needed. `AutoPM.exe --fonts report.txt` writes
+out which faces actually resolved, which is how you find out that a machine
+quietly fell back to Segoe UI.
+
+## Licence
+
+All rights reserved. See [LICENSE](LICENSE), which also covers the bundled Qt
+libraries (LGPLv3) and the three fonts (SIL Open Font License 1.1).
 
 ## Source basis
 

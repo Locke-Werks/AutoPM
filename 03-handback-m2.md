@@ -75,12 +75,16 @@ the panel says — is yours, and is the thing that actually accepts M2.
 
 1. **Repo name.** `Locke-Werks/AutoPM`, private. You said "for now", so a rename
    later costs one command. Say the word if you want a different one.
-2. **House fonts.** Chakra Petch, Outfit and Instrument Serif are not installed
-   on this machine, so the app falls back to Segoe UI and Georgia. It loads any
-   font file dropped into `assets/fonts` at startup. Do you want the three
-   Google Fonts files fetched, or should it stay on system faces?
+2. ~~**House fonts.**~~ Answered 09-15: fetched and bundled. All three are in
+   `assets/fonts` under the SIL Open Font License and ship with the installer.
+   `AutoPM.exe --fonts report.txt` confirms the app resolves Chakra Petch,
+   Outfit and Instrument Serif rather than falling back.
 3. **Signing.** No certificate, so the installer is unsigned and Windows will
    warn on first run. Accepted for a personal install unless you say otherwise.
+
+   **Licence** is settled: all rights reserved (09-15). `LICENSE` also states
+   the terms of the two things AutoPM cannot claim, the Qt libraries it links
+   (LGPLv3) and the three fonts it bundles (OFL 1.1).
 4. **Archon's review timing.** Still unanswered from 09-15 (Q10 in the record).
    It is the only open thing between here and a defensible closeout date.
 
