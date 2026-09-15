@@ -76,6 +76,9 @@ struct Field {
     // Matrix view: the two axis columns.
     std::string rowsColumn;
     std::string colsColumn;
+    // A view that operates on another field's rows names it here, as
+    // "screen.field". Sprint planning moves the board's cards about.
+    std::string reads;
 
     bool isTable() const { return type == "table"; }
     const Column* column(const std::string& id) const;
@@ -108,6 +111,8 @@ public:
 
     const std::vector<Screen>& screens() const { return screens_; }
     const Screen* screen(const std::string& id) const;
+    // "board.cards" -> that field, for a view that works on another screen's rows.
+    const Field* fieldByKey(const std::string& key) const;
     std::vector<std::string> phases() const;   // in lifecycle order, as found
 
 private:

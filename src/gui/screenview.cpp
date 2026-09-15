@@ -17,8 +17,8 @@
 #include <QVBoxLayout>
 
 ScreenView::ScreenView(const pm::Screen& screen, const std::shared_ptr<pm::Record>& record,
-                       QWidget* parent)
-    : QWidget(parent), screen_(screen), record_(record) {
+                       const pm::Definitions* definitions, QWidget* parent)
+    : QWidget(parent), screen_(screen), record_(record), definitions_(definitions) {
     column_ = new QVBoxLayout(this);
     column_->setContentsMargins(38, 30, 34, 44);
     column_->setSpacing(16);
@@ -78,7 +78,18 @@ QWidget* ScreenView::buildRichView(const pm::Field& field, TableEditor* grid) {
     else if (field.view == "timeline") view = new TimelineView(field, this);
     else if (field.view == "matrix")   view = new MatrixView(field, this);
     else if (field.view == "log")      view = new LogView(field, this);
+    else if (field.view == "planning") {
+        auto* planning = new PlanningView(field, this);
+        // The planning tool moves cards that belong to another screen, so it
+        // needs that screen's field definition to edit one.
+        if (const pm::Field* cards = definitions_ ? definitions_->fieldByKey(field.reads) : nullptr)
+            planning->setCardField(cards);
+        view = planning;
+    }
     if (!view) return nullptr;
+
+    view->setRecord(record_);
+    connect(view, &RichView::recordChanged, this, [this] { emit recordEdited(); });
 
     const std::string key = keyFor(field);
     if (const std::vector<pm::Row>* rows = record_->rows(key)) view->setRows(*rows);

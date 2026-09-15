@@ -131,6 +131,7 @@ Field readField(const Node& node) {
     field.progressColumn = node.get("progress_column");
     field.rowsColumn = node.get("rows_column");
     field.colsColumn = node.get("cols_column");
+    field.reads = node.get("reads");
     if (node.has("options")) field.options = parseOptions(node.get("options"));
     for (const Node* child : node.childrenWithTag("column"))
         field.columns.push_back(readColumn(*child));
@@ -236,6 +237,13 @@ const Screen* Definitions::screen(const std::string& wanted) const {
     for (const auto& screen : screens_)
         if (screen.id == wanted) return &screen;
     return nullptr;
+}
+
+const Field* Definitions::fieldByKey(const std::string& key) const {
+    const size_t dot = key.find('.');
+    if (dot == std::string::npos) return nullptr;
+    const Screen* found = screen(key.substr(0, dot));
+    return found ? found->field(key.substr(dot + 1)) : nullptr;
 }
 
 std::vector<std::string> Definitions::phases() const {

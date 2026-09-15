@@ -232,7 +232,7 @@ void MainWindow::rebuildPages() {
     pages_->addWidget(wrap(dashboard_));
 
     for (const pm::Screen& screen : workspace_.definitions().screens()) {
-        auto* view = new ScreenView(screen, record_, pages_);
+        auto* view = new ScreenView(screen, record_, &workspace_.definitions(), pages_);
         const QString screenId = QString::fromStdString(screen.id);
 
         connect(view, &ScreenView::fieldFocused, this, [this, screenId](const QString& fieldId) {

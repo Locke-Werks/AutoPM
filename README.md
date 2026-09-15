@@ -59,9 +59,34 @@ unanswered proposals cannot hide.
 |---|---|
 | Initiating | Project Charter · Stakeholder Register |
 | Planning | Requirements · Scope and WBS · Schedule · Risk Register |
-| Executing | Sprint Board |
+| Executing | Sprint Planning · Sprint Board · Review and Retrospective |
 | Monitoring and Controlling | Change Log · Issues and Decisions · Status Reports |
 | Closing | Closeout |
+
+## The agile half
+
+The charter picks a hybrid framework: predictive phases, with sprints inside
+Executing. Three screens run the iteration.
+
+**Sprint planning** is the tool. Drag a card from the backlog into the sprint
+and a bar shows what you have committed against the capacity you set. Going
+over is shown rather than blocked, because deciding what to drop is the
+planning. Underneath, a velocity strip shows what each closed sprint actually
+finished against what it planned, which is where the next capacity number comes
+from.
+
+It moves the board's own cards. There is one backlog, not a planning copy and
+a working copy, so a card pulled into a sprint is on the board a moment later.
+The screen also warns when work that does not meet the definition of ready gets
+pulled in.
+
+**The board** runs the sprint, with WIP limits from the definition file.
+
+**Review and retrospective** closes it: what was demonstrated and whether the
+sponsor accepted it, then separately what worked, what did not, and the one
+thing changing next sprint.
+
+## The other views
 
 The board drags and drops with WIP limits. The schedule draws a timeline with
 milestone diamonds. The WBS draws a tree. Risks and stakeholders draw a
