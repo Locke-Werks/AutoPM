@@ -143,8 +143,24 @@ is the PM's to decide.
 
 ### Registering it
 
-`.mcp.json` in this repository points at the build output. Once installed,
-point it at `%LOCALAPPDATA%\Programs\AutoPMutopm-mcp.exe` instead.
+Register it once, at user scope, so it is available in every project rather
+than only where the repository is checked out:
+
+```bash
+claude mcp add --scope user autopm "%LOCALAPPDATA%\Programs\AutoPMutopm-mcp.exe"
+```
+
+Or add it to `mcpServers` in `~/.claude.json` directly:
+
+```json
+"autopm": {
+  "type": "stdio",
+  "command": "C:\Users\<you>\AppData\Local\Programs\AutoPM\autopm-mcp.exe"
+}
+```
+
+It takes `--records <dir>` and `--definitions <dir>` if either needs to be
+somewhere other than the default.
 
 ## Nothing is hard-coded
 
