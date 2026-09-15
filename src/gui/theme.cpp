@@ -12,7 +12,7 @@
 namespace theme {
 namespace {
 
-QColor g_accent("#b76bff");
+QColor g_accent("#B05CF6");   // house violet, the structural default
 QString g_label = "Segoe UI";
 QString g_serif = "Georgia";
 QString g_body  = "Segoe UI";
@@ -35,6 +35,31 @@ QString firstAvailable(const QStringList& candidates, const QString& fallback) {
 }
 
 } // namespace
+
+const QList<Family>& families() {
+    // The spectrum from the house palette sheet, minus the reserved crimson.
+    // Each carries the house's own words for what the colour is for, because
+    // picking one is a decision about what the project's room is, not a
+    // preference about which purple is nicest.
+    static const QList<Family> all = {
+        {"House violet", houseViolet(),
+         "Structural. Filaments, orbit lines, hairline tint, focus rings. The default, "
+         "and the one that agrees with the hairlines already in the room."},
+        {"House blue", houseBlue(),
+         "The cool end. Things that are neither warm nor urgent. A project that is "
+         "steady and long-running."},
+        {"House magenta", houseMagenta(),
+         "The loudest thing that is not reserved. A project you want to be unable to "
+         "ignore when it is open."},
+        {"Ember", ember(),
+         "The hot light at the joints. Taken here as a signal rather than as "
+         "atmosphere, so a project wearing it runs warm."},
+        {"Cyan", cyan(),
+         "Pushed well past house blue so the two are not a pair of blues at arm's "
+         "length in the dark. The brightest ink in the house."},
+    };
+    return all;
+}
 
 QColor accent() { return g_accent; }
 
@@ -146,7 +171,7 @@ QToolTip {
 /* ── Inputs ──────────────────────────────────────────────────────── */
 
 QLineEdit, QTextEdit, QPlainTextEdit, QComboBox, QSpinBox, QDateEdit {
-    background: %{sunken};
+    background: %{input};
     color: %{body};
     border: 1px solid %{hair};
     border-radius: 4px;
@@ -158,8 +183,10 @@ QLineEdit:hover, QTextEdit:hover, QPlainTextEdit:hover, QComboBox:hover, QDateEd
     border-color: %{hairStrong};
 }
 QLineEdit:focus, QTextEdit:focus, QPlainTextEdit:focus, QComboBox:focus, QDateEdit:focus {
-    border-color: %{accent45};
-    background: %{raised};
+    /* One focus rule, in the app's accent, never in a colour that means
+       something about an entry. */
+    border: 2px solid %{accentHex};
+    background: %{pressed};
 }
 QLineEdit:disabled, QTextEdit:disabled, QComboBox:disabled {
     color: %{faint};
@@ -237,7 +264,7 @@ QScrollArea { border: none; }
 /* ── Tables ──────────────────────────────────────────────────────── */
 
 QTableWidget, QTableView {
-    background: %{sunken};
+    background: %{voidBg};
     alternate-background-color: %{surface};
     gridline-color: %{hair};
     border: 1px solid %{hair};
@@ -304,7 +331,10 @@ QProgressBar::chunk { background: %{accentHex}; border-radius: 2px; }
         .replace("%{void}", voidBg().name())
         .replace("%{surface}", surface().name())
         .replace("%{raised}", raised().name())
-        .replace("%{sunken}", sunken().name())
+        .replace("%{sunken}", input().name())
+        .replace("%{input}", input().name())
+        .replace("%{pressed}", pressed().name())
+        .replace("%{voidBg}", voidBg().name())
         .replace("%{hairStrong}", hairStrong)
         .replace("%{hair}", hair)
         .replace("%{primary}", textPrimary().name())

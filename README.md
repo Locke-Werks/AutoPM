@@ -6,9 +6,9 @@
 
 **Learn the project manager's job by doing it, one question at a time.**
 
-[![licence](https://img.shields.io/badge/licence-all%20rights%20reserved-b76bff?style=flat-square)](LICENSE)
-[![platform](https://img.shields.io/badge/platform-Windows%2011-b76bff?style=flat-square)](#requirements)
-[![stack](https://img.shields.io/badge/C%2B%2B17-Qt%206.8-b76bff?style=flat-square)](#requirements)
+[![licence](https://img.shields.io/badge/licence-all%20rights%20reserved-B05CF6?style=flat-square)](LICENSE)
+[![platform](https://img.shields.io/badge/platform-Windows%2011-B05CF6?style=flat-square)](#requirements)
+[![stack](https://img.shields.io/badge/C%2B%2B17-Qt%206.8-B05CF6?style=flat-square)](#requirements)
 
 </div>
 
@@ -106,7 +106,34 @@ Run `windeployqt.exe --release build/Release/AutoPM.exe` once before launching:
 a bare Qt executable will not start.
 
 `AutoPM.exe --screen <id>` opens straight onto one screen and
-`AutoPM.exe --walk [id]` opens the walkthrough.
+`AutoPM.exe --walk [id]` opens the walkthrough, and `--colour` opens the
+project's colour picker.
+
+## Colour
+
+Every colour comes from the house palette, and hue is spent on one axis:
+**how well-founded a claim is.**
+
+| | | |
+|---|---|---|
+| House blue | `#3D7DFF` | Solid. Reached, done, specified. |
+| House violet | `#B05CF6` | Agreed. Also the structural colour, and the default accent. |
+| House magenta | `#FF2D95` | Unresolved. Proposed and unanswered, watching. |
+| Ember | `#FF5A2A` | Broken. Missed, blocked, overdue. |
+| Cyan | `#2EE8FF` | Unclaimed. Available as a project accent. |
+
+Crimson is reserved across the house for the body's alarm and is not used
+here, including as an accent.
+
+The signal colours above are fixed. The **accent is chosen per project** from
+the five families, in the project menu, and stored in the record. It lights the
+room — rail, focus, bloom, primary buttons — and never renders a verdict about
+an entry.
+
+Surfaces step by lightness only at a fixed hue, hairlines are house violet at
+16% and 34% rather than grey, and the ink tiers are measured against the ground
+rather than asserted: 18:1, 12.9:1, 8.9:1, 7:1, and a 4.8:1 floor below which
+nothing carries meaning.
 
 ## Type
 

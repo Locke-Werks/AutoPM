@@ -26,6 +26,7 @@ public:
     bool openProject(const QString& path);
     void showScreenById(const QString& screenId);
     void startWalkthrough(const QString& screenId = QString());
+    void chooseAccent();
 
 protected:
     void closeEvent(QCloseEvent* event) override;

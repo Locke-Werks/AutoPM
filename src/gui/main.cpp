@@ -96,6 +96,9 @@ int main(int argc, char** argv) {
     const int at = arguments.indexOf("--screen");
     if (at >= 0 && at + 1 < arguments.size()) window.showScreenById(arguments[at + 1]);
 
+    // --colour jumps straight to the project's colour picker.
+    if (arguments.contains("--colour") || arguments.contains("--color")) window.chooseAccent();
+
     // --walk [screen] opens the walkthrough instead of the normal panes.
     const int walk = arguments.indexOf("--walk");
     if (walk >= 0) {

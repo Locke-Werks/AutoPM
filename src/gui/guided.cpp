@@ -41,7 +41,7 @@ protected:
         const qreal gap = 3;
         const qreal each = (width() - gap * (total_ - 1)) / total_;
         for (int i = 0; i < total_; ++i) {
-            painter.setBrush(i <= at_ ? theme::accent() : QColor(190, 120, 255, 30));
+            painter.setBrush(i <= at_ ? theme::accent() : theme::hairline());
             painter.drawRoundedRect(QRectF(i * (each + gap), 0, each, height()), 1.5, 1.5);
         }
     }
@@ -170,6 +170,7 @@ void GuidedView::showStep(int index) {
 
     // One centred reading column. Text measured at 1400px and drawn at 800
     // loses its last line every time.
+    page->setMinimumWidth(640);
     page->setMaximumWidth(880);
     auto* centred = new QWidget;
     auto* row = new QHBoxLayout(centred);

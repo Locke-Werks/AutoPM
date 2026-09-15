@@ -84,7 +84,7 @@ protected:
         QPainter painter(this);
         painter.setRenderHint(QPainter::Antialiasing, true);
         painter.setPen(Qt::NoPen);
-        painter.setBrush(QColor(190, 120, 255, 30));
+        painter.setBrush(theme::hairline());
         painter.drawRoundedRect(QRectF(0, 0, width(), height()), 2, 2);
         if (fraction_ <= 0) return;
         painter.setBrush(theme::accent());
