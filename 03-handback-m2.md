@@ -58,7 +58,7 @@ and a per-user Forge installer that builds clean.
 
 | Check | Status |
 |---|---|
-| Installs per-user, Start Menu shortcut, clean uninstall | **Built, not verified.** The installer builds (10.9 MB, unsigned). Nobody has run it. |
+| Installs per-user, Start Menu shortcut, clean uninstall | **Run and verified 2026-09-15.** Per-user to `%LOCALAPPDATA%\Programs\AutoPM`, 48 files, Start Menu shortcut pointing at the right target, uninstall entry registered under Programs and Features. Both the app and the MCP launch from the installed copy. Uninstall itself is not exercised, because running it removes the install. |
 | Launches to the project list with record #1 present | Met |
 | Charter shows 16 fields, Stakeholder shows register and notes, all from definition files | Met |
 | Changing a label or "why" in a definition file changes the app with no code change | Met |

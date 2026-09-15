@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "autopm": {
-      "command": "build/Release/autopm-mcp.exe",
+      "command": "${LOCALAPPDATA}/Programs/AutoPM/autopm-mcp.exe",
       "args": [],
       "env": {}
     }
