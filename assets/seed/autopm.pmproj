@@ -389,8 +389,10 @@ field board.cards
       value: Refined
     cell ref
       value: C16
+    cell sprint
+      value: Sprint 2
     cell state
-      value: Backlog
+      value: Ready
     cell title
       value: Security review: parsers, MCP write path, git invocation
 field board.definition_of_done
@@ -1018,6 +1020,21 @@ field issues.decisions
       value: D32
     cell source_state
       value: specified
+  row d33
+    provenance: specified
+    evidence: "Raise capacity pull into sprint 2" (2026-09-15)
+    cell affects
+      value: Sprint 2 commitment; risk R9
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: Raise Sprint 2 capacity from 12 to 15 points and pull the security review (C16) into the sprint.
+    cell evidence
+      value: "Raise capacity pull into sprint 2". The original 12 was a guess with no velocity behind it: it was set before any sprint had closed. Sprint 1 finished 35 points, so 12 for a full week was low rather than tight.
+    cell ref
+      value: D35
+    cell source_state
+      value: specified
 field issues.issues
   provenance: agreed
   evidence: Raised during the build, 2026-09-15
@@ -1349,7 +1366,7 @@ field sprints.sprints
   row s2
     provenance: agreed
     cell capacity
-      value: 12
+      value: 15
     cell end
       value: 2026-09-22
     cell goal
