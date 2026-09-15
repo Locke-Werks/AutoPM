@@ -1,5 +1,6 @@
 #include "core/workspace.h"
 #include "mainwindow.h"
+#include "spellcheck.h"
 #include "theme.h"
 
 #include <QApplication>
@@ -56,6 +57,7 @@ int main(int argc, char** argv) {
     const QString assetsDir = findAssets(executableDir);
     const QString definitionsDir = findDefinitions(executableDir);
 
+    spell::initialise();
     theme::loadFonts(assetsDir);
 
     // --fonts <file> reports which faces resolved and exits. A machine without

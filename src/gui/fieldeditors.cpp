@@ -1,11 +1,14 @@
 #include "fieldeditors.h"
 
+#include "spellcheck.h"
 #include "theme.h"
 
 #include <QAbstractItemView>
 #include <QHBoxLayout>
 #include <QKeyEvent>
+#include <QMenu>
 #include <QPushButton>
+#include <QTextBlock>
 #include <QSpinBox>
 
 namespace editors {
@@ -14,10 +17,17 @@ namespace editors {
 
 GrowingTextEdit::GrowingTextEdit(QWidget* parent) : QTextEdit(parent) {
     setAcceptRichText(false);
+    // A form is tabbed through. Nobody wants a tab character inside a charter
+    // field, and every other control in the window already moves on Tab.
+    setTabChangesFocus(true);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
     setFont(theme::bodyFont(14));
+    new SpellHighlighter(document());
+    setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(this, &QWidget::customContextMenuRequested, this, &GrowingTextEdit::showContextMenu);
+
     connect(this, &QTextEdit::textChanged, this, &GrowingTextEdit::fitToContent);
     connect(document(), &QTextDocument::contentsChanged, this, &GrowingTextEdit::fitToContent);
 }
@@ -37,6 +47,45 @@ void GrowingTextEdit::fitToContent() {
         setFixedHeight(wanted);
         updateGeometry();
     }
+}
+
+void GrowingTextEdit::showContextMenu(const QPoint& where) {
+    QMenu* menu = createStandardContextMenu();
+
+    QTextCursor cursor = cursorForPosition(where);
+    cursor.select(QTextCursor::WordUnderCursor);
+    const QString word = cursor.selectedText();
+
+    const QStringList suggestions =
+        spell::available() && !word.isEmpty() ? spell::suggestionsFor(word) : QStringList();
+    const bool wrong = !suggestions.isEmpty();
+
+    if (wrong) {
+        auto* first = menu->actions().isEmpty() ? nullptr : menu->actions().first();
+        for (const QString& option : suggestions) {
+            auto* action = new QAction(option, menu);
+            connect(action, &QAction::triggered, this, [this, cursor, option]() mutable {
+                cursor.insertText(option);
+            });
+            menu->insertAction(first, action);
+        }
+        auto* ignore = new QAction(QString("Ignore \"%1\"").arg(word), menu);
+        connect(ignore, &QAction::triggered, this, [this, word] {
+            spell::ignoreWord(word);
+            document()->markContentsDirty(0, document()->characterCount());
+        });
+        auto* learn = new QAction(QString("Add \"%1\" to the dictionary").arg(word), menu);
+        connect(learn, &QAction::triggered, this, [this, word] {
+            spell::addToDictionary(word);
+            document()->markContentsDirty(0, document()->characterCount());
+        });
+        menu->insertAction(first, ignore);
+        menu->insertAction(first, learn);
+        menu->insertSeparator(first);
+    }
+
+    menu->exec(mapToGlobal(where));
+    delete menu;
 }
 
 void GrowingTextEdit::resizeEvent(QResizeEvent* event) {

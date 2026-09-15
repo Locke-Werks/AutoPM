@@ -30,6 +30,9 @@ public:
 
 protected:
     void closeEvent(QCloseEvent* event) override;
+    // The MCP server writes the same file, so the window checks for a newer
+    // copy whenever it comes back to the front.
+    bool event(QEvent* event) override;
 
 private:
     void buildChrome();
@@ -44,6 +47,7 @@ private:
     void markDirty();
     void refreshStatus();
     void openRecordsFolder();
+    void reloadIfChangedElsewhere();
 
     pm::Workspace workspace_;
     std::shared_ptr<pm::Record> record_;
