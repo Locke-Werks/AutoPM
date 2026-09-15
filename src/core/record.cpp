@@ -110,6 +110,7 @@ bool Record::load(const std::string& file, std::string& error) {
     modified = root.get("modified");
     phase = root.get("phase");
     summary = root.get("summary");
+    repo = root.get("repo");
     path = file;
 
     for (const Node* node : root.childrenWithTag("field")) {
@@ -154,6 +155,7 @@ std::string Record::serialize() const {
     root.add("modified", modified);
     if (!phase.empty()) root.add("phase", phase);
     if (!summary.empty()) root.add("summary", summary);
+    if (!repo.empty()) root.add("repo", repo);
 
     for (const auto& pair : entries_) {
         const Entry& entry = pair.second;

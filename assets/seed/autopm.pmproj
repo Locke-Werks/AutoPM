@@ -982,6 +982,21 @@ field issues.decisions
       value: D23
     cell source_state
       value: specified
+  row d32
+    provenance: specified
+    evidence: "do the mcp" (2026-09-15)
+    cell affects
+      value: Architecture; the scope boundary with ProjectMan
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: AutoPM gets an MCP front end, so the record is written where the decisions are made rather than retyped afterwards. It reads git for evidence, never for status.
+    cell evidence
+      value: "do the mcp" and "I do want it to read from git- just not in the same way Project Man does"
+    cell ref
+      value: D32
+    cell source_state
+      value: specified
 field issues.issues
   provenance: agreed
   evidence: Raised during the build, 2026-09-15

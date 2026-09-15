@@ -47,6 +47,9 @@ public:
     std::string modified;
     std::string phase;          // the lifecycle phase the project is in now
     std::string summary;
+    // The work tree whose history this record documents. Read only, and only
+    // for evidence: AutoPM never reports git state, which is ProjectMan's job.
+    std::string repo;
 
     std::string path;           // where it was loaded from; not written into the file
 

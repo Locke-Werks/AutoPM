@@ -43,6 +43,7 @@ std::vector<ProjectSummary> Workspace::list() const {
         summary.phase = root.get("phase");
         summary.modified = root.get("modified");
         summary.accent = root.get("accent");
+        summary.repo = root.get("repo");
         summary.path = entry.path().string();
         found.push_back(std::move(summary));
     }
