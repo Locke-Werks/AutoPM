@@ -129,6 +129,8 @@ Every entry records where the decision came from, using one of these four source
 - R6. **Aggressive front end.** M2 today needs the architecture decided today. Moving fast works against P2 (you understanding every field).
 
 - R7. **The record looks finished before the learning has happened.** Record #1 was pre-loaded with this project's charter, risks, decisions and board, which makes the tool look 93% complete on first run. That is a demonstration, not your work. Mitigation: the walkthrough and the coach exist precisely so completeness is not the measure; success criterion 4 (explaining each artifact without opening the tool) is the real test.
+- R9. **No security review has ever been done.** The block file parser reads records, the hand-written JSON parser reads whatever an MCP client sends, and the git module builds a shell command from a stored path; the MCP has write access to every record. All three surfaces were written in one session by the party that would be reviewing them. Mitigation: a review before the tool is used anywhere but this machine. **Not started**, tracked as card C16 and issue I4.
+
 - R8. **Unsigned installer.** The certificate exists but its Azure Trusted Signing credentials are not on this machine, so local builds are `--dev` and Windows warns on first run. Mitigation (D34): sign in a GitHub Actions release job, which is what Forge's own CI documentation describes. Until then the installer states it on its first page rather than leaving it to be discovered.
 
 ## 8. Planned artifacts (these double as the tool's screens)

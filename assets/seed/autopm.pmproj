@@ -372,6 +372,27 @@ field board.cards
       value: Backlog
     cell title
       value: Manage a second real project in the tool
+  row c16
+    provenance: specified
+    evidence: "security check is a known not done step" (2026-09-15)
+    cell acceptance
+      value: Each of the three reviewed against injection and malformed input, with findings recorded here whether or not they are acted on.
+    cell blocked
+      value: No
+    cell detail
+      value: Never done. Three surfaces written by hand this session take untrusted input: the block file parser reads records, the JSON parser reads whatever an MCP client sends, and gitlog builds a shell command from a stored path. The MCP also has write access to every record.
+    cell points
+      value: 3
+    cell priority
+      value: High
+    cell ready
+      value: Refined
+    cell ref
+      value: C16
+    cell state
+      value: Backlog
+    cell title
+      value: Security review: parsers, MCP write path, git invocation
 field board.definition_of_done
   provenance: unobjected
   evidence: Drafted by the delivery team 2026-09-15
@@ -1049,6 +1070,23 @@ field issues.issues
       value: windeployqt is run before launching or packaging. Folded into the build steps.
     cell status
       value: Closed
+  row i4
+    provenance: specified
+    evidence: "security check is a known not done step" (2026-09-15)
+    cell issue
+      value: No security review has been done on AutoPM at any point.
+    cell owner
+      value: Nyx
+    cell priority
+      value: High
+    cell raised_on
+      value: 2026-09-15
+    cell ref
+      value: I4
+    cell resolution
+      value: Open. Tracked as risk R9 and card C16.
+    cell status
+      value: Open
 field requirements.assumptions
   provenance: unobjected
   evidence: Drafted by the delivery team 2026-09-15, not yet reviewed
@@ -1450,6 +1488,27 @@ field risks.register
       value: Because the front end of the schedule is aggressive, architecture decisions get made fast, which works against me understanding every field.
     cell status
       value: Watching
+  row r7
+    provenance: specified
+    evidence: "security check is a known not done step" (2026-09-15)
+    cell category
+      value: Technical
+    cell impact
+      value: High
+    cell owner
+      value: Nyx
+    cell probability
+      value: Medium
+    cell ref
+      value: R9
+    cell response
+      value: Run a security review over the parsers, the MCP write path and the git invocation before the tool is used on anything but this machine. Not started.
+    cell response_type
+      value: Mitigate
+    cell risk
+      value: Because the MCP server takes input over stdio, writes to project records, and invokes git through a shell, and because its JSON parser and that git invocation were hand-written in a single session, a defect in either is a defect in something holding write access to the record.
+    cell status
+      value: Open
 field risks.thresholds
   provenance: agreed
   evidence: Agreed with the charter risk posture, 2026-09-15
