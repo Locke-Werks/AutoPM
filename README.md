@@ -6,9 +6,9 @@
 
 **Learn the project manager's job by doing it, one question at a time.**
 
-[![licence](https://img.shields.io/badge/licence-all%20rights%20reserved-ff2d95?style=flat-square)](LICENSE)
-[![platform](https://img.shields.io/badge/platform-Windows%2011-ff2d95?style=flat-square)](#requirements)
-[![stack](https://img.shields.io/badge/C%2B%2B17-Qt%206.8-ff2d95?style=flat-square)](#requirements)
+[![licence](https://img.shields.io/badge/licence-all%20rights%20reserved-b76bff?style=flat-square)](LICENSE)
+[![platform](https://img.shields.io/badge/platform-Windows%2011-b76bff?style=flat-square)](#requirements)
+[![stack](https://img.shields.io/badge/C%2B%2B17-Qt%206.8-b76bff?style=flat-square)](#requirements)
 
 </div>
 

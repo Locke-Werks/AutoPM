@@ -11,7 +11,7 @@ taskbar. Small sizes get their own pixel-snapped geometry.
 from PIL import Image, ImageDraw
 
 GROUND = (7, 3, 14, 255)      # --void
-MARK = (255, 45, 149, 255)    # the product accent
+MARK = (183, 107, 255, 255)   # the product accent
 
 SIZES = [16, 24, 32, 48, 64, 128, 256]
 

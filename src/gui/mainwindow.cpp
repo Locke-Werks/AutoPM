@@ -344,7 +344,7 @@ void MainWindow::newProject() {
     if (!accepted || name.trimmed().isEmpty()) return;
 
     std::string error;
-    auto record = workspace_.create(name.trimmed().toStdString(), "#ff2d95", error);
+    auto record = workspace_.create(name.trimmed().toStdString(), "#b76bff", error);
     if (!record) {
         QMessageBox::warning(this, "AutoPM", QString::fromStdString(error));
         return;

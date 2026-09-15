@@ -73,6 +73,7 @@ Every entry records where the decision came from, using one of these four source
 | D23 | 09-15 | **The product teaches the role; it does not just record it.** Guided walkthrough, one question at a time, with coaching on the answers | specified | "I want it to walk me through the steps, not just keep track of it for me- it needs to teach me how to be a pm... not be my pm" |
 | D24 | 09-15 | Bundle the three house faces (Chakra Petch, Outfit, Instrument Serif) with the product rather than depending on the machine | specified | "yes get the fonts" |
 | D25 | 09-15 | **Licence: all rights reserved.** Not GPLv3, unlike the other Locke Werks repos | specified | "and all rights" |
+| D26 | 09-15 | **Product accent is violet `#b76bff`**, not pink. Chosen bright rather than the house gradient's `#a020f0`, which fails contrast on the near-black ground and collides with MindTether's `#ae3dea` | specified | "Pink is soooo not the color- lets try... purple" |
 
 ⚠ Your "yes exatly" answered a message that contained P1–P5. P1 and P2 were what the reply echoed ("study guide"), so only they are logged as agreed. P3–P5 are still proposed.
 
@@ -144,3 +145,4 @@ Charter → stakeholder register → requirements + acceptance criteria → scop
 - 09-15 · **Product reframed from recorder to teacher** (D23, CR5): guided walkthrough, per-field coaching, lifecycle order taught rather than enforced
 - 09-15 · M2 built and handed back (`03-handback-m2.md`). Eleven screens, installer builds unsigned. PM acceptance check outstanding; R7 and R8 opened
 - 09-15 · House faces bundled (D24) and licence set to all rights reserved (D25). Installer rebuilt at 11.2 MB
+- 09-15 · Accent changed from pink to violet (D26). Icon, seed record, new-project default and README badges all follow it

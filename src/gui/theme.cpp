@@ -12,7 +12,7 @@
 namespace theme {
 namespace {
 
-QColor g_accent("#ff2d95");
+QColor g_accent("#b76bff");
 QString g_label = "Segoe UI";
 QString g_serif = "Georgia";
 QString g_body  = "Segoe UI";
