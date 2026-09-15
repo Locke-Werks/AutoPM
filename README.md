@@ -111,29 +111,28 @@ project's colour picker.
 
 ## Colour
 
-Every colour comes from the house palette, and hue is spent on one axis:
-**how well-founded a claim is.**
+The six colour values are borrowed from the Locke Werks house palette because
+they are a set that already works on a dark ground. The values only: AutoPM is
+not one of the suite apps and does not inherit that palette's rules about what
+each colour may be used for.
+
+**Status colours are fixed** and mean the same thing in every project:
 
 | | | |
 |---|---|---|
-| House blue | `#3D7DFF` | Solid. Reached, done, specified. |
-| House violet | `#B05CF6` | Agreed. Also the structural colour, and the default accent. |
-| House magenta | `#FF2D95` | Unresolved. Proposed and unanswered, watching. |
-| Ember | `#FF5A2A` | Broken. Missed, blocked, overdue. |
-| Cyan | `#2EE8FF` | Unclaimed. Available as a project accent. |
+| Blue | `#3D7DFF` | Solid. Reached, done, specified. |
+| Ember | `#FF5A2A` | Unresolved. Proposed and unanswered, watching. |
+| Crimson | `#FF1E3C` | Wrong. Missed, blocked, overdue. |
 
-Crimson is reserved across the house for the body's alarm and is not used
-here, including as an accent.
+**The accent is chosen per project**, from all six families including the three
+above, in the project menu or with `--colour`. It lights the room — rail,
+focus, bloom, primary buttons — and is stored in the record, so every project
+keeps its own.
 
-The signal colours above are fixed. The **accent is chosen per project** from
-the five families, in the project menu, and stored in the record. It lights the
-room — rail, focus, bloom, primary buttons — and never renders a verdict about
-an entry.
-
-Surfaces step by lightness only at a fixed hue, hairlines are house violet at
-16% and 34% rather than grey, and the ink tiers are measured against the ground
-rather than asserted: 18:1, 12.9:1, 8.9:1, 7:1, and a 4.8:1 floor below which
-nothing carries meaning.
+Surfaces step by lightness only at a fixed hue, hairlines are tinted rather
+than grey, and the ink tiers carry their measured contrast against the ground:
+18:1, 12.9:1, 8.9:1, 7:1, and a 4.8:1 floor below which nothing carries
+meaning.
 
 ## Type
 

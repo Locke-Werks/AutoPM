@@ -18,25 +18,22 @@ class QWidget;
 
 namespace theme {
 
-// ── The house spectrum ───────────────────────────────────────────────────
+// ── The colour families ──────────────────────────────────────────────────
 //
-// One continuous emissive ramp, blue through violet and magenta, plus two
-// lights that sit off it. AutoPM spends hue on one axis, the same way every
-// app in the house does: here it is how well-founded a claim is. Cool means
-// somebody said it and you can quote them; hot means nobody has answered.
-//
-// Crimson (#FF1E3C) is reserved family-wide for the body's alarm. AutoPM has
-// no business with it and does not use it anywhere, including as a project
-// accent.
+// Values borrowed from the Locke Werks house palette because they are a good
+// set that already works on a dark ground. The values are theirs; what AutoPM
+// does with them is its own. This is not one of the suite apps and none of
+// that suite's rules about reserved colours apply here.
 
-inline QColor houseBlue()    { return QColor("#3D7DFF"); }   // neither warm nor urgent
-inline QColor houseViolet()  { return QColor("#B05CF6"); }   // structural
-inline QColor houseMagenta() { return QColor("#FF2D95"); }   // loudest that is not reserved
-inline QColor ember()        { return QColor("#FF5A2A"); }   // taken here as a signal
+inline QColor houseBlue()    { return QColor("#3D7DFF"); }
+inline QColor houseViolet()  { return QColor("#B05CF6"); }
+inline QColor houseMagenta() { return QColor("#FF2D95"); }
+inline QColor crimson()      { return QColor("#FF1E3C"); }
+inline QColor ember()        { return QColor("#FF5A2A"); }
 inline QColor cyan()         { return QColor("#2EE8FF"); }
 
-// A project accent is chosen from these. Name, colour, and what the house
-// says the colour is for.
+// A project accent is chosen from these: name, colour, and what picking it
+// does to the app.
 struct Family {
     QString name;
     QColor colour;
@@ -46,9 +43,9 @@ const QList<Family>& families();
 
 // ── Ground and structure ─────────────────────────────────────────────────
 //
-// Four surfaces, stepping by lightness only at a fixed hue and saturation. A
+// Four surfaces stepping by lightness only, at one hue and saturation. A
 // surface that shifts hue as it lifts reads as a different material rather
-// than a nearer one. Ground is the house violet-black.
+// than a nearer one, which is why they are derived rather than picked.
 
 inline QColor voidBg()  { return QColor("#07050E"); }   // the room
 inline QColor raised()  { return QColor("#100B20"); }   // rail, help panel, cards
@@ -57,26 +54,27 @@ inline QColor input()   { return QColor("#17112F"); }   // inputs and hover
 inline QColor pressed() { return QColor("#1F163E"); }   // pressed and selected
 inline QColor sunken()  { return input(); }
 
-// Hairlines are tinted, never grey: house violet at 16% and 34%. That is what
-// makes a hairline part of the room instead of a border drawn on top of it.
+// Hairlines are tinted rather than grey, so they read as part of the room
+// instead of a border drawn on top of it.
 inline QColor hairline()       { return QColor(176, 92, 246, 41); }
 inline QColor hairlineStrong() { return QColor(176, 92, 246, 87); }
 
-// Ink, measured rather than asserted, against the ground above.
+// Ink, with its measured contrast against the ground above. Nothing below the
+// floor carries meaning: dimmer than that is decoration.
 inline QColor textPrimary()   { return QColor("#F7EFFC"); }   // 18.0:1
 inline QColor textBody()      { return QColor("#D9C8E8"); }   // 12.9:1
 inline QColor textSecondary() { return QColor("#B9A3CF"); }   //  8.9:1
 inline QColor textLabel()     { return QColor("#A98CC4"); }   //  7.0:1
 inline QColor textFaint()     { return QColor("#8D70A4"); }   //  4.8:1, the floor
 
-// The signal set. Fixed, and never chosen: these are the one axis.
-inline QColor ok()     { return houseBlue(); }      // solid, reached, specified
-inline QColor warn()   { return houseMagenta(); }   // unresolved, proposed, watching
-inline QColor danger() { return ember(); }          // broken, missed, blocked
+// Status. Fixed rather than chosen, so a colour means the same thing in every
+// project: cool is fine, warm wants attention, red is wrong.
+inline QColor ok()     { return houseBlue(); }   // solid, reached, done, specified
+inline QColor warn()   { return ember(); }       // unresolved, proposed, watching
+inline QColor danger() { return crimson(); }     // broken, missed, blocked, overdue
 
-// One accent per project, chosen from families(). It lights the room: nav,
-// focus, the bloom, primary buttons. It never renders a verdict about an
-// entry, which is what the signal set above is for.
+// One accent per project, chosen from families(). It lights the room: the
+// rail, focus, the bloom, primary buttons.
 QColor accent();
 void setAccent(const QColor& colour);
 

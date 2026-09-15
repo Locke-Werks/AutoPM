@@ -154,7 +154,7 @@ QColor provenanceColour(pm::Provenance provenance) {
     switch (provenance) {
         case pm::Provenance::Specified:  return theme::houseBlue();
         case pm::Provenance::Agreed:     return theme::houseViolet();
-        case pm::Provenance::Unobjected: return theme::houseMagenta();
+        case pm::Provenance::Unobjected: return theme::ember();
         case pm::Provenance::Untagged:   break;
     }
     return theme::textFaint();
