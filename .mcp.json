@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "autopm": {
+      "command": "build/Release/autopm-mcp.exe",
+      "args": [],
+      "env": {}
+    }
+  }
+}

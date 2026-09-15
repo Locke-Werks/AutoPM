@@ -20,6 +20,7 @@ struct ProjectSummary {
     std::string phase;
     std::string modified;
     std::string accent;
+    std::string repo;
     std::string path;
 };
 

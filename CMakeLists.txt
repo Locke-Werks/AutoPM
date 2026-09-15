@@ -16,10 +16,33 @@ add_library(autopm_core STATIC
     src/core/blockfile.cpp
     src/core/coach.cpp
     src/core/definition.cpp
+    src/core/gitlog.cpp
     src/core/record.cpp
     src/core/workspace.cpp
 )
 target_include_directories(autopm_core PUBLIC src)
+
+# ── gui ──────────────────────────────────────────────────────────────────
+
+# ── mcp ──────────────────────────────────────────────────────────────────
+# The second face on the same core, following ProjectMan. No Qt: a server that
+# gets spawned once per session should not need a toolkit beside it on disk.
+
+add_executable(autopm_mcp
+    src/mcp/json.cpp
+    src/mcp/main.cpp
+)
+target_link_libraries(autopm_mcp PRIVATE autopm_core)
+set_target_properties(autopm_mcp PROPERTIES OUTPUT_NAME "autopm-mcp")
+if(WIN32)
+    target_link_libraries(autopm_mcp PRIVATE shell32 ole32)
+endif()
+
+add_custom_command(TARGET autopm_mcp POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_SOURCE_DIR}/definitions" "$<TARGET_FILE_DIR:autopm_mcp>/definitions"
+    COMMENT "Staging definitions next to autopm-mcp.exe"
+)
 
 # ── gui ──────────────────────────────────────────────────────────────────
 

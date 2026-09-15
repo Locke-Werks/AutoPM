@@ -93,6 +93,59 @@ milestone diamonds. The WBS draws a tree. Risks and stakeholders draw a
 probability-and-impact grid. Every one of them is a view over the same table
 the grid edits, one toggle away.
 
+## The MCP front end
+
+One core, three faces, following ProjectMan's shape: the window, the core
+itself, and an MCP server. The core is toolkit-free, so `autopm-mcp.exe` is a
+standalone binary with no Qt beside it.
+
+It exists because the record and the conversation were two separate places the
+same decisions got written. A decision made in chat had to be retyped into the
+tool, and usually was not.
+
+| Tool | |
+|---|---|
+| `autopm_projects` | What projects exist and how far through each one is |
+| `autopm_screens` | The fields a project can hold, and what each is for |
+| `autopm_read` | What a record claims, and where each claim came from |
+| `autopm_set` | Write a field, with its provenance |
+| `autopm_add_row` | Add a decision, risk, change, issue, card or lesson |
+| `autopm_update_row` | Move a card, close a risk, answer a change request |
+| `autopm_review` | Run the coach: what is blank, what is thin |
+| `autopm_git_activity` | What was committed in a window, for evidence |
+| `autopm_reconcile` | The board's claims against the commits behind them |
+
+**The provenance rule is enforced, not suggested.** A write claiming something
+was *specified* or *agreed* is refused without evidence:
+
+```
+provenance "specified" needs evidence: the quote and date it rests on.
+Use "unobjected" if you are proposing it.
+```
+
+An agent cannot put words in anybody's mouth through this API.
+
+### Git, for evidence rather than status
+
+ProjectMan already reports git state and is not being replaced. AutoPM reads
+git for two things a record cannot get any other way: pinning an entry to a
+commit so it is checkable by anyone, and holding the board's claims up against
+what was actually committed in each sprint window.
+
+```
+Sprint 1  2026-09-15 to 2026-09-15
+  record: 9 cards done, 35 points
+  git:    8 commits in that window
+```
+
+It never writes, never fetches, and never moves a card. What a difference means
+is the PM's to decide.
+
+### Registering it
+
+`.mcp.json` in this repository points at the build output. Once installed,
+point it at `%LOCALAPPDATA%\Programs\AutoPMutopm-mcp.exe` instead.
+
 ## Nothing is hard-coded
 
 Every screen is generated from a file in `definitions/`. A field's label, type,
