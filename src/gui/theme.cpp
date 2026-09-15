@@ -37,26 +37,25 @@ QString firstAvailable(const QStringList& candidates, const QString& fallback) {
 } // namespace
 
 const QList<Family>& families() {
-    // The spectrum from the house palette sheet, minus the reserved crimson.
-    // Each carries the house's own words for what the colour is for, because
-    // picking one is a decision about what the project's room is, not a
-    // preference about which purple is nicest.
     static const QList<Family> all = {
-        {"House violet", houseViolet(),
-         "Structural. Filaments, orbit lines, hairline tint, focus rings. The default, "
-         "and the one that agrees with the hairlines already in the room."},
-        {"House blue", houseBlue(),
-         "The cool end. Things that are neither warm nor urgent. A project that is "
-         "steady and long-running."},
-        {"House magenta", houseMagenta(),
-         "The loudest thing that is not reserved. A project you want to be unable to "
-         "ignore when it is open."},
+        {"Violet", houseViolet(),
+         "The default. Agrees with the hairlines already in the room, so it reads as "
+         "the quietest of the six."},
+        {"Blue", houseBlue(),
+         "Cool and unhurried. Shares its hue with the colour that marks a solid "
+         "entry, so the whole window leans settled."},
+        {"Magenta", houseMagenta(),
+         "The loudest of the six, and not used for anything else. The strongest "
+         "choice if you want a project to be obvious the moment it is open."},
+        {"Crimson", crimson(),
+         "Shares its hue with the colour that marks something broken. Picking it "
+         "makes the room warm and slightly urgent."},
         {"Ember", ember(),
-         "The hot light at the joints. Taken here as a signal rather than as "
-         "atmosphere, so a project wearing it runs warm."},
+         "Orange. Shares its hue with the colour that marks something unresolved, so "
+         "a project wearing it runs warm."},
         {"Cyan", cyan(),
-         "Pushed well past house blue so the two are not a pair of blues at arm's "
-         "length in the dark. The brightest ink in the house."},
+         "The brightest of the six by a distance, and not used for anything else. "
+         "Pushed well past blue so the two are not a pair at arm's length."},
     };
     return all;
 }

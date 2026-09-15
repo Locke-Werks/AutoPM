@@ -86,9 +86,9 @@ AccentDialog::AccentDialog(const QString& projectName, const QColor& current, QW
     layout->addWidget(new chrome::Eyebrow(projectName, this));
     layout->addWidget(new chrome::Heading("What colour is this project?", 26, this));
     layout->addWidget(chrome::bodyText(
-        "The accent lights the room: the rail, focus, the bloom, primary buttons. It never "
-        "renders a verdict about an entry. Blue, magenta and ember do that, and those do not "
-        "change with the project.",
+        "The accent lights the room: the rail, focus, the bloom, primary buttons. Status "
+        "colours are separate and do not change with it, so blue still means solid, ember "
+        "unresolved and crimson wrong whichever of these you pick.",
         theme::textSecondary(), 13));
 
     auto* swatches = new QList<Swatch*>;   // owned by the dialog through the children
@@ -103,11 +103,6 @@ AccentDialog::AccentDialog(const QString& projectName, const QColor& current, QW
         layout->addWidget(swatch);
     }
     connect(this, &QObject::destroyed, [swatches] { delete swatches; });
-
-    layout->addWidget(chrome::bodyText(
-        "Crimson is not offered. It is reserved across the house for the body's alarm, one "
-        "honest meaning per app, and a project's colour is not that.",
-        theme::textFaint(), 12));
 
     auto* buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
     for (QAbstractButton* button : buttons->buttons()) {
