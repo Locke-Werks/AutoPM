@@ -357,24 +357,24 @@ field board.cards
     cell title
       value: Give the reviewer the charter and book the review
   row c15
-    provenance: specified
-    evidence: "I plan on getting it all done sprint 2" (2026-09-15)
+    provenance: unobjected
+    evidence: Split proposed by the delivery team 2026-09-15 on refining C15. Not approved.
     cell acceptance
-      value: A second project runs charter through closeout in AutoPM.
+      value: SmallHours has a signed-off charter, a stakeholder register, and at least one status report written from the tool while the project was running rather than reconstructed afterwards.
     cell blocked
       value: No
     cell detail
-      value: Which project has not been chosen. That is the refinement this card needs before it can be pulled in.
+      value: The project is SmallHours, chosen 2026-09-15, and its record exists with the repo pointed at the work tree. Managed means the screens are used as the project runs, not filled in once at the end. This is schedule activity A8 and runs to 12 October, so it is not work that closes inside a one-week sprint.
+    cell owner
+      value: Nyx
     cell points
       value: 8
     cell priority
       value: Medium
     cell ready
-      value: Needs refinement
+      value: Refined
     cell ref
       value: C15
-    cell sprint
-      value: Sprint 2
     cell state
       value: Backlog
     cell title
@@ -404,6 +404,31 @@ field board.cards
       value: Ready
     cell title
       value: Security review: parsers, MCP write path, git invocation
+  row c17
+    provenance: unobjected
+    evidence: Split proposed by the delivery team 2026-09-15 on refining C15. Not approved.
+    cell acceptance
+      value: The coach reports nothing blank on SmallHours' Project Charter and Stakeholder Register, and the charter has a sign-off with a date.
+    cell blocked
+      value: No
+    cell detail
+      value: The part of C15 that does fit a week. The charter is nearly answered already; the stakeholder register is untouched.
+    cell owner
+      value: Nyx
+    cell points
+      value: 3
+    cell priority
+      value: High
+    cell ready
+      value: Refined
+    cell ref
+      value: C17
+    cell sprint
+      value: Sprint 2
+    cell state
+      value: Ready
+    cell title
+      value: Get SmallHours through Initiating in AutoPM
 field board.definition_of_done
   provenance: unobjected
   evidence: Drafted by the delivery team 2026-09-15
@@ -1072,6 +1097,21 @@ field issues.decisions
       value: "security review belongs to Archon (the github you asked for review earlier"
     cell ref
       value: D37
+    cell source_state
+      value: specified
+  row d36
+    provenance: specified
+    evidence: "small hours and its in" (2026-09-15)
+    cell affects
+      value: Success criterion 3; C15; schedule activity A8
+    cell decided_on
+      value: 2026-09-15
+    cell decision
+      value: The second real project is SmallHours. Its record is created and pointed at its work tree.
+    cell evidence
+      value: "small hours and its in"
+    cell ref
+      value: D38
     cell source_state
       value: specified
 field issues.issues

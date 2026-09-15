@@ -166,7 +166,11 @@ Progress progressOf(const Screen& screen, const Record& record) {
     for (const Field& field : screen.fields) {
         ++progress.fields;
         const Entry* entry = record.entry(screen.id + "." + field.id);
-        if (entry && !entry->isEmpty()) ++progress.answered;
+        if (!entry || entry->isEmpty()) continue;
+        ++progress.answered;
+        // Only an answered field can be thin. A blank one fails every check it
+        // has, and counting those as thin reports a project nobody has started
+        // as a project full of bad answers.
         progress.notes += static_cast<int>(reviewField(field, entry).size());
     }
     return progress;
