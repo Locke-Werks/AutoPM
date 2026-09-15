@@ -79,7 +79,7 @@ public:
 
         QLinearGradient fill(box.topLeft(), box.bottomLeft());
         fill.setColorAt(0, theme::raised());
-        fill.setColorAt(1, QColor(10, 4, 20));
+        fill.setColorAt(1, theme::voidBg());
         painter->setPen(Qt::NoPen);
         painter->setBrush(fill);
         painter->drawRoundedRect(box, 7, 7);
@@ -234,7 +234,7 @@ BoardView::BoardView(const pm::Field& field, QWidget* parent)
             panel->setStyleSheet(QString("QFrame { background: %1; border: 1px solid %2;"
                                          " border-radius: 10px; }")
                                      .arg(theme::surface().name())
-                                     .arg("rgba(190,120,255,33)"));
+                                     .arg(chrome::hairlineCss()));
             auto* panelLayout = new QVBoxLayout(panel);
             panelLayout->setContentsMargins(9, 12, 9, 10);
             panelLayout->setSpacing(8);

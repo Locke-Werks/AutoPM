@@ -54,7 +54,7 @@ void Card::paintEvent(QPaintEvent*) {
 
     QLinearGradient fill(outer.topLeft(), outer.bottomLeft());
     fill.setColorAt(0, theme::raised());
-    fill.setColorAt(1, QColor(10, 4, 20));
+    fill.setColorAt(1, theme::voidBg());
     painter.setPen(Qt::NoPen);
     painter.setBrush(fill);
     painter.drawRoundedRect(outer, radius, radius);
@@ -92,11 +92,6 @@ Heading::Heading(const QString& text, int pixelSize, QWidget* parent) : QLabel(t
     palette.setColor(QPalette::WindowText, theme::textPrimary());
     setPalette(palette);
     setWordWrap(true);
-
-    QSizePolicy policy = sizePolicy();
-    policy.setHeightForWidth(true);
-    policy.setVerticalPolicy(QSizePolicy::MinimumExpanding);
-    setSizePolicy(policy);
 }
 
 // ── Badge ────────────────────────────────────────────────────────────────
@@ -157,9 +152,9 @@ QString provenanceName(pm::Provenance provenance) {
 
 QColor provenanceColour(pm::Provenance provenance) {
     switch (provenance) {
-        case pm::Provenance::Specified:  return theme::ok();
-        case pm::Provenance::Agreed:     return theme::accent();
-        case pm::Provenance::Unobjected: return theme::warn();
+        case pm::Provenance::Specified:  return theme::houseBlue();
+        case pm::Provenance::Agreed:     return theme::houseViolet();
+        case pm::Provenance::Unobjected: return theme::houseMagenta();
         case pm::Provenance::Untagged:   break;
     }
     return theme::textFaint();
@@ -279,23 +274,21 @@ QLabel* bodyText(const QString& text, const QColor& colour, int pixelSize) {
     l->setFont(theme::bodyFont(pixelSize));
     l->setWordWrap(true);
     l->setTextInteractionFlags(Qt::TextSelectableByMouse);
-
-    // Wrapped text has to declare that its height follows from its width, or
-    // the layout measures it at one width and draws it at another.
-    QSizePolicy policy = l->sizePolicy();
-    policy.setHeightForWidth(true);
-    policy.setVerticalPolicy(QSizePolicy::MinimumExpanding);
-    l->setSizePolicy(policy);
     QPalette palette = l->palette();
     palette.setColor(QPalette::WindowText, colour);
     l->setPalette(palette);
     return l;
 }
 
+QString hairlineCss(int alpha) {
+    const QColor c = theme::hairline();
+    return QString("rgba(%1,%2,%3,%4)").arg(c.red()).arg(c.green()).arg(c.blue()).arg(alpha);
+}
+
 QFrame* rule(QWidget* parent) {
     auto* line = new QFrame(parent);
     line->setFixedHeight(1);
-    line->setStyleSheet(QString("background: rgba(190,120,255,33);"));
+    line->setStyleSheet("background: " + hairlineCss() + ";");
     return line;
 }
 

@@ -105,6 +105,10 @@ QLabel* bodyText(const QString& text, const QColor& colour = theme::textSecondar
                  int pixelSize = 14);
 QFrame* rule(QWidget* parent = nullptr);
 
+// The hairline as a style sheet colour, so widgets that need it in a sheet do
+// not restate the numbers.
+QString hairlineCss(int alpha = 41);
+
 QString provenanceName(pm::Provenance provenance);
 QColor provenanceColour(pm::Provenance provenance);
 

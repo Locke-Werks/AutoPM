@@ -11,31 +11,72 @@
 
 #include <QColor>
 #include <QFont>
+#include <QList>
 #include <QString>
 
 class QWidget;
 
 namespace theme {
 
-// Ground and structure. These never change with the project accent.
-inline QColor voidBg()    { return QColor("#07030e"); }
-inline QColor surface()   { return QColor("#0d0518"); }
-inline QColor raised()    { return QColor("#150a24"); }
-inline QColor sunken()    { return QColor("#0a0414"); }
-inline QColor hairline()  { return QColor(190, 120, 255, 33); }
-inline QColor hairlineStrong() { return QColor(190, 120, 255, 66); }
+// ── The house spectrum ───────────────────────────────────────────────────
+//
+// One continuous emissive ramp, blue through violet and magenta, plus two
+// lights that sit off it. AutoPM spends hue on one axis, the same way every
+// app in the house does: here it is how well-founded a claim is. Cool means
+// somebody said it and you can quote them; hot means nobody has answered.
+//
+// Crimson (#FF1E3C) is reserved family-wide for the body's alarm. AutoPM has
+// no business with it and does not use it anywhere, including as a project
+// accent.
 
-inline QColor textPrimary()   { return QColor("#f7effc"); }
-inline QColor textBody()      { return QColor("#d9c8e8"); }
-inline QColor textSecondary() { return QColor("#b9a3cf"); }
-inline QColor textLabel()     { return QColor("#a98cc4"); }
-inline QColor textFaint()     { return QColor("#7a6690"); }
+inline QColor houseBlue()    { return QColor("#3D7DFF"); }   // neither warm nor urgent
+inline QColor houseViolet()  { return QColor("#B05CF6"); }   // structural
+inline QColor houseMagenta() { return QColor("#FF2D95"); }   // loudest that is not reserved
+inline QColor ember()        { return QColor("#FF5A2A"); }   // taken here as a signal
+inline QColor cyan()         { return QColor("#2EE8FF"); }
 
-inline QColor ok()     { return QColor("#8fe3b0"); }
-inline QColor warn()   { return QColor("#ffc93c"); }
-inline QColor danger() { return QColor("#ff7d94"); }
+// A project accent is chosen from these. Name, colour, and what the house
+// says the colour is for.
+struct Family {
+    QString name;
+    QColor colour;
+    QString meaning;
+};
+const QList<Family>& families();
 
-// One accent per project. Set once when a record is opened.
+// ── Ground and structure ─────────────────────────────────────────────────
+//
+// Four surfaces, stepping by lightness only at a fixed hue and saturation. A
+// surface that shifts hue as it lifts reads as a different material rather
+// than a nearer one. Ground is the house violet-black.
+
+inline QColor voidBg()  { return QColor("#07050E"); }   // the room
+inline QColor raised()  { return QColor("#100B20"); }   // rail, help panel, cards
+inline QColor surface() { return raised(); }
+inline QColor input()   { return QColor("#17112F"); }   // inputs and hover
+inline QColor pressed() { return QColor("#1F163E"); }   // pressed and selected
+inline QColor sunken()  { return input(); }
+
+// Hairlines are tinted, never grey: house violet at 16% and 34%. That is what
+// makes a hairline part of the room instead of a border drawn on top of it.
+inline QColor hairline()       { return QColor(176, 92, 246, 41); }
+inline QColor hairlineStrong() { return QColor(176, 92, 246, 87); }
+
+// Ink, measured rather than asserted, against the ground above.
+inline QColor textPrimary()   { return QColor("#F7EFFC"); }   // 18.0:1
+inline QColor textBody()      { return QColor("#D9C8E8"); }   // 12.9:1
+inline QColor textSecondary() { return QColor("#B9A3CF"); }   //  8.9:1
+inline QColor textLabel()     { return QColor("#A98CC4"); }   //  7.0:1
+inline QColor textFaint()     { return QColor("#8D70A4"); }   //  4.8:1, the floor
+
+// The signal set. Fixed, and never chosen: these are the one axis.
+inline QColor ok()     { return houseBlue(); }      // solid, reached, specified
+inline QColor warn()   { return houseMagenta(); }   // unresolved, proposed, watching
+inline QColor danger() { return ember(); }          // broken, missed, blocked
+
+// One accent per project, chosen from families(). It lights the room: nav,
+// focus, the bloom, primary buttons. It never renders a verdict about an
+// entry, which is what the signal set above is for.
 QColor accent();
 void setAccent(const QColor& colour);
 

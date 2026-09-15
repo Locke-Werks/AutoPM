@@ -10,8 +10,8 @@ taskbar. Small sizes get their own pixel-snapped geometry.
 
 from PIL import Image, ImageDraw
 
-GROUND = (7, 3, 14, 255)      # --void
-MARK = (183, 107, 255, 255)   # the product accent
+GROUND = (7, 5, 14, 255)      # house violet-black
+MARK = (176, 92, 246, 255)    # house violet
 
 SIZES = [16, 24, 32, 48, 64, 128, 256]
 

@@ -29,6 +29,7 @@ qt_standard_project_setup()
 qt_add_executable(autopm WIN32
     src/gui/main.cpp
     src/gui/theme.cpp
+    src/gui/accentdialog.cpp
     src/gui/chrome.cpp
     src/gui/helppanel.cpp
     src/gui/fieldeditors.cpp

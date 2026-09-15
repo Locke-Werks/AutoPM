@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 
+#include "accentdialog.h"
 #include "chrome.h"
 #include "dashboard.h"
 #include "guided.h"
@@ -55,7 +56,7 @@ protected:
             painter.drawRoundedRect(QRectF(0, 6, 2.5, height() - 12), 1.2, 1.2);
         } else if (hot) {
             painter.setPen(Qt::NoPen);
-            painter.setBrush(QColor(190, 120, 255, 14));
+            painter.setBrush(theme::accentAt(16));
             painter.drawRoundedRect(QRectF(6, 1, width() - 8, height() - 2), 5, 5);
         }
 
@@ -178,9 +179,9 @@ void MainWindow::buildChrome() {
 
     statusBar()->addWidget(status_, 1);
     statusBar()->addPermanentWidget(saveButton_);
-    statusBar()->setStyleSheet(QString("QStatusBar { background: %1; border-top: 1px solid "
-                                       "rgba(190,120,255,33); } QStatusBar::item { border: 0; }")
-                                   .arg(theme::surface().name()));
+    statusBar()->setStyleSheet(QString("QStatusBar { background: %1; border-top: 1px solid %2; }"
+                                       " QStatusBar::item { border: 0; }")
+                                   .arg(theme::surface().name(), chrome::hairlineCss()));
 
     new QShortcut(QKeySequence::Save, this, [this] { save(); });
     new QShortcut(QKeySequence::New, this, [this] { newProject(); });
@@ -367,6 +368,7 @@ void MainWindow::switchProject() {
         });
     }
     menu.addSeparator();
+    connect(menu.addAction("Project colour…"), &QAction::triggered, this, &MainWindow::chooseAccent);
     connect(menu.addAction("New project…"), &QAction::triggered, this, &MainWindow::newProject);
     connect(menu.addAction("Open the records folder"), &QAction::triggered, this,
             &MainWindow::openRecordsFolder);
@@ -413,6 +415,24 @@ bool MainWindow::confirmDiscard() {
     if (answer == QMessageBox::Cancel) return false;
     if (answer == QMessageBox::Save) save();
     return true;
+}
+
+void MainWindow::chooseAccent() {
+    if (!record_) return;
+    AccentDialog dialog(QString::fromStdString(record_->name), theme::accent(), this);
+    if (dialog.exec() != QDialog::Accepted) return;
+    if (dialog.chosen() == theme::accent()) return;
+
+    record_->accent = dialog.chosen().name().toStdString();
+    record_->markDirty();
+    theme::setAccent(dialog.chosen());
+    qApp->setStyleSheet(theme::styleSheet());
+
+    // The accent is painted, not style-sheeted, in most places, so the pages
+    // are rebuilt rather than restyled.
+    rebuildPages();
+    buildRail();
+    refreshStatus();
 }
 
 void MainWindow::openRecordsFolder() {
