@@ -1,0 +1,8 @@
+build/
+out/
+*.user
+.vs/
+CMakeSettings.json
+*.tmp
+dist/
+assets/fonts/*.ttf
