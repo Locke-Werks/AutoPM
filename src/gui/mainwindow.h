@@ -24,6 +24,8 @@ public:
                QWidget* parent = nullptr);
 
     bool openProject(const QString& path);
+    // By name or id, for the command line. False when there is no such project.
+    bool openProjectNamed(const QString& wanted);
     void showScreenById(const QString& screenId);
     void startWalkthrough(const QString& screenId = QString());
     void chooseAccent();

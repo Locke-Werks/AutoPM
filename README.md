@@ -200,9 +200,13 @@ cmake --build build --config Release
 Run `windeployqt.exe --release build/Release/AutoPM.exe` once before launching:
 a bare Qt executable will not start.
 
-`AutoPM.exe --screen <id>` opens straight onto one screen and
-`AutoPM.exe --walk [id]` opens the walkthrough, and `--colour` opens the
-project's colour picker.
+`--project <name>` picks which record to open, `--screen <id>` opens straight
+onto one screen, `--walk [id]` opens the walkthrough, and `--colour` opens the
+project's colour picker. They combine:
+
+```bash
+AutoPM.exe --project SmallHours --walk charter
+```
 
 ## Colour
 
