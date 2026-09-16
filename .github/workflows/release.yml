@@ -8,7 +8,7 @@ env:
   # Pinned, so a Forge release cannot change what this job produces without
   # somebody choosing it. v0.4.0 or later is required for the build-time checks
   # on hooks and options.
-  FORGE_VERSION: v0.4.0
+  FORGE_VERSION: v0.4.1
 
 jobs:
   release:
