@@ -158,6 +158,20 @@ json::Value listTools() {
         schema({}, {})));
 
     tools.push_back(tool(
+        "autopm_create",
+        "Start a new project. Writes the record and nothing else: the charter is then answered "
+        "field by field like any other, because a project nobody has chartered is not a project. "
+        "The accent is the project's own colour and is best taken from the house families: "
+        "#B05CF6 violet, #3D7DFF blue, #FF2D95 magenta, #FF1E3C crimson, #FF5A2A ember, "
+        "#2EE8FF cyan. Blue, ember and crimson also carry status meanings; magenta and cyan do "
+        "not.",
+        schema({{"name", param("string", "What the project is called.")},
+                {"accent", param("string", "#rrggbb. Defaults to house violet.")},
+                {"repo", param("string", "Path to the work tree whose history documents it. "
+                                         "Optional, and read only ever for evidence.")}},
+               {"name"})));
+
+    tools.push_back(tool(
         "autopm_screens",
         "The screens and fields a project can hold, with what each field is for and what a good "
         "answer looks like. Read this before writing anything, so an entry lands in the field "
@@ -270,6 +284,38 @@ json::Value callProjects() {
         if (record && !record->repo.empty()) out += "  repo " + record->repo + "\n";
         out += "\n";
     }
+    return textResult(out);
+}
+
+json::Value callCreate(const json::Value& args) {
+    const std::string name = args.str("name");
+    if (name.empty()) return textResult("a project needs a name.", true);
+    for (const pm::ProjectSummary& summary : g_workspace.list()) {
+        if (summary.name == name)
+            return textResult("there is already a project called \"" + name + "\".", true);
+    }
+
+    std::string accent = args.str("accent", "#B05CF6");
+    if (accent.size() != 7 || accent[0] != '#')
+        return textResult("accent must be #rrggbb. Got \"" + accent + "\".", true);
+
+    const std::string repo = args.str("repo");
+    if (!repo.empty() && !pm::Git::isRepository(repo))
+        return textResult(repo + " is not a git work tree.", true);
+
+    std::string error;
+    auto record = g_workspace.create(name, accent, error);
+    if (!record) return textResult(error, true);
+    if (!repo.empty()) {
+        record->repo = repo;
+        if (!record->save(record->path, error)) return textResult(error, true);
+    }
+
+    std::string out = "Created " + record->name + " (id " + record->id + ") at " +
+                      record->path + ".\nPhase " + record->phase + ", accent " + accent + ".\n";
+    if (!repo.empty()) out += "Repo " + repo + ".\n";
+    out += "\nEvery field is blank. The charter comes first: autopm_screens charter lists "
+           "what it asks and why.\n";
     return textResult(out);
 }
 
@@ -599,6 +645,7 @@ json::Value callReconcile(const json::Value& args) {
 
 json::Value dispatch(const std::string& name, const json::Value& args) {
     if (name == "autopm_projects")     return callProjects();
+    if (name == "autopm_create")       return callCreate(args);
     if (name == "autopm_screens")      return callScreens(args);
     if (name == "autopm_read")         return callRead(args);
     if (name == "autopm_set")          return callSet(args);
