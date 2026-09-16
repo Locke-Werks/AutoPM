@@ -35,10 +35,11 @@ struct Column {
 // says when the answer does not meet it. These are coaching, never blocking:
 // a PM can always move on, they just get told what is thin about the answer.
 struct Check {
-    enum class Kind { Filled, MinWords, MinRows, EveryRowHas, MentionsDate, MentionsAny };
+    enum class Kind { Filled, MinWords, MinRows, EveryRowHas, MentionsDate, MentionsAny, Covers };
     Kind kind = Kind::Filled;
     int number = 0;            // MinWords, MinRows
-    std::string argument;      // EveryRowHas: column id. MentionsAny: comma list
+    std::string argument;      // EveryRowHas: column id. MentionsAny: comma list.
+                               // Covers: the "screen.field" whose rows must each be answered
     std::string message;
 };
 

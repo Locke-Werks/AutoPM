@@ -53,6 +53,8 @@ field acceptance
 field outcome
   prompt: Did it work? Answer each success criterion from the charter.
   check column:met: An unanswered criterion is a criterion you are avoiding. An honest 'no' is worth more here than a generous 'yes'.
+  check column:traces: Say which charter criterion this row answers. A closeout that answers criteria it invented is not a closeout.
+  check covers:charter.success_criteria: A success criterion with no row here is a criterion you are avoiding. An honest no is worth more than a missing line.
   label: Outcome against success criteria
   type: table
   origin: standard
@@ -74,6 +76,10 @@ field outcome
     label: Success criterion
     type: text
     width: 5
+  column traces
+    label: Answers
+    type: line
+    width: 2
   column met
     label: Met
     type: choice
@@ -83,6 +89,51 @@ field outcome
     label: Evidence
     type: text
     width: 5
+
+field benefits_realized
+  prompt: For each benefit the business case promised: has it shown up yet?
+  check column:state: An unanswered benefit is the one the project was actually for. Say yes, no, or too early.
+  label: Benefits against the business case
+  type: table
+  origin: standard
+  view: log
+  title_column: benefit
+  tone_column: state
+  source: |
+    The benefits management plan, measured at closure. 4.7 confirms the
+    deliverables were accepted; the benefits owner confirms, later, whether they
+    were worth accepting.
+  why: |
+    The field above answers the charter. This one answers the business case, and
+    the two come apart more often than anybody expects: a project that met every
+    success criterion and produced no benefit is the most common expensive
+    outcome in project management.
+
+    "Too early to say" is a real answer here and is the honest one for most
+    benefits on the day a project closes. What is not acceptable is leaving the
+    row out.
+  if_blank: |
+    The project is judged only on whether it did what it said, and the reason it
+    was funded goes unexamined.
+  example: |
+    B1 | Can explain each artifact unaided | Too early | Retest 2026-11-01 | the sponsor
+  column benefit
+    label: Benefit
+    type: text
+    width: 5
+  column state
+    label: Realized
+    type: choice
+    options: Yes=ok, Partly=warn, No=danger, Too early=faint
+    width: 2
+  column evidence
+    label: Evidence or when to recheck
+    type: text
+    width: 4
+  column owner
+    label: Owner from here
+    type: line
+    width: 2
 
 field lessons
   prompt: What would you do differently, and what worked well enough to repeat?

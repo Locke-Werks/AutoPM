@@ -427,7 +427,7 @@ json::Value callSet(const json::Value& args) {
     if (!saveProject(record, error)) return textResult(error, true);
 
     std::string out = "Wrote " + key + " [" + provenance + "].\n";
-    const std::vector<std::string> notes = pm::reviewField(*field, &entry);
+    const std::vector<std::string> notes = pm::reviewField(*field, &entry, record.get());
     for (const std::string& note : notes) out += "Coach: " + note + "\n";
     return textResult(out);
 }
@@ -483,7 +483,7 @@ json::Value callAddRow(const json::Value& args) {
     if (!saveProject(record, error)) return textResult(error, true);
 
     std::string out = "Added row " + row.id + " to " + key + " [" + provenance + "].\n";
-    for (const std::string& note : pm::reviewField(*field, record->entry(key)))
+    for (const std::string& note : pm::reviewField(*field, record->entry(key), record.get()))
         out += "Coach: " + note + "\n";
     return textResult(out);
 }
@@ -545,7 +545,7 @@ json::Value callReview(const json::Value& args) {
                 ++blank;
                 continue;
             }
-            for (const std::string& note : pm::reviewField(field, entry)) {
+            for (const std::string& note : pm::reviewField(field, entry, record.get())) {
                 section += "  " + key + "  " + note + "\n";
                 ++thin;
             }

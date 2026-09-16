@@ -1,0 +1,141 @@
+# Quality Management — Planning
+#
+# Process Groups: A Practice Guide, 8.1 Plan Quality Management.
+#
+# Acceptance criteria say what a deliverable must do, and they live on the Scope
+# screen. The definition of done says when a card stops moving, and it lives on
+# the Board. Neither says how well the work has to be built, or how anybody
+# would demonstrate it. That is what this screen is for.
+
+screen: quality
+title: Quality Management
+phase: Planning
+process: 8.1 Plan Quality Management
+order: 45
+requires: scope
+teaches: |
+  The difference between "it does what we said" and "it is built well enough",
+  and why the second one has to be written down before the work starts. By the
+  end you should be able to say what a quality standard is, how it differs from
+  an acceptance criterion, and why quality is planned rather than inspected in
+  at the end.
+before: |
+  The scope statement, because a standard is a standard for something. You
+  cannot say how well the work has to be done before you have said what the
+  work is.
+after: |
+  The board and the definition of done, which are where a standard stops being
+  a statement and starts being something a piece of work is held to.
+intro: |
+  Quality is the cheapest thing to plan and the most expensive thing to retrofit.
+  Three ideas separate here and they get confused constantly.
+
+  An acceptance criterion is what the deliverable must do. A quality standard is
+  how well it must be built. A definition of done is when one piece of work
+  stops moving. The first is the sponsor's, the second is the team's, and the
+  third is the board's.
+source: |
+  Process Groups: A Practice Guide (PMI, 2022), process 8.1 Plan Quality
+  Management, in the Planning process group. Its output is the quality
+  management plan: the standards the project will be held to, the metrics that
+  demonstrate compliance, and the activities that check them.
+
+  8.2 Manage Quality and 8.3 Control Quality are the doing and the checking.
+  This screen is the planning, because a standard agreed after the work is an
+  opinion about somebody else's finished deliverable.
+
+field standard
+  prompt: What standard does the work have to meet, beyond somebody accepting it?
+  check words>=10: Name the standard and how it is checked. "High quality" is a wish; "builds clean at /W4 with no new warnings" is a standard.
+  label: Quality standard
+  type: text
+  origin: standard
+  source: |
+    8.1 Plan Quality Management, output: the quality management plan, which
+    states the standards the project will be held to and how compliance is
+    demonstrated.
+  why: |
+    Acceptance criteria say what the deliverable must do. A quality standard
+    says how well, and the difference is what stops "it works" and "it is
+    finished" from being treated as the same claim.
+
+    The test of a good one is whether two people could disagree about it. If
+    they could, it is not a standard yet.
+  if_blank: |
+    Quality is whatever the person accepting it happened to notice, which means
+    it varies with how tired they were.
+  example: |
+    Builds clean at /W4. Core changes ship with tests. Every field's help panel
+    written before the field is called done.
+
+field metrics
+  prompt: What gets measured to show the standard is being met, and what is the threshold?
+  check rows>=2: One metric is an anecdote. Name at least two, each with a number somebody could check.
+  check column:metric: Every row needs the thing being measured.
+  check column:threshold: A metric with no threshold cannot be passed or failed. Say what the number has to be.
+  label: Quality metrics
+  type: table
+  origin: standard
+  view: log
+  title_column: metric
+  tone_column: state
+  source: |
+    8.1 Plan Quality Management, output: the quality metrics, which describe
+    what is measured and how 8.3 Control Quality measures it.
+  why: |
+    A standard with no metric is a sentence nobody can be held to. The metric is
+    what turns it into something that can be passed or failed on a given day.
+
+    Keep the list short. A project measuring fifteen things is measuring none of
+    them, because nobody looks at fifteen numbers.
+  if_blank: |
+    The standard above cannot be demonstrated, so it is enforced by whoever
+    remembers it and only when they remember it.
+  example: |
+    Q1 | Compiler warnings on the core | 0 new at /W4 | Every build | Met
+  column ref
+    label: ID
+    type: line
+    width: 1
+  column metric
+    label: What is measured
+    type: text
+    width: 4
+  column threshold
+    label: Threshold
+    type: line
+    width: 2
+  column checked
+    label: How often
+    type: line
+    width: 2
+  column state
+    label: State
+    type: choice
+    options: Met=ok, At risk=warn, Not met=danger, Not measured yet=faint
+    width: 2
+
+field assurance
+  prompt: Who checks that the standard is actually being followed, and when?
+  check filled: A standard nobody audits is a standard nobody follows. Say who looks and at what point.
+  label: How compliance is checked
+  type: text
+  origin: standard
+  source: |
+    8.2 Manage Quality: the assurance half, which audits whether the processes
+    being used will produce work that meets the standard, as distinct from 8.3
+    Control Quality, which inspects the deliverables themselves.
+  why: |
+    Assurance looks at the way the work is done; control looks at what came out.
+    Both are needed and people conflate them: inspecting every deliverable while
+    never asking whether the process guarantees anything is how teams find the
+    same defect twenty times.
+
+    On a small project this is one sentence and one person. Write it anyway,
+    because the alternative is that it is nobody.
+  if_blank: |
+    Nothing connects the standard to the work. It is stated once and then held
+    to only when somebody happens to care.
+  example: |
+    CI runs the core tests and the icon check on every push. The sponsor reads
+    the help panel of any field that changed before calling it done.
