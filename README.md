@@ -248,11 +248,17 @@ libraries (LGPLv3) and the three fonts (SIL Open Font License 1.1).
 
 ## Source basis
 
-Field lists and process numbers follow the PMBOK Guide, 6th edition, which
-still carries the prescriptive artifact contents later editions moved away
-from. The sprint board comes from Kanban practice and the Agile Practice Guide
-published alongside it. Fields marked **your own** in the app are not from the
-standard.
+Field lists and process numbers follow *Process Groups: A Practice Guide*
+(PMI, 2022), which reproduces the 49 processes and their artifact contents.
+Those contents came from the PMBOK Guide 6th edition, which PMI retired in
+2022: the 7th edition replaced the processes with principles, and the 8th,
+published in 2025, reorganizes the same ground into focus areas and performance
+domains. Neither carries the prescriptive content lists these fields are built
+from, so the practice guide is the citation that can still be checked.
+
+The sprint board comes from Kanban practice and the Agile Practice Guide
+published alongside the 6th edition. Fields marked **your own** in the app are
+not from the standard.
 
 ## Project documentation
 

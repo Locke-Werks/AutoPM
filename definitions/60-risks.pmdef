@@ -1,6 +1,6 @@
 # Risk Register — Planning
 #
-# PMBOK Guide 6th ed., 11.2 Identify Risks, 11.3 Perform Qualitative Risk
+# Process Groups: A Practice Guide, 11.2 Identify Risks, 11.3 Perform Qualitative Risk
 # Analysis, 11.5 Plan Risk Responses.
 
 screen: risks
@@ -28,7 +28,7 @@ intro: |
   Risks are scored by probability and impact, and each one gets an owner and a
   planned response. A register without owners and responses is a worry list.
 source: |
-  PMBOK Guide, 6th ed., Project Risk Management: 11.2 Identify Risks (output:
+  Process Groups: A Practice Guide (PMI, 2022), Project Risk Management: 11.2 Identify Risks (output:
   the risk register), 11.3 Perform Qualitative Risk Analysis (probability and
   impact assessment) and 11.5 Plan Risk Responses.
 

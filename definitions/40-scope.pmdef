@@ -1,6 +1,6 @@
 # Scope statement and WBS — Planning
 #
-# PMBOK Guide 6th ed., 5.3 Define Scope and 5.4 Create WBS.
+# Process Groups: A Practice Guide, 5.3 Define Scope and 5.4 Create WBS.
 
 screen: scope
 title: Scope and WBS
@@ -28,7 +28,7 @@ intro: |
   The WBS decomposes deliverables, not activities. Each item is a noun: a thing
   that will exist when the work is done.
 source: |
-  PMBOK Guide, 6th ed., processes 5.3 Define Scope (output: the project scope
+  Process Groups: A Practice Guide (PMI, 2022), processes 5.3 Define Scope (output: the project scope
   statement) and 5.4 Create WBS (outputs: the WBS and the WBS dictionary), both
   in the Planning process group.
 

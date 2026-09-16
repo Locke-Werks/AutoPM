@@ -1,6 +1,6 @@
 # Stakeholder Register — Initiating
 #
-# PMBOK Guide 6th ed., 13.1 Identify Stakeholders. Engagement levels come from
+# Process Groups: A Practice Guide, 13.1 Identify Stakeholders. Engagement levels come from
 # the Stakeholder Engagement Assessment Matrix used in 13.2.
 
 screen: stakeholders
@@ -29,7 +29,7 @@ intro: |
 
   The gap between current and desired engagement is the work.
 source: |
-  PMBOK Guide, 6th ed., process 13.1 Identify Stakeholders, in the Initiating
+  Process Groups: A Practice Guide (PMI, 2022), process 13.1 Identify Stakeholders, in the Initiating
   process group. The engagement levels come from the Stakeholder Engagement
   Assessment Matrix used in 13.2 Plan Stakeholder Engagement.
 

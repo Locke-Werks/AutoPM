@@ -1,6 +1,6 @@
 # Change Log — Monitoring and Controlling
 #
-# PMBOK Guide 6th ed., 4.6 Perform Integrated Change Control.
+# Process Groups: A Practice Guide, 4.6 Perform Integrated Change Control.
 
 screen: changes
 title: Change Log
@@ -27,7 +27,7 @@ intro: |
   The log is the record of that. Its value is that it makes the cost of change
   visible: five approved changes explain a missed date better than any excuse.
 source: |
-  PMBOK Guide, 6th ed., process 4.6 Perform Integrated Change Control, in the
+  Process Groups: A Practice Guide (PMI, 2022), process 4.6 Perform Integrated Change Control, in the
   Monitoring and Controlling process group. The change log is an output, and
   approved change requests are inputs to the executing processes.
 

@@ -1,6 +1,6 @@
 # Schedule — Planning
 #
-# PMBOK Guide 6th ed., 6.2 Define Activities through 6.5 Develop Schedule.
+# Process Groups: A Practice Guide, 6.2 Define Activities through 6.5 Develop Schedule.
 #
 # The timeline view draws the dates you enter. It does not calculate them:
 # scheduling engine math (critical path, resource leveling, float) is out of
@@ -31,7 +31,7 @@ intro: |
   This screen records the schedule and draws it. It deliberately does not
   compute it: the charter puts scheduling-engine math out of scope.
 source: |
-  PMBOK Guide, 6th ed., Project Schedule Management: 6.2 Define Activities,
+  Process Groups: A Practice Guide (PMI, 2022), Project Schedule Management: 6.2 Define Activities,
   6.3 Sequence Activities, 6.4 Estimate Activity Durations and 6.5 Develop
   Schedule, all in the Planning process group.
 

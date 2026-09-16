@@ -1,6 +1,6 @@
 # Closeout — Closing
 #
-# PMBOK Guide 6th ed., 4.7 Close Project or Phase.
+# Process Groups: A Practice Guide, 4.7 Close Project or Phase.
 
 screen: closeout
 title: Closeout
@@ -26,7 +26,7 @@ intro: |
   Most personal projects never reach this screen. They fade out, which is why
   nothing is ever learned from them.
 source: |
-  PMBOK Guide, 6th ed., process 4.7 Close Project or Phase, the only process in
+  Process Groups: A Practice Guide (PMI, 2022), process 4.7 Close Project or Phase, the only process in
   the Closing process group. Formal acceptance comes from 5.5 Validate Scope;
   lessons learned are collected throughout and finalized here into the lessons
   learned repository.
