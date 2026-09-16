@@ -1,6 +1,6 @@
 # Issue Log and Decision Log — Monitoring and Controlling
 #
-# The issue log is PMBOK Guide 6th ed., 4.3 Direct and Manage Project Work.
+# The issue log is Process Groups: A Practice Guide, 4.3 Direct and Manage Project Work.
 # The decision log with its provenance states is not in the standard: it is
 # Nyx's own rule, from 2026-08-27.
 
@@ -30,7 +30,7 @@ intro: |
   The decision log underneath is not from the standard. It exists because a
   decision record is only trustworthy if every entry shows where it came from.
 source: |
-  Issue log: PMBOK Guide, 6th ed., 4.3 Direct and Manage Project Work (output),
+  Issue log: Process Groups: A Practice Guide (PMI, 2022), 4.3 Direct and Manage Project Work (output),
   maintained through 4.5 Monitor and Control Project Work.
 
   Decision log with source states: your own, from your 2026-08-27 rule about

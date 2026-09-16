@@ -1,6 +1,6 @@
 # Requirements — Planning
 #
-# PMBOK Guide 6th ed., 5.2 Collect Requirements and 5.1 Plan Scope Management.
+# Process Groups: A Practice Guide, 5.2 Collect Requirements and 5.1 Plan Scope Management.
 # The table is a requirements traceability matrix in miniature.
 
 screen: requirements
@@ -30,7 +30,7 @@ intro: |
   Each requirement carries its own acceptance criteria, because a requirement
   nobody can test is an opinion.
 source: |
-  PMBOK Guide, 6th ed., process 5.2 Collect Requirements, in the Planning
+  Process Groups: A Practice Guide (PMI, 2022), process 5.2 Collect Requirements, in the Planning
   process group. Outputs: the requirements documentation and the requirements
   traceability matrix, which is what the table below is.
 

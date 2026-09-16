@@ -1,6 +1,6 @@
 # Project Charter — Initiating
 #
-# Field list follows PMBOK Guide 6th ed., process 4.1 Develop Project Charter.
+# Field list follows Process Groups: A Practice Guide, process 4.1 Develop Project Charter.
 # Origin "yours" marks a field that is not in the standard.
 #
 # This file is the study guide. Edit the wording here and the app changes with
@@ -33,10 +33,17 @@ intro: |
   Nothing downstream — requirements, schedule, risks — should be started until
   the sponsor signs it.
 source: |
-  PMBOK Guide, 6th ed., process 4.1 Develop Project Charter, in the Initiating
-  process group. The field list below follows that process's charter contents.
-  Later editions (7th onward) teach principles rather than fixed lists; this
-  list is still the recognized checklist.
+  Process Groups: A Practice Guide (PMI, 2022), process 4.1 Develop Project
+  Charter, in the Initiating process group. The field list below follows that
+  process's charter contents.
+
+  That guide carries forward the 49 processes and their artifact contents from
+  the PMBOK Guide 6th edition, which PMI retired in 2022. The 7th edition
+  replaced the processes with principles; the 8th, published in 2025,
+  reorganizes the same ground into focus areas and performance domains. Neither
+  carries the prescriptive content lists these fields come from, which is why
+  the practice guide is cited here. The process numbering is the practice
+  guide's.
 
 field purpose
   prompt: Why does this project exist, and what will it produce?
