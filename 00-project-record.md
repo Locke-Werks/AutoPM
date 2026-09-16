@@ -85,6 +85,10 @@ Every entry records where the decision came from, using one of these four source
 | D35 | 09-15 | **The repository gets CI**: configure, build and test on a clean Windows runner for every push and pull request, plus a check that the app icon still carries all seven sizes. Before this nothing verified a build except this machine | agreed | "do all the things", pointing at a CI indicator that showed an empty circle because no workflow existed |
 | D36 | 09-15 | **The core gets tests, the GUI does not.** The core is the half with no Qt in it and the half where a defect is silent: a record that quietly lost a field looks exactly like one nobody filled in. A GUI defect shows up on screen | agreed | Follows from D35. 231 checks; writing them found a third coach defect |
 | D37 | 09-15 | **CI runs on windows-2022, pinned.** `windows-latest` now resolves to windows-2025-vs2026, which has no Visual Studio 2022, and Qt ships this application's binaries as win64_msvc2022_64 | agreed | The first CI run failed at configure with "could not find any instance of Visual Studio" |
+| D38 | 09-15 | **Field lists are cited against Process Groups: A Practice Guide (PMI, 2022)**, not the PMBOK Guide 6th ed. The guide reproduces the same 49 processes and artifact contents, so no process number moves and no field list changes; the citation now names something in print | agreed | Archon's PM review, finding 1. The 6th ed. was retired in 2022 and the stated reason for citing it (later editions teach principles, not lists) stopped being true when the 8th reintroduced processes |
+| D39 | 09-15 | **A project does not begin at its own charter.** New Intake screen in a phase before Initiating: the request, the needs assessment, options including doing nothing, benefits with measures and owners, and the selection decision. The charter now requires it | agreed | Archon's PM review, finding 2. The business case was filed as a charter field while its own source block said it is a business document and an input to 4.1 |
+| D40 | 09-15 | **Success criteria are rows and closeout must answer all of them.** New `covers:` check kind; `reviewField` takes the record so a check can see the field it covers. Closeout rows trace to the criterion they answer | agreed | Archon's PM review, finding 3. Closeout claimed to answer the charter "one line at a time" against a paragraph, and a closeout omitting the two criteria that went badly passed the coach silently |
+| D41 | 09-15 | **Quality gets a screen; procurement gets a written exclusion.** Quality was absent and unexcluded, which teaches that the knowledge area does not exist. Procurement is excluded on the record rather than left silent | specified | "Quality screen, procurement excluded" |
 
 ⚠ Your "yes exatly" answered a message that contained P1–P5. P1 and P2 were what the reply echoed ("study guide"), so only they are logged as agreed. P3–P5 are still proposed.
 
@@ -172,3 +176,54 @@ Charter → stakeholder register → requirements + acceptance criteria → scop
 - 09-15 · **Signed release job written** (D34, R8 revised). Build, sign payload, forge, sign installer, verify, publish, on a `v*` tag. Validated locally end to end apart from the two Azure steps: the forged installer came out 11,883,408 bytes against the 11,871,712 of the one that shipped, and read its own container back. Blocked on three credential values being set on the repository
 - 09-15 · Two defects found while validating the release path. The payload was carrying `opengl32sw.dll` and the D3D compiler, 24 MB that the working install has never had, and `assets/` is copied wholesale into the payload so the icon build scripts were shipping to end users. Scripts moved to `tools/`, deployment narrowed
 - 09-15 · Uninstall still not exercised. The manifest shows its scope is 47 files inside the install directory plus one Start Menu shortcut, and names no path under Documents, so records are safe by construction. Running it was stopped short because the open window had unsaved changes in SmallHours
+- 09-15 · **PM-domain review received from Archon** (`AutoPM-pm-review.md`, against commit cc975e4): 13 findings, a coverage table against the ten knowledge areas, and a list of what to leave alone. It passes M2 §8 on every line and passes the two charter success criteria that can be judged now. Every factual claim spot-checked against the files before anything was changed, and all of them held
+- 09-15 · Four small findings fixed (7, 8, 9, 10): the issue log's help text described an escalation column that did not exist, the Issues screen showed an Executing process number under a Monitoring and Controlling phase, a risk had a planned response and nothing saying when to fire it, and the change log recorded when a change arrived but not when it was decided
+- 09-15 · Citations moved to Process Groups: A Practice Guide (D38). Nothing renumbered
+- 09-15 · **Intake screen added** (D39), and closeout gained a benefits field to match. The tool now holds the half of the lifecycle that decides whether a project should exist, not just the half after it is authorized
+- 09-15 · Success criteria became rows and closeout became traceable to them (D40), through a new `covers:` check. Record #1 migrated by hand: the old paragraph is deleted rather than left beside the rows, which is the one way that change breaks quietly, and a test now loads the seeded record and checks both
+- 09-15 · Quality screen added and procurement excluded on the record (D41). Eight of the ten knowledge areas now have an artifact; resource management (finding 4) and the project management plan baselines (finding 13) are the two still open
+
+## 11. Open from the PM review
+
+Findings from `AutoPM-pm-review.md` not acted on yet, in the reviewer's own
+order of priority. These should become cards on the board rather than living
+only here.
+
+- **Finding 4. Resource management has no artifact.** Knowledge area 9 has no
+  screen. Ownership is recorded once per row in five places, all `type: line`,
+  so nothing consolidates them and nothing separates who does the work from who
+  answers for it. A roster and a responsibility assignment would fix it. The
+  charter's exclusion covers resource *levelling*, which is optimization, not
+  resource management, so this is absent rather than excluded.
+- **Finding 13. Nothing names what is baselined.** The subsidiary plans are
+  distributed to the screens that use them, which is better teaching than one
+  "Project Management Plan" form. What is missing is the sentence saying which
+  artifacts are baselined and as of when, and therefore which can only change
+  through the change log. The tool currently teaches that distinction only for
+  the schedule.
+- **Finding 6. Status reports have no communications plan behind them.** 10.2 is
+  cited, 10.1 is absent, so nothing says who receives a report or how often. Two
+  columns on the stakeholder register would carry it.
+- **Finding 7, second half. Reserves appear only inside an example.** Contingency
+  reserve against identified risks and management reserve against the unknown is
+  one of the distinctions the exam tests hardest, and the tool mentions it as
+  sample text. A `fallback` column beside `response` is worth considering at the
+  same time: the response is what you do to stop it, the fallback is what you do
+  when the response did not work.
+- **Finding 11. The assumption log is a charter output filed under Planning.**
+  Its own `source:` says it is a 4.1 output, and it sits on a screen gated behind
+  `requires: charter`. The cheapest fix is an assumptions field on the charter,
+  with the requirements one kept as elaboration.
+- **Closing.** 4.7 is Close Project *or Phase* and the tool only closes a
+  project; a phase-closure table would make the second half real and would mean
+  M1 to M4 get closed rather than passed. The final report is a 4.7 output with
+  no field. Resource release belongs here and depends on finding 4.
+- **`view: matrix` fails silently.** `MatrixView::paintEvent` returns early when
+  either axis column is not a `choice` with declared options, drawing nothing,
+  with no message and no fallback to the grid. Since the product's claim is that
+  adding a screen means adding a file, this is the one place a plausible file
+  produces a blank rectangle. Either document it where somebody will copy from,
+  or fall back to the table.
+
+Not in this list: the security review, which is R9 and card C16 and belongs to
+Archon. The review says explicitly that it does not touch it.
