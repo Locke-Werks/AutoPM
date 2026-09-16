@@ -106,6 +106,7 @@ tool, and usually was not.
 | Tool | |
 |---|---|
 | `autopm_projects` | What projects exist and how far through each one is |
+| `autopm_create` | Start a new project: name, accent, and the repo whose history documents it |
 | `autopm_screens` | The fields a project can hold, and what each is for |
 | `autopm_read` | What a record claims, and where each claim came from |
 | `autopm_set` | Write a field, with its provenance |
