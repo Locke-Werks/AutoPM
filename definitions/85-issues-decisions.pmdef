@@ -7,7 +7,7 @@
 screen: issues
 title: Issues and Decisions
 phase: Monitoring and Controlling
-process: 4.3 Direct and Manage Project Work
+process: 4.5 Monitor and Control Project Work
 order: 85
 requires: charter
 teaches: |
@@ -91,6 +91,14 @@ field issues
     label: Status
     type: choice
     options: Open=danger, In progress=accent, Escalated=warn, Closed=ok
+    width: 2
+  column escalated_to
+    label: Escalated to
+    type: line
+    width: 2
+  column escalated_on
+    label: Escalated
+    type: date
     width: 2
 
 field decisions

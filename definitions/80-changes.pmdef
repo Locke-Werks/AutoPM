@@ -34,6 +34,7 @@ source: |
 field log
   prompt: What has been asked for since the plan was agreed, and what did you decide?
   check column:impact: A change nobody priced is a change somebody else pays for later. Say what each one costs in scope, schedule or quality.
+  check column:decided_on: A decided change with no decision date cannot show how long approval took, and cannot say when the baseline moved.
   label: Change requests
   type: table
   origin: standard
@@ -83,6 +84,10 @@ field log
   column decided_by
     label: Decided by
     type: line
+    width: 2
+  column decided_on
+    label: Decided
+    type: date
     width: 2
   column status
     label: Status
