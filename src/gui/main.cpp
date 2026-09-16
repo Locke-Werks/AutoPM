@@ -95,6 +95,18 @@ int main(int argc, char** argv) {
 
     // --screen <id> opens straight onto one screen. Handy when you live on one.
     const QStringList arguments = app.arguments();
+
+    // --project <name> before anything else, so --screen and --walk land on
+    // the project asked for rather than whichever was written to last.
+    const int wanted = arguments.indexOf("--project");
+    if (wanted >= 0 && wanted + 1 < arguments.size()) {
+        if (!window.openProjectNamed(arguments[wanted + 1])) {
+            QMessageBox::warning(&window, "AutoPM",
+                                 QString("There is no project called \"%1\".")
+                                     .arg(arguments[wanted + 1]));
+        }
+    }
+
     const int at = arguments.indexOf("--screen");
     if (at >= 0 && at + 1 < arguments.size()) window.showScreenById(arguments[at + 1]);
 

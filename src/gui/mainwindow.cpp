@@ -207,6 +207,16 @@ bool MainWindow::openProject(const QString& path) {
     return true;
 }
 
+bool MainWindow::openProjectNamed(const QString& wanted) {
+    for (const pm::ProjectSummary& summary : workspace_.list()) {
+        if (QString::fromStdString(summary.id) != wanted &&
+            QString::fromStdString(summary.name).compare(wanted, Qt::CaseInsensitive) != 0)
+            continue;
+        return openProject(QString::fromStdString(summary.path));
+    }
+    return false;
+}
+
 void MainWindow::rebuildPages() {
     while (pages_->count() > 0) {
         QWidget* page = pages_->widget(0);
