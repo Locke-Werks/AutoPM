@@ -1,0 +1,232 @@
+# Intake and Business Case — before the project exists
+#
+# The business documents: the business case and the benefits management plan.
+# Both are written before there is a project, both are owned by the sponsor or
+# the portfolio rather than by the project manager, and both are inputs to 4.1
+# Develop Project Charter.
+#
+# This screen exists because a project that starts at its own charter cannot say
+# why it was chosen over anything else, and cannot be measured at the end
+# against anything but its own promises.
+
+screen: intake
+title: Intake and Business Case
+phase: Before the project
+process: Business documents, input to 4.1
+order: 5
+teaches: |
+  Where a project comes from before anybody charters it: who asked, what need
+  it answers, what else was considered, and who decided this one was worth
+  doing. By the end you should be able to say why the business case is not part
+  of the charter, who owns it, and why benefits and success criteria are two
+  different measurements.
+before: |
+  Nothing. On most projects this is already written by the time a project
+  manager arrives. If it is not, saying so is itself useful: a project with no
+  business case has no defence when priorities move.
+after: |
+  The charter. The need becomes its purpose, the recommended option becomes its
+  high-level description, and the benefits are what closeout measures against.
+  A charter written before this is an authorization for something nobody
+  compared with anything.
+intro: |
+  A project starts as a demand. Somebody asks for something, or a need turns up
+  that nothing existing answers. Before it becomes a project, three questions
+  get answered: what is the need, what are the options, and which one is worth
+  doing.
+
+  The answers are business documents, not project documents. The sponsor owns
+  them. The project manager advises on them and then inherits them.
+source: |
+  Process Groups: A Practice Guide (PMI, 2022): the business documents are
+  inputs to 4.1 Develop Project Charter. The business case holds the needs
+  assessment and the analysis of alternatives that justify the recommended
+  option. The benefits management plan holds the target benefits, how each is
+  measured, when it is expected and who owns it after the project closes.
+
+  Both are written before there is a project, and both belong to the sponsor or
+  the portfolio rather than to the project manager, who advises on them and
+  then inherits them.
+
+field request
+  prompt: Who asked for this, when, and in what words?
+  check filled: A project with no traceable request started because somebody had an idea on a Tuesday. Say who asked and quote them.
+  label: Where the demand came from
+  type: text
+  origin: standard
+  source: |
+    The request, need or opportunity a needs assessment is written about. It
+    precedes the business case.
+  why: |
+    Every project answers something. Writing down who asked and what they
+    actually said is what lets you check later whether the thing you built
+    answers the thing they asked for.
+
+    It is also the first provenance entry on the project. A demand recorded as
+    specified, with a quote, is a project whose existence you can defend.
+  if_blank: |
+    Nobody can say later why the project was started, so nobody can say whether
+    it still needs to exist.
+  example: |
+    Nyx, 2026-09-15: "I want to build my own PM software." Does PM work by
+    intuition and wants to see how it fits a PM job.
+
+field need
+  prompt: What need is this answering? State it without naming a solution.
+  check words>=12: Too short, or it names the solution. A need that only makes sense as a description of the thing you already decided to build is not a need.
+  label: Needs assessment
+  type: text
+  origin: standard
+  source: |
+    Needs assessment: the business need, the current state and the gap between
+    them, written before any solution is chosen. It is what the options below
+    are argued against.
+  why: |
+    A need stated as a solution rules out every other solution before anyone has
+    compared them. "We need a PM tool" is a solution. "Project intent lives in
+    chat, gets retyped, and usually is not" is a need, and a tool is one of
+    several answers to it.
+  if_blank: |
+    The options below are decoration, because the answer was chosen before the
+    question was written down.
+  example: |
+    Project intent, decisions and status live in chat and in memory. Nothing
+    holds them anywhere that survives a session, so the same decision gets made
+    twice and neither time is recorded.
+
+field options
+  prompt: What else could answer that need, including doing nothing? What did each one cost?
+  check rows>=3: Two options is a decision already made. Include doing nothing: it is always available, and it is the one every business case has to beat.
+  check column:option: Every row needs a name.
+  check column:verdict: An option with no verdict is not a comparison. Say why each one lost.
+  label: Options considered
+  type: table
+  origin: standard
+  view: log
+  title_column: option
+  tone_column: verdict
+  source: |
+    The business case: the analysis of alternatives, including the do-nothing
+    option, against which the recommended option is justified.
+  why: |
+    The value of an options table is not the option you picked. It is the ones
+    you did not, with the reason, so that when somebody asks in three months
+    "why not just use Jira" the answer is a row rather than a memory.
+
+    Doing nothing is always one of the options and it is the honest baseline. If
+    the recommended option cannot beat it, the project should not be chartered.
+  if_blank: |
+    The project looks inevitable in hindsight, and the first person to suggest a
+    cheaper alternative does it after the build has started.
+  example: |
+    O3 | Build it | A month of evenings | Teaches the role while producing the record | Recommended
+  column ref
+    label: ID
+    type: line
+    width: 1
+  column option
+    label: Option
+    type: line
+    width: 4
+  column cost
+    label: Cost or effort
+    type: text
+    width: 3
+  column benefit
+    label: What it would give you
+    type: text
+    width: 4
+  column risk
+    label: Main risk
+    type: text
+    width: 3
+  column verdict
+    label: Verdict
+    type: choice
+    options: Recommended=ok, Rejected=danger, Deferred=warn, Do-nothing baseline=faint
+    width: 2
+
+field benefits
+  prompt: What measurable benefit does this produce, how is it measured, and when will you know?
+  check rows>=2: One benefit is a hope. Name at least two, each with a measure.
+  check column:measure: A benefit with no measure can be neither claimed nor denied at closeout. Say what you would count.
+  check column:realized_by: A benefit with no date is never late. Say when you expect to see it.
+  check column:owner: Name who is still watching for this after the project closes. It is usually not the project manager.
+  label: Benefits and how they get measured
+  type: table
+  origin: standard
+  view: log
+  title_column: benefit
+  tone_column: status
+  source: |
+    The benefits management plan: target benefits, strategic alignment, the
+    timeframe for realizing them, the benefits owner, the metrics, and the
+    assumptions they rest on.
+  why: |
+    Success criteria say whether the project delivered. Benefits say whether it
+    was worth doing. They are different answers, and a project can meet every
+    criterion in its charter while producing nothing anyone wanted.
+
+    Most benefits arrive after the project has closed, which is why they have an
+    owner who is not the project manager. That is the whole reason this is a
+    business document rather than a project document.
+  if_blank: |
+    Closeout can only ask whether you built what you said you would. Whether it
+    was worth building never gets asked, which is how the same unwanted thing
+    gets built twice.
+  example: |
+    B1 | Can explain each PM artifact with the tool closed | Answer a question on each of the 13 artifacts, unaided | 2026-11-01 | Nyx | Not yet measured
+  column ref
+    label: ID
+    type: line
+    width: 1
+  column benefit
+    label: Target benefit
+    type: text
+    width: 5
+  column measure
+    label: How it is measured
+    type: text
+    width: 4
+  column baseline
+    label: Where it starts
+    type: line
+    width: 2
+  column target
+    label: Target
+    type: line
+    width: 2
+  column realized_by
+    label: Expected by
+    type: date
+    width: 2
+  column owner
+    label: Benefits owner
+    type: line
+    width: 2
+  column status
+    label: Status
+    type: choice
+    options: Not yet measured=faint, On track=accent, Realized=ok, Missed=danger
+    width: 2
+
+field authorization
+  prompt: Who decided this was worth doing, which option did they pick, and on what date?
+  check date: A selection decision with no date is not a decision. Say who chose it and when.
+  label: Selection decision
+  type: line
+  origin: standard
+  source: |
+    The decision to authorize the project, taken on the business case before the
+    charter is written. In an organization it is a portfolio or governance
+    decision. On a personal project it is the sponsor deciding to spend their
+    own evenings.
+  why: |
+    This is the line between a demand and a project. Everything above it is a
+    candidate; everything below it is authorized work. Without it the charter is
+    the first record of a choice that was actually made earlier, on grounds that
+    are now lost.
+  if_blank: |
+    The project appears to begin with its own charter, and the reason it was
+    picked over everything else is not in the record.
+  example: Option O3 chosen by the sponsor, 2026-09-15.

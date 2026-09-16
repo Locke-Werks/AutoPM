@@ -721,23 +721,54 @@ field charter.sponsor
 field charter.success_criteria
   provenance: agreed
   evidence: "yes to all proposals" (2026-09-15)
-  value: |
-    1. Every field in the tool has a source tag and a "why" explanation.
-    2. This project runs start to finish inside the tool, charter through closeout.
-    3. At least one other real project is managed in it after this one.
-    4. I can explain each PM artifact and when it is used without opening the tool.
+  row s1
+    cell ref
+      value: S1
+    cell criterion
+      value: Every field in the tool has a source tag and a why explanation.
+    cell measure
+      value: Open every screen and read each field's panel. No field is missing either.
+  row s2
+    cell ref
+      value: S2
+    cell criterion
+      value: This project runs start to finish inside the tool, charter through closeout.
+    cell measure
+      value: The record carries an answer on every screen the project has reached.
+  row s3
+    cell ref
+      value: S3
+    cell criterion
+      value: At least one other real project is managed in it after this one.
+    cell measure
+      value: A second record exists with its own charter, answered in the tool rather than imported.
+  row s4
+    cell ref
+      value: S4
+    cell criterion
+      value: I can explain each PM artifact and when it is used without opening the tool.
+    cell measure
+      value: Answer a question on each artifact unaided, with the tool closed.
 field closeout.outcome
   evidence: The four success criteria from the charter, waiting to be answered at closeout
   row o1
+    cell traces
+      value: S1
     cell criterion
       value: Every field in the tool has a source tag and a why explanation.
   row o2
+    cell traces
+      value: S2
     cell criterion
       value: This project runs start to finish inside the tool, charter through closeout.
   row o3
+    cell traces
+      value: S3
     cell criterion
       value: At least one other real project is managed in it after this one.
   row o4
+    cell traces
+      value: S4
     cell criterion
       value: I can explain each PM artifact and when it is used without opening the tool.
 field issues.decisions

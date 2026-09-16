@@ -18,7 +18,7 @@
 namespace pm {
 
 // "words>=8", "rows>=3", "column:target", "date", "filled",
-// "mentions:because,so that"
+// "mentions:because,so that", "covers:charter.success_criteria"
 bool parseCheck(const std::string& rule, const std::string& message, Check& out);
 
 struct Note {
@@ -27,7 +27,13 @@ struct Note {
 };
 
 // The checks this answer fails. Empty means the answer holds up.
-std::vector<std::string> reviewField(const Field& field, const Entry* entry);
+//
+// A covers: check has to see the field it is meant to be covering, which lives
+// elsewhere in the record, so callers holding one pass it. Callers that do not
+// get the answer they always did: the check stays quiet rather than failing an
+// answer it cannot see.
+std::vector<std::string> reviewField(const Field& field, const Entry* entry,
+                                     const Record* record = nullptr);
 
 // Every note across a screen, in field order.
 std::vector<Note> reviewScreen(const Screen& screen, const Record& record);

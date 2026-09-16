@@ -11,13 +11,16 @@ title: Project Charter
 phase: Initiating
 process: 4.1 Develop Project Charter
 order: 10
+requires: intake
 teaches: |
   Why a project has to be authorized before anyone works on it, and what a
   sponsor is actually signing. By the end you should be able to say what a
   charter contains, who signs it, and why starting the plan before it is signed
   is the most common way a project goes wrong early.
 before: |
-  Nothing. The charter is where a project starts. If work has already been
+  The business case. The charter authorizes a project that somebody already
+  decided was worth doing, and the grounds for that decision belong on the
+  Intake screen. If work has already been
   going on for weeks, that is normal, and writing the charter now is how you
   find out what everyone has been assuming.
 after: |
@@ -72,6 +75,11 @@ field business_case
   source: |
     Business documents (the business case and benefits management plan), which
     are inputs to 4.1 and feed the charter.
+
+    The charter summarizes the business case. The case itself is a business
+    document, written on the Intake screen before the project exists, and it is
+    not one of the charter contents in 4.1. What goes here is the summary, not
+    the analysis.
   why: |
     It answers "why is this worth the time and money compared to anything
     else." The purpose says what the project is; the business case says why it
@@ -84,22 +92,42 @@ field business_case
     risks and status against a plan.
 
 field success_criteria
-  prompt: How will you know it worked? Write conditions you could check as true or false.
-  check words>=12: Thin for success criteria. Each one should be something a person could check without arguing about it.
+  prompt: How will you know it worked? One condition per row, each checkable as true or false.
+  check rows>=3: Fewer than three criteria is not a definition of success, it is a mood.
+  check column:criterion: Every row needs the criterion itself.
+  check column:measure: A criterion with no measure is an opinion with the number left out. Say what you would check.
   label: Measurable objectives and success criteria
-  type: text
+  type: table
   origin: standard
+  view: log
+  title_column: criterion
   source: Charter content: measurable project objectives and related success criteria.
   why: |
     It is how you will know the project worked, which is a different question
     from whether it shipped. "Measurable" is the whole point: each criterion
     should be something you can check as true or false without arguing.
+
+    One per row rather than one paragraph, because closeout answers them one at
+    a time and traces each answer back to the row it came from. A criterion
+    buried in a paragraph cannot be pointed at, so a closeout can quietly skip
+    the two that went badly.
   if_blank: |
     The project cannot succeed or fail. It just stops, and nobody can say
     whether it was worth doing.
   example: |
-    Every field in the tool has a source tag and a "why" explanation.
-    This project runs start to finish inside the tool.
+    S1 | Every field in the tool has a source tag and a why | Open all 14 screens and read every field's panel
+  column ref
+    label: ID
+    type: line
+    width: 1
+  column criterion
+    label: Success criterion
+    type: text
+    width: 5
+  column measure
+    label: How it is checked
+    type: text
+    width: 4
 
 field high_level_requirements
   prompt: At this level, what does it have to do? Just enough to size the work.
@@ -148,11 +176,18 @@ field out_of_scope
     Writing down what the project will NOT do prevents more scope creep than
     any in-scope list does. An in-scope list grows; an out-of-scope list is
     something you can point at.
+
+    Whole knowledge areas belong here too when they do not apply. A project
+    with nothing bought from anybody should say so, because an unstated
+    omission and a stated decision look identical afterwards and mean opposite
+    things: one is a judgement, the other is something nobody thought about.
   if_blank: |
     Every good idea becomes an implied requirement, and the project never
     finishes.
   example: |
-    Multi-user permissions. Gantt and resource-leveling math.
+    Multi-user permissions. Gantt and resource-leveling math. No procurement:
+    nothing is bought, contracted or licensed, so there is no seller to select
+    and no agreement to administer.
 
 field overall_risk
   prompt: Overall, how risky is this, and what worries you most?

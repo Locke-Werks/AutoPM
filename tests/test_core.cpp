@@ -16,6 +16,7 @@
 #include "core/gitlog.h"
 #include "core/record.h"
 
+#include <algorithm>
 #include <cstdio>
 #include <filesystem>
 #include <string>
@@ -241,9 +242,18 @@ void testDefinitionsLoad(const std::string& definitionsDir) {
         }
     }
 
+    // Lifecycle order, derived from screen order. Intake sits before the
+    // charter, because the business case is written before a project exists.
     const std::vector<std::string> phases = definitions.phases();
     CHECK(!phases.empty());
-    CHECK(phases.front() == "Initiating");
+    const auto at = [&phases](const std::string& name) {
+        return std::find(phases.begin(), phases.end(), name) - phases.begin();
+    };
+    CHECK(phases.front() == "Before the project");
+    CHECK(at("Before the project") < at("Initiating"));
+    CHECK(at("Initiating") < at("Planning"));
+    CHECK(at("Planning") < at("Executing"));
+    CHECK(at("Executing") < at("Closing"));
 }
 
 // ── the coach ────────────────────────────────────────────────────────────
@@ -320,11 +330,19 @@ void testNextScreenStaysInPhase(const std::string& definitionsDir) {
     starting.id = "starting";
     starting.phase = "Initiating";
 
+    const std::vector<std::string> phases = definitions.phases();
+    const auto at = [&phases](const std::string& name) {
+        return std::find(phases.begin(), phases.end(), name) - phases.begin();
+    };
+
     const std::string next = pm::nextScreen(definitions, starting);
     CHECK(!next.empty());
     const pm::Screen* proposed = definitions.screen(next);
     CHECK(proposed != nullptr);
-    if (proposed) CHECK(proposed->phase == "Initiating");
+    // Never a phase the project has not reached. An earlier one is fair: the
+    // business case belongs before the charter and is exactly what a project
+    // that has only just been authorised is likely to be missing.
+    if (proposed) CHECK(at(proposed->phase) <= at(starting.phase));
 
     // Further along, later screens become reachable.
     pm::Record executing;
@@ -333,6 +351,104 @@ void testNextScreenStaysInPhase(const std::string& definitionsDir) {
     const pm::Screen* later = definitions.screen(pm::nextScreen(definitions, executing));
     CHECK(later != nullptr);
     if (later) CHECK(later->phase != "Closing");
+}
+
+void testCoversCheck() {
+    beginCase("coach: covers: catches a criterion the closeout never answered");
+
+    pm::Check parsed;
+    CHECK(pm::parseCheck("covers:charter.success_criteria", "one is missing", parsed));
+    CHECK(parsed.kind == pm::Check::Kind::Covers);
+    CHECK(parsed.argument == "charter.success_criteria");
+
+    pm::Record project;
+    project.id = "covers";
+    for (const char* ref : {"S1", "S2", "S3"}) {
+        pm::Row row;
+        row.id = ref;
+        row.setCell("ref", ref);
+        row.setCell("criterion", "something checkable");
+        project.mutableRows("charter.success_criteria").push_back(row);
+    }
+
+    pm::Field outcome;
+    outcome.id = "outcome";
+    outcome.label = "Outcome";
+    outcome.type = "table";
+    outcome.checks.push_back(parsed);
+
+    // Two of three answered. The one left out is the one that went badly, and
+    // before this check that closeout passed the coach in silence.
+    for (const char* ref : {"S1", "S2"}) {
+        pm::Row row;
+        row.id = std::string("A") + ref;
+        row.setCell("traces", ref);
+        project.mutableRows("closeout.outcome").push_back(row);
+    }
+    CHECK(pm::reviewField(outcome, project.entry("closeout.outcome"), &project).size() == 1);
+
+    pm::Row third;
+    third.id = "AS3";
+    third.setCell("traces", "S3");
+    project.mutableRows("closeout.outcome").push_back(third);
+    CHECK(pm::reviewField(outcome, project.entry("closeout.outcome"), &project).empty());
+
+    // With no record to compare against the check cannot see what it covers,
+    // and says nothing rather than failing an answer it cannot check.
+    CHECK(pm::reviewField(outcome, project.entry("closeout.outcome")).empty());
+}
+
+void testSeedRecord(const std::string& definitionsDir, const std::string& repoRoot) {
+    beginCase("record #1: the seeded record loads and answers its own charter");
+
+    const std::string file = repoRoot + "/assets/seed/autopm.pmproj";
+    pm::Record seed;
+    std::string error;
+    CHECK(seed.load(file, error));
+    if (!error.empty()) {
+        std::printf("  error: %s\n", error.c_str());
+        return;
+    }
+    CHECK(!seed.name.empty());
+
+    // Success criteria are rows, not a paragraph. A record left half-migrated
+    // keeps its old value: alongside the new rows and still reads as answered,
+    // which is the one way this change breaks quietly.
+    const pm::Entry* criteria = seed.entry("charter.success_criteria");
+    CHECK(criteria != nullptr);
+    if (criteria) {
+        CHECK(criteria->rows.size() >= 3);
+        CHECK(criteria->value.empty());
+    }
+
+    // Every criterion is answered at closeout, matched on what it traces to.
+    pm::Definitions definitions;
+    if (!definitions.loadDirectory(definitionsDir, error)) {
+        CHECK(false);
+        return;
+    }
+    const pm::Screen* closeout = definitions.screen("closeout");
+    CHECK(closeout != nullptr);
+    const pm::Field* outcome = closeout ? closeout->field("outcome") : nullptr;
+    CHECK(outcome != nullptr);
+    if (outcome) {
+        // Only the covers: check. The rest of the field's checks fire here for
+        // the right reason: this project has not closed, so nobody has said
+        // whether any criterion was met, and an unanswered met column on a
+        // running project is the correct state rather than a defect.
+        pm::Field coversOnly = *outcome;
+        coversOnly.checks.erase(
+            std::remove_if(coversOnly.checks.begin(), coversOnly.checks.end(),
+                           [](const pm::Check& check) {
+                               return check.kind != pm::Check::Kind::Covers;
+                           }),
+            coversOnly.checks.end());
+        CHECK(coversOnly.checks.size() == 1);
+        for (const std::string& note :
+             pm::reviewField(coversOnly, seed.entry("closeout.outcome"), &seed))
+            std::printf("  note: %s\n", note.c_str());
+        CHECK(pm::reviewField(coversOnly, seed.entry("closeout.outcome"), &seed).empty());
+    }
 }
 
 // ── git ──────────────────────────────────────────────────────────────────
@@ -378,6 +494,8 @@ int main(int argc, char** argv) {
     testDefinitionsLoad(definitionsDir);
     testBlankIsNotThin(definitionsDir);
     testNextScreenStaysInPhase(definitionsDir);
+    testCoversCheck();
+    testSeedRecord(definitionsDir, repoRoot);
     testGitRefusesHostileArguments(repoRoot);
 
     std::printf("\n%d checks, %d failed\n", g_checks, g_failures);

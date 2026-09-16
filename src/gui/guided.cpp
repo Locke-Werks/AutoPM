@@ -316,7 +316,7 @@ QWidget* GuidedView::buildField(const pm::Screen& screen, const pm::Field& field
 
     const auto refreshNotes = [this, &field, key, notes] {
         const std::vector<std::string> failed =
-            pm::reviewField(field, record_->entry(key));
+            pm::reviewField(field, record_->entry(key), record_.get());
         if (failed.empty()) {
             notes->setVisible(false);
             return;

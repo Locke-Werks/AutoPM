@@ -155,7 +155,7 @@ QWidget* ScreenView::buildFieldCard(const pm::Field& field) {
     auto* notes = chrome::bodyText(QString(), theme::warn(), 12);
     notes->setVisible(false);
     const auto refreshNotes = [this, field, key, notes] {
-        const std::vector<std::string> failed = pm::reviewField(field, record_->entry(key));
+        const std::vector<std::string> failed = pm::reviewField(field, record_->entry(key), record_.get());
         if (failed.empty()) { notes->setVisible(false); return; }
         QStringList lines;
         for (const std::string& message : failed)

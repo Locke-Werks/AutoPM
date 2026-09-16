@@ -97,11 +97,13 @@ bool parseCheck(const std::string& rule, const std::string& message, Check& out)
         const std::string argument = trimCopy(cleaned.substr(colon + 1));
         if (what == "column")   { out.kind = Check::Kind::EveryRowHas; out.argument = argument; return true; }
         if (what == "mentions") { out.kind = Check::Kind::MentionsAny; out.argument = argument; return true; }
+        if (what == "covers")   { out.kind = Check::Kind::Covers;      out.argument = argument; return true; }
     }
     return false;
 }
 
-std::vector<std::string> reviewField(const Field& field, const Entry* entry) {
+std::vector<std::string> reviewField(const Field& field, const Entry* entry,
+                                     const Record* record) {
     std::vector<std::string> notes;
     const std::string value = entry ? entry->value : std::string();
     const std::vector<Row> rows = entry ? entry->rows : std::vector<Row>();
@@ -145,6 +147,28 @@ std::vector<std::string> reviewField(const Field& field, const Entry* entry) {
                 }
                 break;
             }
+            case Check::Kind::Covers: {
+                // Every row of the field named in the rule has to be answered
+                // by a row here, matched on what it traces to. Without a record
+                // there is nothing to compare against, so the check does not
+                // fire rather than failing an answer it cannot see.
+                if (!record) break;
+                const std::vector<Row>* expected = record->rows(check.argument);
+                if (!expected) break;
+                for (const Row& want : *expected) {
+                    bool answered = false;
+                    for (const Row& row : rows) {
+                        const std::string traces = row.cell("traces");
+                        if (traces.empty()) continue;
+                        if (traces == want.id || traces == want.cell("ref")) {
+                            answered = true;
+                            break;
+                        }
+                    }
+                    if (!answered) { passed = false; break; }
+                }
+                break;
+            }
         }
         if (!passed) notes.push_back(check.message);
     }
@@ -160,7 +184,7 @@ std::vector<Note> reviewScreen(const Screen& screen, const Record& record) {
         // every empty field here buries the answers that are genuinely weak
         // under a list of fields nobody has reached yet.
         if (!entry || entry->isEmpty()) continue;
-        for (const std::string& message : reviewField(field, entry))
+        for (const std::string& message : reviewField(field, entry, &record))
             notes.push_back(Note{field.id, message});
     }
     return notes;
@@ -176,7 +200,7 @@ Progress progressOf(const Screen& screen, const Record& record) {
         // Only an answered field can be thin. A blank one fails every check it
         // has, and counting those as thin reports a project nobody has started
         // as a project full of bad answers.
-        progress.notes += static_cast<int>(reviewField(field, entry).size());
+        progress.notes += static_cast<int>(reviewField(field, entry, &record).size());
     }
     return progress;
 }
