@@ -208,6 +208,46 @@ QComboBox QAbstractItemView {
     outline: none;
 }
 
+/* An editor opened inside a table sits in a 34 pixel row, where the form
+   padding above leaves less height than the type needs and the glyphs are
+   clipped to a band across the middle, which reads as struck-through text
+   rather than as a cell being edited. */
+QTableWidget QLineEdit, QTableWidget QComboBox, QTableWidget QSpinBox, QTableWidget QDateEdit,
+QTableView QLineEdit, QTableView QComboBox, QTableView QSpinBox, QTableView QDateEdit {
+    padding: 1px 6px;
+    border-radius: 3px;
+}
+
+/* ── The calendar popup ──────────────────────────────────────────── */
+/* Unstyled it arrives as plain Qt: a light grid with red weekends, which is
+   neither the house palette nor anything this app means by red. */
+
+QCalendarWidget QWidget { alternate-background-color: %{surface}; }
+QCalendarWidget QAbstractItemView:enabled {
+    background: %{raised};
+    color: %{body};
+    selection-background-color: %{accent45};
+    selection-color: %{primary};
+    outline: none;
+}
+QCalendarWidget QAbstractItemView:disabled { color: %{faint}; }
+QCalendarWidget QWidget#qt_calendar_navigationbar {
+    background: %{pressed};
+    border-bottom: 1px solid %{hair};
+}
+QCalendarWidget QToolButton {
+    background: transparent;
+    color: %{primary};
+    border: none;
+    border-radius: 3px;
+    padding: 4px 10px;
+    margin: 2px;
+}
+QCalendarWidget QToolButton:hover { background: %{accent12}; }
+QCalendarWidget QToolButton::menu-indicator { image: none; }
+QCalendarWidget QSpinBox { padding: 1px 6px; }
+QCalendarWidget QMenu { background: %{raised}; }
+
 /* ── Buttons ─────────────────────────────────────────────────────── */
 
 QPushButton {
