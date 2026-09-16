@@ -8,6 +8,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QIcon>
+#include <QImageReader>
 #include <QMessageBox>
 #include <QStandardPaths>
 
@@ -66,14 +67,33 @@ int main(int argc, char** argv) {
     const int fontsAt = early.indexOf("--fonts");
     if (fontsAt >= 0 && fontsAt + 1 < early.size()) {
         QFile report(early[fontsAt + 1]);
-        if (report.open(QIODevice::WriteOnly | QIODevice::Text))
+        if (report.open(QIODevice::WriteOnly | QIODevice::Text)) {
             report.write(theme::resolvedFaces().toUtf8());
+            // The icon resolves through a plugin and can fail silently, which
+            // leaves the shell drawing its own placeholder. Report it here too.
+            const QIcon probe(assetsDir + "/autopm.ico");
+            QStringList sizes;
+            for (const QSize& size : probe.availableSizes())
+                sizes << QString("%1").arg(size.width());
+            report.write(QString("\nassets: %1\nicon file exists: %2\nicon loaded: %3\n"
+                                 "icon sizes: %4\nimage formats: %5\n")
+                             .arg(assetsDir)
+                             .arg(QFile::exists(assetsDir + "/autopm.ico") ? "yes" : "no")
+                             .arg(probe.isNull() ? "NO" : "yes")
+                             .arg(sizes.isEmpty() ? "none" : sizes.join(", "))
+                             .arg(QString::fromUtf8(QImageReader::supportedImageFormats().join(' ')))
+                             .toUtf8());
+        }
         return 0;
     }
     theme::setAccent(QColor("#b76bff"));
     app.setFont(theme::bodyFont(14));
     app.setStyleSheet(theme::styleSheet());
-    app.setWindowIcon(QIcon(assetsDir + "/autopm.ico"));
+    QIcon mark(assetsDir + "/autopm.ico");
+    // The .ico needs Qt's ICO plugin. If that did not deploy, the png still
+    // works, and an icon from somewhere beats the shell's placeholder.
+    if (mark.isNull()) mark = QIcon(assetsDir + "/autopm.png");
+    if (!mark.isNull()) app.setWindowIcon(mark);
 
     if (definitionsDir.isEmpty()) {
         QMessageBox::critical(nullptr, "AutoPM",

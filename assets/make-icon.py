@@ -5,21 +5,29 @@ different levels. Drawn rather than downscaled, because a 256px render squeezed
 to 16px turns to mush exactly where the icon gets looked at most, in the
 taskbar. Small sizes get their own pixel-snapped geometry.
 
+The ground is transparent. An icon that carries its own background is a tile
+rather than a mark: it reads as a black box against a light taskbar, and as a
+visible square against a dark one. Only the bars are drawn, so they sit on
+whatever the shell puts behind them. With no container to sit inside, the mark
+fills much more of the frame than it did.
+
     python assets/make-icon.py
 """
 
 from PIL import Image, ImageDraw
 
-GROUND = (7, 5, 14, 255)      # house violet-black
+GROUND = (0, 0, 0, 0)         # transparent: the shell supplies the ground
 MARK = (176, 92, 246, 255)    # house violet
 
 SIZES = [16, 24, 32, 48, 64, 128, 256]
 
 # Bar heights as a fraction of the canvas, hanging from a shared top edge.
-HEIGHTS = (0.40, 0.58, 0.33)
-TOP = 0.21
-BAR_WIDTH = 0.145
-GAP = 0.0375
+# Sized for a mark with no container: the group spans about three quarters of
+# the frame rather than half.
+HEIGHTS = (0.50, 0.74, 0.42)
+TOP = 0.13
+BAR_WIDTH = 0.205
+GAP = 0.055
 
 
 def draw_large(size):
@@ -50,13 +58,13 @@ def draw_small(size):
     image = Image.new("RGBA", (size, size), GROUND)
     draw = ImageDraw.Draw(image)
 
-    bar = max(2, round(size * 3 / 16))
-    gap = max(1, round(size * 2 / 16))
+    bar = max(3, round(size * 4 / 16))
+    gap = max(1, round(size * 1.6 / 16))
     group = bar * 3 + gap * 2
     x = (size - group) // 2
-    top = max(1, round(size * 3 / 16))
+    top = max(1, round(size * 2 / 16))
 
-    for fraction in (0.44, 0.63, 0.38):
+    for fraction in (0.56, 0.80, 0.48):
         height = max(2, round(size * fraction))
         draw.rectangle([x, top, x + bar - 1, top + height - 1], fill=MARK)
         x += bar + gap
@@ -72,8 +80,16 @@ def main():
         sizes=[(size, size) for size in SIZES],
         append_images=frames[:-1],
     )
-    frames[-1].resize((512, 512), Image.LANCZOS).save("assets/autopm.png")
-    print("wrote assets/autopm.ico and assets/autopm.png")
+
+    # The web asset keeps the violet-black tile. It sits in a grid beside the
+    # other products' icons and on a README that is white, where a mark with no
+    # ground would look like a mistake rather than a choice. The .ico above has
+    # no ground because the shell supplies one; these are two different jobs.
+    tile = Image.new("RGBA", (512, 512), (7, 5, 14, 255))
+    mark = frames[-1].resize((512, 512), Image.LANCZOS)
+    tile.paste(mark, (0, 0), mark)
+    tile.save("assets/autopm.png")
+    print("wrote assets/autopm.ico (transparent) and assets/autopm.png (tiled)")
 
 
 if __name__ == "__main__":

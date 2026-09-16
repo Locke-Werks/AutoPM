@@ -69,8 +69,9 @@ qt_add_executable(autopm WIN32
 )
 target_link_libraries(autopm PRIVATE autopm_core Qt6::Widgets)
 if(WIN32)
-    # DwmSetWindowAttribute, for the dark title bar.
-    target_link_libraries(autopm PRIVATE dwmapi)
+    # DwmSetWindowAttribute for the dark title bar, ole32 for the spell
+    # checker this asks Windows for.
+    target_link_libraries(autopm PRIVATE dwmapi ole32)
 endif()
 set_target_properties(autopm PROPERTIES OUTPUT_NAME "AutoPM")
 
