@@ -1,15 +1,268 @@
-# PM Tool (working name)
+<div align="center">
 
-Project documentation. the sponsor is the project manager and sponsor.
+<img src="assets/autopm.ico" width="96" alt="AutoPM">
+
+# AutoPM
+
+**Learn the project manager's job by doing it, one question at a time.**
+
+[![licence](https://img.shields.io/badge/licence-all%20rights%20reserved-B05CF6?style=flat-square)](LICENSE)
+[![platform](https://img.shields.io/badge/platform-Windows%2011-B05CF6?style=flat-square)](#requirements)
+[![stack](https://img.shields.io/badge/C%2B%2B17-Qt%206.8-B05CF6?style=flat-square)](#requirements)
+
+</div>
+
+---
+
+AutoPM walks you through the project management lifecycle and asks you the
+questions a PM has to answer, in the order a PM has to answer them. Every
+question says where it comes from in the standard, why a PM answers it, what
+breaks when nobody does, and what a good answer looks like. Then it reads your
+answer back and tells you what is thin about it.
+
+It keeps the record too. That is the side effect, not the point.
+
+## The walkthrough
+
+One question per screen, in lifecycle order: Initiating, Planning, Executing,
+Monitoring and Controlling, Closing. Each artifact opens with a lesson (what it
+is, what you should be able to explain afterwards, what has to be true before
+you start) and closes with a recap of what is still thin.
+
+The order is taught, not enforced. Starting the schedule before the charter is
+signed gets you a sentence explaining what you are risking, and a Next button.
+
+## The coach
+
+A record can be complete and still be bad PM work. Milestones with no dates.
+Risks with no owner. A decision log where everything is "unobjected". Each
+field declares the rules its answers have to meet, and the coach says what is
+missing:
+
+    check rows>=3: Fewer than three checkpoints is a start date and a hope.
+    check column:owner: A risk with no owner is a worry. Name the person who watches it.
+
+Nothing blocks. Being told and carrying on anyway is a PM decision; the tool's
+job is to make sure it was one.
+
+## Provenance
+
+Every field and every table row carries a source tag: **specified** (someone
+said it, quote them), **agreed** (they approved your summary), or
+**unobjected** (you proposed it and nobody answered). Only the first two count
+as decisions. The overview counts them separately, so a project running on
+unanswered proposals cannot hide.
+
+## Screens
+
+| Phase | Screens |
+|---|---|
+| Initiating | Project Charter · Stakeholder Register |
+| Planning | Requirements · Scope and WBS · Schedule · Risk Register |
+| Executing | Sprint Planning · Sprint Board · Review and Retrospective |
+| Monitoring and Controlling | Change Log · Issues and Decisions · Status Reports |
+| Closing | Closeout |
+
+## The agile half
+
+The charter picks a hybrid framework: predictive phases, with sprints inside
+Executing. Three screens run the iteration.
+
+**Sprint planning** is the tool. Drag a card from the backlog into the sprint
+and a bar shows what you have committed against the capacity you set. Going
+over is shown rather than blocked, because deciding what to drop is the
+planning. Underneath, a velocity strip shows what each closed sprint actually
+finished against what it planned, which is where the next capacity number comes
+from.
+
+It moves the board's own cards. There is one backlog, not a planning copy and
+a working copy, so a card pulled into a sprint is on the board a moment later.
+The screen also warns when work that does not meet the definition of ready gets
+pulled in.
+
+**The board** runs the sprint, with WIP limits from the definition file.
+
+**Review and retrospective** closes it: what was demonstrated and whether the
+sponsor accepted it, then separately what worked, what did not, and the one
+thing changing next sprint.
+
+## The other views
+
+The board drags and drops with WIP limits. The schedule draws a timeline with
+milestone diamonds. The WBS draws a tree. Risks and stakeholders draw a
+probability-and-impact grid. Every one of them is a view over the same table
+the grid edits, one toggle away.
+
+## The MCP front end
+
+One core, three faces, following ProjectMan's shape: the window, the core
+itself, and an MCP server. The core is toolkit-free, so `autopm-mcp.exe` is a
+standalone binary with no Qt beside it.
+
+It exists because the record and the conversation were two separate places the
+same decisions got written. A decision made in chat had to be retyped into the
+tool, and usually was not.
+
+| Tool | |
+|---|---|
+| `autopm_projects` | What projects exist and how far through each one is |
+| `autopm_create` | Start a new project: name, accent, and the repo whose history documents it |
+| `autopm_screens` | The fields a project can hold, and what each is for |
+| `autopm_read` | What a record claims, and where each claim came from |
+| `autopm_set` | Write a field, with its provenance |
+| `autopm_add_row` | Add a decision, risk, change, issue, card or lesson |
+| `autopm_update_row` | Move a card, close a risk, answer a change request |
+| `autopm_review` | Run the coach: what is blank, what is thin |
+| `autopm_git_activity` | What was committed in a window, for evidence |
+| `autopm_reconcile` | The board's claims against the commits behind them |
+
+**The provenance rule is enforced, not suggested.** A write claiming something
+was *specified* or *agreed* is refused without evidence:
+
+```
+provenance "specified" needs evidence: the quote and date it rests on.
+Use "unobjected" if you are proposing it.
+```
+
+An agent cannot put words in anybody's mouth through this API.
+
+### Git, for evidence rather than status
+
+ProjectMan already reports git state and is not being replaced. AutoPM reads
+git for two things a record cannot get any other way: pinning an entry to a
+commit so it is checkable by anyone, and holding the board's claims up against
+what was actually committed in each sprint window.
+
+```
+Sprint 1  2026-09-15 to 2026-09-15
+  record: 9 cards done, 35 points
+  git:    8 commits in that window
+```
+
+It never writes, never fetches, and never moves a card. What a difference means
+is the PM's to decide.
+
+### Registering it
+
+Register it once, at user scope, so it is available in every project rather
+than only where the repository is checked out:
+
+```bash
+claude mcp add --scope user autopm "%LOCALAPPDATA%\Programs\AutoPMutopm-mcp.exe"
+```
+
+Or add it to `mcpServers` in `~/.claude.json` directly:
+
+```json
+"autopm": {
+  "type": "stdio",
+  "command": "C:\Users\<you>\AppData\Local\Programs\AutoPM\autopm-mcp.exe"
+}
+```
+
+It takes `--records <dir>` and `--definitions <dir>` if either needs to be
+somewhere other than the default.
+
+## Nothing is hard-coded
+
+Every screen is generated from a file in `definitions/`. A field's label, type,
+allowed values, help text, question and checks all live there. Adding a screen
+means adding a file; rewording an explanation means editing a line and
+restarting.
+
+```
+field milestones
+  prompt: What are the dated checkpoints between now and done?
+  check rows>=3: Fewer than three checkpoints is a start date and a hope.
+  label: Summary milestone schedule
+  type: table
+  view: timeline
+  why: |
+    Milestones are dated checkpoints, not tasks. They are what turn
+    "in progress" into something that can be on time or late.
+```
+
+Records are plain text too, one file per project under
+`Documents\AutoPM`, one line per changed cell so a diff is readable.
+
+## Requirements
+
+Windows 11, and for building: CMake 3.21+, Qt 6.8 msvc2022_64, MSVC 2022.
+
+```bash
+cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DCMAKE_PREFIX_PATH="C:/Qt/6.8.3/msvc2022_64"
+```
+
+```bash
+cmake --build build --config Release
+```
+
+Run `windeployqt.exe --release build/Release/AutoPM.exe` once before launching:
+a bare Qt executable will not start.
+
+`--project <name>` picks which record to open, `--screen <id>` opens straight
+onto one screen, `--walk [id]` opens the walkthrough, and `--colour` opens the
+project's colour picker. They combine:
+
+```bash
+AutoPM.exe --project SmallHours --walk charter
+```
+
+## Colour
+
+The six colour values are borrowed from the Locke Werks house palette because
+they are a set that already works on a dark ground. The values only: AutoPM is
+not one of the suite apps and does not inherit that palette's rules about what
+each colour may be used for.
+
+**Status colours are fixed** and mean the same thing in every project:
+
+| | | |
+|---|---|---|
+| Blue | `#3D7DFF` | Solid. Reached, done, specified. |
+| Ember | `#FF5A2A` | Unresolved. Proposed and unanswered, watching. |
+| Crimson | `#FF1E3C` | Wrong. Missed, blocked, overdue. |
+
+**The accent is chosen per project**, from all six families including the three
+above, in the project menu or with `--colour`. It lights the room — rail,
+focus, bloom, primary buttons — and is stored in the record, so every project
+keeps its own.
+
+Surfaces step by lightness only at a fixed hue, hairlines are tinted rather
+than grey, and the ink tiers carry their measured contrast against the ground:
+18:1, 12.9:1, 8.9:1, 7:1, and a 4.8:1 floor below which nothing carries
+meaning.
+
+## Type
+
+The three house faces ship with the product, in `assets/fonts`: Chakra Petch
+for labels, Outfit for body, Instrument Serif for display. They are loaded at
+startup, so no installation is needed. `AutoPM.exe --fonts report.txt` writes
+out which faces actually resolved, which is how you find out that a machine
+quietly fell back to Segoe UI.
+
+## Licence
+
+All rights reserved. See [LICENSE](LICENSE), which also covers the bundled Qt
+libraries (LGPLv3) and the three fonts (SIL Open Font License 1.1).
+
+## Source basis
+
+Field lists and process numbers follow the PMBOK Guide, 6th edition, which
+still carries the prescriptive artifact contents later editions moved away
+from. The sprint board comes from Kanban practice and the Agile Practice Guide
+published alongside it. Fields marked **your own** in the app are not from the
+standard.
+
+## Project documentation
+
+AutoPM is itself run as a managed project, and its own record is loaded as
+record #1 on first run. The written record lives beside the code:
 
 | File | What it is |
 |---|---|
-| `00-project-record.md` | The running record: what was said, decision log, principles, open questions, risks, changelog |
-| `01-charter.md` | The approved project charter (v1.0, 2026-09-15). It's also the spec for the charter screen |
-| `02-handoff-m2.md` | Work package for M2 (Initiating screens). **The delivery team starts here** |
+| `00-project-record.md` | The running record: decisions with evidence, principles, open questions, risks, changelog |
+| `01-charter.md` | The approved charter (v1.0, 2026-09-15) |
+| `02-handoff-m2.md` | The work package the first build was made from |
+| `03-handback-m2.md` | What was built against it, and what differs |
 
-**Status:** charter approved (M1). M2 is ready to build from `02-handoff-m2.md`.
-
-**Schedule:** M2 Sep 15 · M3 Sep 16 · M4 week of Sep 21 · M5 closeout Oct 15.
-
-The same documents live in the "Project ideas" workspace under `pm-tool/`. If the two copies ever disagree, the record's changelog shows which one is newer.

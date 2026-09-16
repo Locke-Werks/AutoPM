@@ -26,8 +26,20 @@ struct Column {
     std::string type = "line";   // line | text | choice | date | number
     std::string help;
     std::vector<Option> options;
+    std::string wip;             // board lanes: "Doing=3, Review=2"
     int width = 1;               // relative column width in the table view
     bool hidden = false;         // carried in the record, not shown in the grid
+};
+
+// A rule the guided walkthrough checks an answer against, with the sentence it
+// says when the answer does not meet it. These are coaching, never blocking:
+// a PM can always move on, they just get told what is thin about the answer.
+struct Check {
+    enum class Kind { Filled, MinWords, MinRows, EveryRowHas, MentionsDate, MentionsAny };
+    Kind kind = Kind::Filled;
+    int number = 0;            // MinWords, MinRows
+    std::string argument;      // EveryRowHas: column id. MentionsAny: comma list
+    std::string message;
 };
 
 // One input on a screen. `type` decides the editor; `view` decides whether the
@@ -43,8 +55,12 @@ struct Field {
     std::string ifBlank;
     std::string example;
     std::string placeholder;
+    // The question the walkthrough actually asks. Without one it falls back to
+    // the label, which reads like a form rather than like being taught.
+    std::string prompt;
     std::vector<Option> options;
     std::vector<Column> columns;
+    std::vector<Check> checks;
 
     // Board view: which column holds the lane, and which holds the card title.
     std::string groupBy;
@@ -60,6 +76,9 @@ struct Field {
     // Matrix view: the two axis columns.
     std::string rowsColumn;
     std::string colsColumn;
+    // A view that operates on another field's rows names it here, as
+    // "screen.field". Sprint planning moves the board's cards about.
+    std::string reads;
 
     bool isTable() const { return type == "table"; }
     const Column* column(const std::string& id) const;
@@ -72,6 +91,13 @@ struct Screen {
     std::string process;    // "4.1 Develop Project Charter"
     std::string intro;
     std::string source;
+    // The teaching half. `teaches` is what you should be able to explain when
+    // you finish; `before` is what has to be true before you start, and why;
+    // `after` is what the screen sets up next.
+    std::string teaches;
+    std::string before;
+    std::string after;
+    std::vector<std::string> prerequisites;   // screen ids that should come first
     int order = 0;
     std::vector<Field> fields;
 
@@ -85,6 +111,8 @@ public:
 
     const std::vector<Screen>& screens() const { return screens_; }
     const Screen* screen(const std::string& id) const;
+    // "board.cards" -> that field, for a view that works on another screen's rows.
+    const Field* fieldByKey(const std::string& key) const;
     std::vector<std::string> phases() const;   // in lifecycle order, as found
 
 private:

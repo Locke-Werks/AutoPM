@@ -47,6 +47,9 @@ public:
     std::string modified;
     std::string phase;          // the lifecycle phase the project is in now
     std::string summary;
+    // The work tree whose history this record documents. Read only, and only
+    // for evidence: AutoPM never reports git state, which is ProjectMan's job.
+    std::string repo;
 
     std::string path;           // where it was loaded from; not written into the file
 
@@ -71,12 +74,20 @@ public:
 
     const std::map<std::string, Entry>& entries() const { return entries_; }
 
+    // The record is written by more than one thing: the window and the MCP
+    // server both hold the same file. Saving a copy loaded before somebody
+    // else wrote to it silently destroys their work, so the stamp the file
+    // carried when it was read is kept and checked.
+    bool changedOnDisk() const;
+    bool reload(std::string& error);
+
     bool dirty() const { return dirty_; }
     void markDirty() { dirty_ = true; }
     void markClean() { dirty_ = false; }
 
 private:
     std::map<std::string, Entry> entries_;
+    long long stamp_ = 0;   // file modification time when last read or written
     bool dirty_ = false;
 };
 

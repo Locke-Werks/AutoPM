@@ -1,0 +1,160 @@
+# Sprint board — Executing
+#
+# The agile half of the hybrid framework: predictive phases, with sprints
+# inside Executing. Cards are work packages from the WBS, pulled into a sprint
+# and moved across the board as they progress.
+
+screen: board
+title: Sprint Board
+phase: Executing
+process: 4.3 Direct and Manage Project Work
+order: 70
+requires: scope
+teaches: |
+  How the agile half of a hybrid project works: pulling work rather than
+  pushing it, limiting work in progress, and why finishing beats starting. By
+  the end you should be able to explain what a WIP limit is for.
+before: |
+  Work packages, so the cards are the project's actual work rather than
+  whatever came up this week. And the charter, because a board full of work
+  nobody authorized is the fastest way to burn a month.
+after: |
+  Status reporting. A board moved honestly is the raw material of every
+  status report you will write.
+intro: |
+  The board is where the plan becomes work in progress. Each card is one piece
+  of work; each column is a state it can be in; moving a card right is the only
+  honest way to report progress.
+
+  Two rules make a board work rather than decorate a wall. Pull, don't push:
+  work is taken when there is capacity, not assigned into a queue. And limit
+  work in progress: a column with a WIP limit forces finishing over starting,
+  which is what actually shortens delivery time.
+source: |
+  Boards are not a PMBOK artifact. They come from lean and Kanban practice, and
+  the PMBOK Guide 6th ed. covers them under adaptive and agile approaches; the
+  work itself is 4.3 Direct and Manage Project Work, and what the board reports
+  is 4.5 Monitor and Control Project Work. The Agile Practice Guide, published
+  with the 6th edition, is the companion reference.
+
+field sprint_goal
+  prompt: What is this iteration committed to achieving?
+  check words>=6: A sprint with no goal can only be counted, not judged. The goal is also what you protect when something has to be cut.
+  label: Current sprint goal
+  type: text
+  origin: standard
+  source: |
+    Agile Practice Guide: the sprint goal, agreed at sprint planning, is the
+    one outcome the iteration is committed to.
+  why: |
+    A sprint with a goal can be judged. A sprint that is only a list of cards
+    can only be counted. The goal is also what you protect when something has
+    to be cut mid-sprint.
+  if_blank: |
+    The iteration becomes a batch of unrelated tasks, and "did it go well"
+    turns into "how many did we finish".
+  example: |
+    Sprint 2: every Planning screen usable end to end on this project's own
+    record.
+
+field cards
+  prompt: What is the actual work, card by card?
+  check rows>=3: A board with fewer than three cards is a to-do list.
+  check column:state: Every card has to be in a column. A card with no state is work nobody can see.
+  label: Board
+  type: table
+  origin: yours
+  view: board
+  group_by: state
+  title_column: title
+  subtitle_column: owner
+  tone_column: priority
+  source: |
+    Not a PMBOK artifact. A Kanban board, used here as the Executing-phase view
+    of the work packages defined in 5.4 Create WBS.
+  why: |
+    Each card should be small enough to finish inside one iteration and be
+    worth something on its own. The estimate column is deliberately in points,
+    not hours: points compare cards to each other, which people are good at,
+    instead of predicting the future, which people are bad at.
+
+    Blocked is its own flag rather than a column, because a blocked card still
+    occupies the state it is stuck in, and hiding that would make the WIP count
+    lie.
+  if_blank: |
+    Status is whatever was said in the last conversation, and the same piece of
+    work gets started twice.
+  example: |
+    C4 | Help panel shows source and why | Doing | Sprint 2 | Delivery team | 3 | High
+  column ref
+    label: ID
+    type: line
+    width: 1
+  column title
+    label: Card
+    type: line
+    width: 5
+  column state
+    label: Column
+    type: choice
+    options: Backlog=faint, Ready=neutral, Doing=accent, Review=warn, Done=ok
+    wip: Doing=3, Review=2
+    width: 2
+  column sprint
+    label: Sprint
+    type: line
+    width: 2
+  column owner
+    label: Owner
+    type: line
+    width: 2
+  column points
+    label: Points
+    type: number
+    width: 1
+  column priority
+    label: Priority
+    type: choice
+    options: High=danger, Medium=warn, Low=faint
+    width: 1
+  column ready
+    label: Ready
+    type: choice
+    options: Refined=ok, Needs refinement=warn
+    help: |
+      Whether this card meets the definition of ready on the Sprint Planning
+      screen. Sprint planning shows it on the card and warns when unrefined
+      work is pulled into a sprint.
+    width: 2
+  column blocked
+    label: Blocked
+    type: choice
+    options: No=faint, Yes=danger
+    width: 1
+  column detail
+    label: Detail
+    type: text
+    width: 5
+  column acceptance
+    label: Done when
+    type: text
+    width: 4
+
+field definition_of_done
+  prompt: What has to be true of every card before it counts as finished?
+  check filled: Without one, 'done' gets renegotiated per card and the gap surfaces later as rework.
+  label: Definition of done
+  type: text
+  origin: standard
+  source: |
+    Agile Practice Guide: the definition of done, the team's shared checklist
+    that every card must satisfy before it can be called finished.
+  why: |
+    It is written once and applies to every card, which stops "done" from being
+    renegotiated per card. It is also the cheapest quality control a team has.
+  if_blank: |
+    Cards reach the Done column in different states of finished, and the gap
+    surfaces later as rework.
+  example: |
+    Builds clean, runs from a fresh install, the field's help panel is written,
+    and the record file still diffs cleanly.

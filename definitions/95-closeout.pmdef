@@ -1,0 +1,148 @@
+# Closeout — Closing
+#
+# PMBOK Guide 6th ed., 4.7 Close Project or Phase.
+
+screen: closeout
+title: Closeout
+phase: Closing
+process: 4.7 Close Project or Phase
+order: 95
+requires: charter,status
+teaches: |
+  Why closing is a process rather than an absence of activity, and what has to
+  happen for a project to actually end. By the end you should be able to explain
+  why most personal projects never close and what that costs.
+before: |
+  The deliverables have to be finished and accepted. Closing a project that
+  is not done is just abandoning it with extra paperwork.
+after: |
+  The next project. Lessons learned are the only part of a closed project
+  that keeps working for you.
+intro: |
+  Closing is a process, not an absence of activity. Deliverables are formally
+  accepted, the records are archived, the lessons are written down while they
+  are still true, and the project is released.
+
+  Most personal projects never reach this screen. They fade out, which is why
+  nothing is ever learned from them.
+source: |
+  PMBOK Guide, 6th ed., process 4.7 Close Project or Phase, the only process in
+  the Closing process group. Formal acceptance comes from 5.5 Validate Scope;
+  lessons learned are collected throughout and finalized here into the lessons
+  learned repository.
+
+field acceptance
+  prompt: Has the sponsor formally accepted the deliverables? Write who and when.
+  check filled: Without formal acceptance the project is finished but not closed, and it stays on someone's list forever.
+  label: Final acceptance
+  type: text
+  origin: standard
+  source: |
+    4.7 Close Project or Phase: confirmation that the deliverables were
+    formally accepted, per the acceptance criteria in the scope statement and
+    the approval requirements in the charter.
+  why: |
+    It is the sponsor's statement that the project delivered what it was
+    authorized to deliver. Without it the project is finished but not closed,
+    and it stays on someone's list forever.
+  if_blank: |
+    There is no moment where the project ends, so it never quite does.
+  example: |
+    Accepted by the sponsor 2026-10-15. Final review verdict: right.
+
+field outcome
+  prompt: Did it work? Answer each success criterion from the charter.
+  check column:met: An unanswered criterion is a criterion you are avoiding. An honest 'no' is worth more here than a generous 'yes'.
+  label: Outcome against success criteria
+  type: table
+  origin: standard
+  view: log
+  title_column: criterion
+  tone_column: met
+  source: |
+    4.7 Close Project or Phase: measuring the project against the measurable
+    objectives and success criteria set out in the charter.
+  why: |
+    This is the charter's §3 answered, one line at a time. It is the difference
+    between "we shipped it" and "it worked", and it is where an honest "no"
+    is more valuable than a generous "yes".
+  if_blank: |
+    Success is declared by whoever is most invested in having succeeded.
+  example: |
+    Every field has a source tag and a why | Yes | Checked on all 12 screens
+  column criterion
+    label: Success criterion
+    type: text
+    width: 5
+  column met
+    label: Met
+    type: choice
+    options: Yes=ok, Partly=warn, No=danger
+    width: 1
+  column evidence
+    label: Evidence
+    type: text
+    width: 5
+
+field lessons
+  prompt: What would you do differently, and what worked well enough to repeat?
+  check rows>=2: Two lessons is the minimum worth carrying forward. A closed project with no lessons teaches the next one nothing.
+  check column:action: A lesson that does not say what to do differently is an observation.
+  label: Lessons learned
+  type: table
+  origin: standard
+  view: log
+  title_column: lesson
+  tone_column: kind
+  source: |
+    Lessons learned register (4.4 Manage Project Knowledge), finalized at
+    closure into the lessons learned repository, an organizational process
+    asset for future projects.
+  why: |
+    A lesson is only useful if it says what to do differently next time. "We
+    should have communicated better" is not a lesson; "the reviewer got the
+    charter after the build started, so his first feedback was about scope"
+    is.
+
+    Write them as they happen, not at the end. Memory at closeout is generous
+    to the people writing it.
+  if_blank: |
+    The same mistake is made on the next project, and it feels novel.
+  example: |
+    One review gate at the end | What to change | Give the reviewer the charter at kickoff and review after M4
+  column lesson
+    label: What happened
+    type: text
+    width: 5
+  column kind
+    label: Type
+    type: choice
+    options: What worked=ok, What to change=warn, Surprise=accent
+    width: 2
+  column action
+    label: What to do differently
+    type: text
+    width: 5
+  column area
+    label: Area
+    type: choice
+    options: Scope, Schedule, Quality, Risk, Stakeholders, Process, Technical
+    width: 2
+
+field archive
+  prompt: Where does the record live now, and who owns the product?
+  check filled: Without this the record is wherever the last person left it, and the product has no owner.
+  label: Archive and handover
+  type: text
+  origin: standard
+  source: |
+    4.7 Close Project or Phase: archiving project records and transferring the
+    product to operations or to the next phase.
+  why: |
+    It says where the record now lives and who owns the thing that was built
+    once the project stops existing.
+  if_blank: |
+    The record is wherever the last person left it, and the product has no
+    owner.
+  example: |
+    Record archived in the repository. Product maintained as a personal tool.

@@ -1,0 +1,93 @@
+[product]
+name         = "AutoPM"
+version      = "0.1.0"
+publisher    = "Locke Werks"
+description  = "Learn the project manager's job by doing it, one question at a time."
+url          = "https://github.com/Locke-Werks/AutoPM"
+icon         = "autopm.ico"
+upgrade_code = "6f2c9d41-5b3e-4a77-9c12-0e8a4d6b21f5"
+aumid        = "LockeWerks.AutoPM"
+
+# Per-user: each person runs their own install, and records live under their
+# own Documents. Nothing here needs the machine.
+[install]
+scope     = "user"
+dir       = '{LocalPrograms}\AutoPM'
+elevation = "on-demand"
+
+[ui]
+# The installer wears the application's own palette rather than the house
+# default, so the first thing it shows looks like the thing being installed.
+theme.background   = "#07050E"
+theme.surface      = "#100B20"
+theme.border       = "#29B05CF6"
+theme.border_hover = "#57B05CF6"
+theme.accent       = "#B05CF6"
+theme.accent_soft  = "#1EB05CF6"
+theme.text         = "#F7EFFC"
+theme.text_body    = "#D9C8E8"
+theme.text_muted   = "#B9A3CF"
+theme.text_faint   = "#8D70A4"
+theme.error        = "#FF1E3C"
+theme.success      = "#3D7DFF"
+theme.warning      = "#FF5A2A"
+
+warning = "Unsigned. There is no code signing certificate for this build, so Windows will warn about it."
+
+# Mirrors LICENSE at the repository root. Keep the two in step: this is the
+# text somebody actually agrees to.
+license_text = '''
+AutoPM
+
+Copyright (c) 2026 Nyx Locke. All rights reserved.
+
+This software, its source code, its screen definition files and its
+documentation are the property of the copyright holder.
+
+No permission is granted to any person to use, copy, modify, merge, publish,
+distribute, sublicense or sell this software or any part of it, in source or
+binary form, without prior written permission from the copyright holder.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+
+
+THIRD-PARTY COMPONENTS
+----------------------
+
+The terms above cover AutoPM itself. They do not, and cannot, restrict the
+components below, which are redistributed under their own licences.
+
+Qt 6
+  AutoPM links the Qt 6 libraries dynamically and ships them as separate DLLs
+  alongside the executable. Qt is used here under the GNU Lesser General Public
+  License version 3. The Qt libraries may be replaced with compatible versions
+  by the recipient. Qt is copyright The Qt Company Ltd and contributors; its
+  licence text ships with the Qt installation and is published at
+  https://doc.qt.io/qt-6/licensing.html
+
+Chakra Petch
+  Copyright Cadson Demak. Licensed under the SIL Open Font License 1.1.
+  See assets/fonts/OFL-ChakraPetch.txt
+
+Outfit
+  Copyright Smartsheet Inc. Licensed under the SIL Open Font License 1.1.
+  See assets/fonts/OFL-Outfit.txt
+
+Instrument Serif
+  Copyright Instrument. Licensed under the SIL Open Font License 1.1.
+  See assets/fonts/OFL-InstrumentSerif.txt
+
+The SIL Open Font License permits the bundled fonts to be used, embedded and
+redistributed with this software. It does not permit them to be sold on their
+own.
+'''
+
+[[actions]]
+type   = "shortcut"
+target = '{InstallDir}\AutoPM.exe'
+name   = "AutoPM"
+
+[[actions]]
+type = "arp"

@@ -1,0 +1,140 @@
+# Schedule — Planning
+#
+# PMBOK Guide 6th ed., 6.2 Define Activities through 6.5 Develop Schedule.
+#
+# The timeline view draws the dates you enter. It does not calculate them:
+# scheduling engine math (critical path, resource leveling, float) is out of
+# scope for this product by the charter.
+
+screen: schedule
+title: Schedule
+phase: Planning
+process: 6.5 Develop Schedule
+order: 50
+requires: scope
+teaches: |
+  How activities, dependencies and dates fit together, and why a baseline is
+  the thing that makes a schedule mean anything. By the end you should be able
+  to explain what a critical path is and why a schedule that is always being
+  adjusted is never late.
+before: |
+  The WBS. Activities come from work packages, so without one you are
+  scheduling a list someone made up rather than the actual work.
+after: |
+  Progress reporting. Once there is a baseline, "on schedule" becomes a
+  statement that can be checked rather than a feeling.
+intro: |
+  The schedule says when the work happens and in what order. Activities come
+  from the work packages in the WBS, get sequenced by their dependencies, and
+  are given durations and dates.
+
+  This screen records the schedule and draws it. It deliberately does not
+  compute it: the charter puts scheduling-engine math out of scope.
+source: |
+  PMBOK Guide, 6th ed., Project Schedule Management: 6.2 Define Activities,
+  6.3 Sequence Activities, 6.4 Estimate Activity Durations and 6.5 Develop
+  Schedule, all in the Planning process group.
+
+field activities
+  prompt: What gets done, in what order, and when?
+  check rows>=3: A schedule needs more than a couple of rows before sequencing means anything.
+  check column:start: An activity with no start date cannot be sequenced or tracked.
+  check column:finish: An activity with no finish date has no duration, so nothing can be late.
+  label: Schedule
+  type: table
+  origin: standard
+  view: timeline
+  title_column: activity
+  start_column: start
+  finish_column: finish
+  progress_column: percent
+  tone_column: status
+  source: |
+    6.5 Develop Schedule, output: the project schedule. Activities come from
+    6.2 Define Activities, their order from 6.3 Sequence Activities, and their
+    durations from 6.4 Estimate Activity Durations.
+  why: |
+    Each row is one activity with a start, a finish and what it waits on. The
+    "depends on" column is the dependency: finish-to-start is the common one,
+    meaning this cannot start until that one finishes.
+
+    A dependency you did not write down is the one that surprises you. The
+    longest chain of dependent activities is the critical path, and it is what
+    decides the project's end date, whether or not anything calculates it for
+    you.
+  if_blank: |
+    Work is done in whatever order it occurs to someone, and the finish date is
+    a guess that nobody can defend or revise.
+  example: |
+    A4 | Build the board screen | 2026-09-21 | 2026-09-24 | A3 | 0 | Not started
+  column ref
+    label: ID
+    type: line
+    width: 1
+  column activity
+    label: Activity
+    type: line
+    width: 5
+  column start
+    label: Start
+    type: date
+    width: 2
+  column finish
+    label: Finish
+    type: date
+    width: 2
+  column depends
+    label: Depends on
+    type: line
+    width: 2
+  column owner
+    label: Owner
+    type: line
+    width: 2
+  column percent
+    label: % done
+    type: number
+    width: 1
+  column status
+    label: Status
+    type: choice
+    options: Not started=faint, In progress=accent, Done=ok, Blocked=danger, Late=danger
+    width: 2
+
+field basis
+  prompt: How did you arrive at these durations?
+  check filled: An estimate without its basis cannot be defended when it slips, or improved next time.
+  label: Basis of estimates
+  type: text
+  origin: standard
+  source: |
+    6.4 Estimate Activity Durations, output: basis of estimates — the
+    assumptions, the method used, and the confidence level.
+  why: |
+    It records how the durations were arrived at, so a later slip can be
+    diagnosed instead of argued about. An estimate without its basis cannot be
+    defended or improved.
+  if_blank: |
+    Every estimate looks equally solid, including the ones that were guesses.
+  example: |
+    Durations are single-point estimates from the delivery team, assuming
+    uninterrupted days. No contingency reserve added.
+
+field baseline
+  prompt: What is the approved version of this schedule, and has it been rebaselined?
+  check filled: Without a baseline there is nothing to be late against, so 'on schedule' means nothing.
+  label: Schedule baseline note
+  type: text
+  origin: standard
+  source: |
+    6.5 Develop Schedule, output: the schedule baseline — the approved version
+    of the schedule, changed only through formal change control.
+  why: |
+    The baseline is the version you measure against. Once it is approved,
+    moving a date is a change request, not an edit. That is the whole point:
+    without a baseline, a schedule that is always being adjusted is never late.
+  if_blank: |
+    There is nothing to be late against, so "on schedule" means nothing.
+  example: |
+    Baselined 2026-09-15 from the charter milestone dates. One rebaseline so
+    far, logged on the Change Log screen.

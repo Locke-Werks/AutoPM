@@ -5,4 +5,9 @@ out/
 CMakeSettings.json
 *.tmp
 dist/
-assets/fonts/*.ttf
+forge/*.ico
+
+# Release job working directories: the staged payload and the Forge
+# binaries it downloads.
+stage/
+forge-tools/
