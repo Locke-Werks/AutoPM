@@ -11,7 +11,7 @@ visible square against a dark one. Only the bars are drawn, so they sit on
 whatever the shell puts behind them. With no container to sit inside, the mark
 fills much more of the frame than it did.
 
-    python assets/make-icon.py
+    python tools/make-icon.py
 """
 
 from PIL import Image, ImageDraw
