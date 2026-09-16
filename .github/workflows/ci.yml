@@ -1,0 +1,39 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: 6.8.3
+          arch: win64_msvc2022_64
+          cache: true
+
+      - name: Configure
+        shell: pwsh
+        run: >
+          cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+          -DCMAKE_PREFIX_PATH="$env:QT_ROOT_DIR"
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      # The core is the half with no Qt in it, and the half where a defect is
+      # silent: a record that quietly lost a field looks exactly like a record
+      # nobody filled in.
+      - name: Test
+        run: ctest --test-dir build -C Release --output-on-failure
+
+      # The taskbar reads the 16 and 24 pixel images, and a file that lost them
+      # still looks correct everywhere an icon is usually inspected.
+      - name: The app icon carries every size the shell asks for
+        run: python tools/check-icon.py assets/autopm.ico

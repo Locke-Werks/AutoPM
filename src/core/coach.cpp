@@ -155,6 +155,11 @@ std::vector<Note> reviewScreen(const Screen& screen, const Record& record) {
     std::vector<Note> notes;
     for (const Field& field : screen.fields) {
         const Entry* entry = record.entry(screen.id + "." + field.id);
+        // Blank is not thin, the same rule progressOf follows. How much is
+        // still unanswered is already carried by the answered count; repeating
+        // every empty field here buries the answers that are genuinely weak
+        // under a list of fields nobody has reached yet.
+        if (!entry || entry->isEmpty()) continue;
         for (const std::string& message : reviewField(field, entry))
             notes.push_back(Note{field.id, message});
     }

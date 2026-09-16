@@ -84,3 +84,18 @@ add_custom_command(TARGET autopm POST_BUILD
         "${CMAKE_SOURCE_DIR}/assets" "$<TARGET_FILE_DIR:autopm>/assets"
     COMMENT "Staging definitions and assets next to AutoPM.exe"
 )
+
+# ── tests ────────────────────────────────────────────────────────────────
+# Core only. It is the half with no Qt in it, and the half where a mistake is
+# silent: a GUI defect shows up on screen, a parser defect shows up as a record
+# that quietly lost a field.
+
+include(CTest)
+if(BUILD_TESTING)
+    add_executable(autopm_test tests/test_core.cpp)
+    target_link_libraries(autopm_test PRIVATE autopm_core)
+    add_test(
+        NAME core
+        COMMAND autopm_test "${CMAKE_SOURCE_DIR}/definitions" "${CMAKE_SOURCE_DIR}"
+    )
+endif()
