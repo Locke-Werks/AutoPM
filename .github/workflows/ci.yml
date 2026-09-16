@@ -7,7 +7,12 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    # Pinned, not windows-latest. That label now resolves to
+    # windows-2025-vs2026, which carries Visual Studio 2026 and no 2022
+    # instance, so the generator below finds nothing. Qt ships this
+    # application's binaries as win64_msvc2022_64, so the runner should be the
+    # one whose toolset those were built against.
+    runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
 
