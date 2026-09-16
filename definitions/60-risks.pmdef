@@ -37,6 +37,7 @@ field register
   check rows>=3: Three risks is the floor for a register worth reviewing. A project with no risks identified is a project nobody has thought about hard yet.
   check column:owner: A risk with no owner is a worry. Name the person who watches it.
   check column:response: A risk with no planned response is a risk you have accepted without saying so.
+  check column:trigger: A response with no trigger fires when somebody happens to notice. Say what you would see first, so the response has a moment to start at.
   label: Risks
   type: table
   origin: standard
@@ -97,6 +98,10 @@ field register
     label: Planned response
     type: text
     width: 5
+  column trigger
+    label: What you would see first
+    type: text
+    width: 4
   column owner
     label: Owner
     type: line
