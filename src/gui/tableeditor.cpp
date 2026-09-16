@@ -4,7 +4,11 @@
 #include "fieldeditors.h"
 #include "theme.h"
 
+#include <QCalendarWidget>
 #include <QComboBox>
+#include <QEvent>
+#include <QTextCharFormat>
+#include <QToolButton>
 #include <QHBoxLayout>
 #include <QHeaderView>
 #include <QLabel>
@@ -16,6 +20,74 @@
 #include <QVBoxLayout>
 
 namespace {
+
+// A date cell is blank until somebody fills it in, which QDateEdit has no
+// concept of. The convention is to park the value on the minimum and show
+// special text there, and that is what this does. What it missed is that the
+// minimum is also where the calendar opens and where stepping starts, so an
+// untouched cell offered January 1900 and one press of Up recorded 1901.
+//
+// Blank still reads as blank and still saves as nothing. What changes is that
+// the moment it stops being blank, it becomes today.
+class DateCell : public QDateEdit {
+public:
+    explicit DateCell(QWidget* parent) : QDateEdit(parent) {
+        setDisplayFormat("yyyy-MM-dd");
+        setCalendarPopup(true);
+        setMinimumDate(QDate(1900, 1, 1));
+        setSpecialValueText(" — ");
+        if (QCalendarWidget* calendar = calendarWidget()) {
+            // Left alone the popup takes the width of the cell it was opened
+            // from, which is narrow enough that Qt elides every day name to
+            // "...", and a calendar whose columns are unlabelled is not one.
+            calendar->setMinimumWidth(300);
+            calendar->setFont(theme::bodyFont(12));
+            calendar->setVerticalHeaderFormat(QCalendarWidget::NoVerticalHeader);
+            calendar->setGridVisible(false);
+            // Qt paints Saturday and Sunday red. Red means one thing in this
+            // app and a weekend is not it.
+            QTextCharFormat weekday;
+            weekday.setForeground(theme::textBody());
+            calendar->setWeekdayTextFormat(Qt::Saturday, weekday);
+            calendar->setWeekdayTextFormat(Qt::Sunday, weekday);
+            // The month arrows arrive as Qt's own icons, which are green.
+            for (const auto& [name, glyph] : {std::pair<const char*, const char*>{"qt_calendar_prevmonth", "‹"},
+                                             std::pair<const char*, const char*>{"qt_calendar_nextmonth", "›"}}) {
+                if (auto* button = calendar->findChild<QToolButton*>(name)) {
+                    button->setIcon(QIcon());
+                    button->setToolButtonStyle(Qt::ToolButtonTextOnly);
+                    button->setText(QString::fromUtf8(glyph));
+                }
+            }
+            calendar->installEventFilter(this);
+        }
+    }
+
+    bool blank() const { return date() == minimumDate(); }
+
+protected:
+    void stepBy(int steps) override {
+        if (blank()) {
+            setDate(QDate::currentDate());
+            return;
+        }
+        QDateEdit::stepBy(steps);
+    }
+
+    bool eventFilter(QObject* watched, QEvent* event) override {
+        // Qt points the calendar at the edit's own date just before showing
+        // it, which on a blank cell is 1900, so this has to happen after that
+        // rather than in the constructor. Only the page moves: opening the
+        // picker and thinking better of it still leaves the cell empty.
+        if (event->type() == QEvent::Show && blank()) {
+            if (auto* calendar = qobject_cast<QCalendarWidget*>(watched)) {
+                const QDate today = QDate::currentDate();
+                calendar->setCurrentPage(today.year(), today.month());
+            }
+        }
+        return QDateEdit::eventFilter(watched, event);
+    }
+};
 
 std::vector<pm::Option> provenanceOptions() {
     return {
@@ -69,14 +141,7 @@ QWidget* CellDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem&
         editors::fillChoices(combo, definition->options);
         return combo;
     }
-    if (definition->type == "date") {
-        auto* date = new QDateEdit(parent);
-        date->setDisplayFormat("yyyy-MM-dd");
-        date->setCalendarPopup(true);
-        date->setMinimumDate(QDate(1900, 1, 1));
-        date->setSpecialValueText(" — ");
-        return date;
-    }
+    if (definition->type == "date") return new DateCell(parent);
     if (definition->type == "number") {
         auto* spin = new QSpinBox(parent);
         spin->setRange(0, 9999);
