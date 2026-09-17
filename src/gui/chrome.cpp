@@ -4,6 +4,8 @@
 #include <QEnterEvent>
 #include <QHBoxLayout>
 #include <QInputDialog>
+#include <QKeyEvent>
+#include <QMouseEvent>
 #include <QLinearGradient>
 #include <QMenu>
 #include <QPainter>
@@ -31,6 +33,45 @@ void Card::setHighlighted(bool on) {
 void Card::setHoverable(bool on) {
     hoverable_ = on;
     setAttribute(Qt::WA_Hover, on);
+}
+
+void Card::setOnClick(std::function<void()> handler) {
+    onClick_ = std::move(handler);
+    const bool active = static_cast<bool>(onClick_);
+    setHoverable(active);
+    setCursor(active ? Qt::PointingHandCursor : Qt::ArrowCursor);
+    // The dashboard is the first thing a keyboard lands on, so a card that does
+    // something has to be reachable without a mouse.
+    setFocusPolicy(active ? Qt::StrongFocus : Qt::NoFocus);
+}
+
+void Card::mousePressEvent(QMouseEvent* event) {
+    if (onClick_ && event->button() == Qt::LeftButton) {
+        pressed_ = true;
+        update();
+    }
+    QFrame::mousePressEvent(event);
+}
+
+void Card::mouseReleaseEvent(QMouseEvent* event) {
+    // Released outside the card is a cancelled click, the same as any button.
+    const bool fire = pressed_ && onClick_ && event->button() == Qt::LeftButton &&
+                      rect().contains(event->position().toPoint());
+    pressed_ = false;
+    update();
+    QFrame::mouseReleaseEvent(event);
+    // Last, because the handler usually replaces the page this card is on.
+    if (fire) onClick_();
+}
+
+void Card::keyPressEvent(QKeyEvent* event) {
+    if (onClick_ && (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter ||
+                     event->key() == Qt::Key_Space)) {
+        event->accept();
+        onClick_();
+        return;
+    }
+    QFrame::keyPressEvent(event);
 }
 
 void Card::enterEvent(QEnterEvent* event) {
@@ -61,6 +102,10 @@ void Card::paintEvent(QPaintEvent*) {
 
     QColor edge = theme::hairline();
     if (highlighted_) edge = theme::accentAt(150);
+    // Pressed and focused both read as the full accent, which is the one focus
+    // rule the rest of the app follows. A keyboard user has to be able to see
+    // where they are.
+    else if (onClick_ && (pressed_ || hasFocus())) edge = theme::accentAt(150);
     else if (hoverable_ && hovered_) edge = theme::accentAt(85);
     painter.setPen(QPen(edge, 1));
     painter.setBrush(Qt::NoBrush);

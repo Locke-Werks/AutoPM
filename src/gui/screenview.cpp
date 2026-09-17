@@ -25,9 +25,18 @@ ScreenView::ScreenView(const pm::Screen& screen, const std::shared_ptr<pm::Recor
 
     column_->addWidget(buildHeader());
     column_->addSpacing(6);
-    for (const pm::Field& field : screen_.fields)
-        column_->addWidget(buildFieldCard(field));
+    for (const pm::Field& field : screen_.fields) {
+        QWidget* card = buildFieldCard(field);
+        // Kept by id so something outside can point at one entry rather than at
+        // the page it happens to be on.
+        fieldCards_.insert(QString::fromStdString(field.id), card);
+        column_->addWidget(card);
+    }
     column_->addStretch(1);
+}
+
+QWidget* ScreenView::fieldCard(const QString& fieldId) const {
+    return fieldCards_.value(fieldId, nullptr);
 }
 
 std::string ScreenView::keyFor(const pm::Field& field) const {

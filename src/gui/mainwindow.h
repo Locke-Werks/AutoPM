@@ -27,6 +27,8 @@ public:
     // By name or id, for the command line. False when there is no such project.
     bool openProjectNamed(const QString& wanted);
     void showScreenById(const QString& screenId);
+    // A screen, scrolled to one entry on it.
+    void showEntry(const QString& screenId, const QString& fieldId);
     void startWalkthrough(const QString& screenId = QString());
     void chooseAccent();
 

@@ -24,6 +24,11 @@ public:
     const pm::Screen& screen() const { return screen_; }
     void reload();
 
+    // The card holding one field, or null when this screen has no such field.
+    // Lets a caller scroll to an entry instead of dropping somebody at the top
+    // of a page and leaving them to find which line was meant.
+    QWidget* fieldCard(const QString& fieldId) const;
+
 signals:
     void walkThrough();
     void fieldFocused(const QString& fieldId);
@@ -46,4 +51,5 @@ private:
     const pm::Definitions* definitions_ = nullptr;
     QVBoxLayout* column_ = nullptr;
     QHash<QObject*, QString> focusOwners_;
+    QHash<QString, QWidget*> fieldCards_;
 };
