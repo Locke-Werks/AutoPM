@@ -24,6 +24,9 @@ public:
 
 signals:
     void openScreen(const QString& screenId);
+    // A screen, scrolled to the entry a stat tile counted. A number is only
+    // useful if clicking it lands on one of the things it counted.
+    void openEntry(const QString& screenId, const QString& fieldId);
     void walkThrough(const QString& screenId);
 
 protected:

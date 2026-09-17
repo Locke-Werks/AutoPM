@@ -49,6 +49,48 @@ Counts countScreen(const pm::Screen& screen, const pm::Record& record) {
     return counts;
 }
 
+// Where a stat tile sends you: a screen, and the entry on it that the tile
+// counted. Empty when nothing matched, which leaves a tile inert rather than
+// pointing somebody at a screen holding none of what they clicked.
+struct Destination {
+    std::string screen;
+    std::string field;
+    bool found() const { return !screen.empty(); }
+};
+
+// The first entry, in lifecycle order and then field order, matching what a
+// tile counted. The field matters as much as the screen: "14 unanswered"
+// scattered across a record is no help if the click lands at the top of a page
+// and leaves you to work out which line was meant.
+Destination firstEntryWhere(const pm::Definitions& definitions, const pm::Record& record,
+                            const std::function<bool(const pm::Entry&)>& holds) {
+    for (const pm::Screen& screen : definitions.screens()) {
+        for (const pm::Field& field : screen.fields) {
+            const pm::Entry* entry = record.entry(screen.id + "." + field.id);
+            if (entryHasContent(entry) && holds(*entry)) return {screen.id, field.id};
+        }
+    }
+    return {};
+}
+
+// A tag on the entry itself or on any of its rows. Both are counted, so both
+// have to be findable.
+bool tagged(const pm::Entry& entry, pm::Provenance want) {
+    if (entry.provenance == want) return true;
+    for (const pm::Row& row : entry.rows) {
+        if (row.provenance == want) return true;
+    }
+    return false;
+}
+
+bool isDecision(const pm::Entry& entry) {
+    if (pm::provenanceIsDecision(entry.provenance)) return true;
+    for (const pm::Row& row : entry.rows) {
+        if (pm::provenanceIsDecision(row.provenance)) return true;
+    }
+    return false;
+}
+
 // A number with its label under it, in a traced-edge card.
 chrome::Card* statCard(const QString& value, const QString& caption, const QColor& colour,
                        QWidget* parent) {
@@ -254,22 +296,58 @@ QWidget* Dashboard::buildStats() {
                             : total.fieldsFilled * 100 / total.fieldsTotal;
     const int decisions = total.specified + total.agreed;
 
+    // A number you cannot act on is decoration. Each tile opens the first
+    // screen holding whatever it counted, so the count and the place you would
+    // change it are one click apart. A tile counting nothing has nowhere to go
+    // and stays inert rather than pointing somewhere arbitrary.
+    const auto leadsTo = [this](chrome::Card* card, const Destination& to, const QString& what) {
+        if (!to.found()) return;
+        const pm::Screen* screen = definitions_.screen(to.screen);
+        const QString screenId = QString::fromStdString(to.screen);
+        const QString fieldId = QString::fromStdString(to.field);
+        const QString title = screen ? QString::fromStdString(screen->title) : screenId;
+        const QString where = QString("Opens %1, %2.").arg(title, what);
+        card->setToolTip(card->toolTip().isEmpty() ? where : card->toolTip() + "\n\n" + where);
+        card->setOnClick([this, screenId, fieldId] { emit openEntry(screenId, fieldId); });
+    };
+
+    auto* completeCard =
+        statCard(QString("%1%").arg(percent), "record complete", theme::accent(), holder);
+    completeCard->setToolTip("Fields with an answer, across every screen.");
+    // Not the first screen with a blank field: that is how the overview used to
+    // send you to Closeout on a project still running. nextScreen knows which
+    // phase the project has reached, and there is no single blank entry to
+    // point at, so this one lands on the screen.
+    leadsTo(completeCard, Destination{pm::nextScreen(definitions_, *record_), std::string()},
+            "the next one worth working on");
+
+    auto* rowsCard =
+        statCard(QString::number(total.rows), "logged entries", theme::textPrimary(), holder);
+    rowsCard->setToolTip("Rows across every table in the record.");
+    leadsTo(rowsCard,
+            firstEntryWhere(definitions_, *record_,
+                            [](const pm::Entry& e) { return !e.rows.empty(); }),
+            "the first table you have logged anything in");
+
     auto* decisionCard = statCard(QString::number(decisions), "decisions on evidence",
                                   theme::ok(), holder);
     decisionCard->setToolTip("Entries tagged specified or agreed. Only these count as decisions.");
+    leadsTo(decisionCard, firstEntryWhere(definitions_, *record_, isDecision),
+            "the first entry recorded as a decision");
 
     auto* looseCard = statCard(QString::number(total.unobjected), "proposed, unanswered",
                                total.unobjected > 0 ? theme::warn() : theme::textFaint(), holder);
     looseCard->setToolTip("Tagged unobjected: proposed and never answered. Not decisions. "
                           "Chase them or drop them.");
+    leadsTo(looseCard,
+            firstEntryWhere(definitions_, *record_,
+                            [](const pm::Entry& e) {
+                                return tagged(e, pm::Provenance::Unobjected);
+                            }),
+            "the first one still waiting on a yes or a no");
 
     // Four columns at full width, folding to two when the window narrows.
-    QList<chrome::Card*> cards{
-        statCard(QString("%1%").arg(percent), "record complete", theme::accent(), holder),
-        statCard(QString::number(total.rows), "logged entries", theme::textPrimary(), holder),
-        decisionCard,
-        looseCard,
-    };
+    QList<chrome::Card*> cards{completeCard, rowsCard, decisionCard, looseCard};
     // Four across. They have a floor of 150px and the page is never
     // narrower than that times four, so this does not need measuring.
     const int columns = 4;

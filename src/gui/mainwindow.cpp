@@ -19,6 +19,7 @@
 #include <QMessageBox>
 #include <QPainter>
 #include <QScrollArea>
+#include <QTimer>
 #include <QShortcut>
 #include <QStackedWidget>
 #include <QStatusBar>
@@ -237,6 +238,7 @@ void MainWindow::rebuildPages() {
 
     dashboard_ = new Dashboard(workspace_.definitions(), record_, pages_);
     connect(dashboard_, &Dashboard::openScreen, this, &MainWindow::showScreenById);
+    connect(dashboard_, &Dashboard::openEntry, this, &MainWindow::showEntry);
     connect(dashboard_, &Dashboard::walkThrough, this,
             [this](const QString& screenId) { startWalkthrough(screenId); });
     pages_->addWidget(wrap(dashboard_));
@@ -343,6 +345,25 @@ void MainWindow::startWalkthrough(const QString& screenId) {
 void MainWindow::showScreenById(const QString& screenId) {
     const auto it = pageForScreen_.find(screenId);
     if (it != pageForScreen_.end()) showPage(it.value());
+}
+
+void MainWindow::showEntry(const QString& screenId, const QString& fieldId) {
+    showScreenById(screenId);
+    if (fieldId.isEmpty()) return;
+
+    const auto view = viewForScreen_.find(screenId);
+    const auto page = pageForScreen_.find(screenId);
+    if (view == viewForScreen_.end() || page == pageForScreen_.end()) return;
+
+    QWidget* card = view.value()->fieldCard(fieldId);
+    auto* scroll = qobject_cast<QScrollArea*>(pages_->widget(page.value()));
+    if (!card || !scroll) return;
+
+    // After the page has been laid out. Scrolling to a widget whose geometry is
+    // still the one it had on the previous page lands somewhere arbitrary.
+    QTimer::singleShot(0, this, [scroll, card] {
+        scroll->ensureWidgetVisible(card, 0, 60);
+    });
 }
 
 void MainWindow::newProject() {

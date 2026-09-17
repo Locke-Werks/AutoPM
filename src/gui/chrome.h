@@ -12,6 +12,8 @@
 #include <QPushButton>
 #include <QString>
 
+#include <functional>
+
 class QVBoxLayout;
 
 namespace chrome {
@@ -25,18 +27,29 @@ public:
 
     void setHighlighted(bool on);
     void setHoverable(bool on);
+
+    // A card that acts on a click. Handing it a handler is what makes it a
+    // control: hoverable, cursor-marked, reachable by Tab and answerable to
+    // Enter or Space. A card without one stays inert, which is most of them.
+    void setOnClick(std::function<void()> handler);
+
     QVBoxLayout* body() const { return body_; }
 
 protected:
     void paintEvent(QPaintEvent* event) override;
     void enterEvent(QEnterEvent* event) override;
     void leaveEvent(QEvent* event) override;
+    void mousePressEvent(QMouseEvent* event) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
+    void keyPressEvent(QKeyEvent* event) override;
 
 private:
     QVBoxLayout* body_ = nullptr;
     bool highlighted_ = false;
     bool hoverable_ = false;
     bool hovered_ = false;
+    bool pressed_ = false;
+    std::function<void()> onClick_;
 };
 
 // "// INITIATING · 4.1 DEVELOP PROJECT CHARTER"
