@@ -1,6 +1,6 @@
 [product]
 name         = "AutoPM"
-version      = "0.1.0"
+version      = "0.2.0"
 publisher    = "Locke Werks"
 description  = "Learn the project manager's job by doing it, one question at a time."
 url          = "https://github.com/Locke-Werks/AutoPM"
