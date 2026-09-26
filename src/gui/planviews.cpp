@@ -11,6 +11,7 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPainterPath>
+#include <QPushButton>
 #include <QTreeWidget>
 #include <QVBoxLayout>
 #include <algorithm>
@@ -408,20 +409,61 @@ void MatrixView::paintEvent(QPaintEvent*) {
 // ── LogView ──────────────────────────────────────────────────────────────
 
 LogView::LogView(const pm::Field& field, QWidget* parent) : RichView(parent), field_(field) {
-    stack_ = new QVBoxLayout(this);
+    auto* outer = new QVBoxLayout(this);
+    outer->setContentsMargins(0, 0, 0, 0);
+    outer->setSpacing(12);
+    stack_ = new QVBoxLayout;
     stack_->setContentsMargins(0, 0, 0, 0);
     stack_->setSpacing(9);
+    outer->addLayout(stack_);
+
+    // Adding belongs where the entries are. Sending people to the table view
+    // to add one is how an empty log comes to look like it cannot be written.
+    auto* toolbar = new QHBoxLayout;
+    auto* add = chrome::button("+ entry", "primary", this);
+    connect(add, &QPushButton::clicked, this, &LogView::addEntry);
+    toolbar->addWidget(add);
+    toolbar->addStretch(1);
+    outer->addLayout(toolbar);
+
+    setRows({});
+}
+
+void LogView::addEntry() {
+    pm::Row row;
+    row.id = "r" + std::to_string(rows_.size() + 1);
+    // The next reference in the log's own series: I7 after I6, D24 after D23.
+    if (field_.column("ref")) {
+        QString prefix;
+        int highest = 0;
+        for (const pm::Row& existing : rows_) {
+            const QString ref = cell(existing, "ref");
+            int at = static_cast<int>(ref.size());
+            while (at > 0 && ref[at - 1].isDigit()) --at;
+            if (at == ref.size()) continue;
+            prefix = ref.left(at);
+            highest = qMax(highest, ref.mid(at).toInt());
+        }
+        if (!prefix.isEmpty())
+            row.setCell("ref", (prefix + QString::number(highest + 1)).toStdString());
+    }
+    CardDialog dialog(field_, row, this);
+    if (dialog.exec() != QDialog::Accepted) return;
+    std::vector<pm::Row> rows = rows_;
+    rows.push_back(dialog.row());
+    setRows(rows);
+    emit rowsChanged(rows);
 }
 
 void LogView::setRows(const std::vector<pm::Row>& rows) {
+    rows_ = rows;
     while (QLayoutItem* item = stack_->takeAt(0)) {
         if (item->widget()) item->widget()->deleteLater();
         delete item;
     }
 
     if (rows.empty()) {
-        auto* empty = chrome::bodyText("Nothing logged yet. Add a row in the table.",
-                                       theme::textFaint(), 13);
+        auto* empty = chrome::bodyText("Nothing logged yet.", theme::textFaint(), 13);
         stack_->addWidget(empty);
         return;
     }

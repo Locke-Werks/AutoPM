@@ -3,6 +3,8 @@
 #include "fieldeditors.h"
 #include "theme.h"
 
+#include <algorithm>
+
 #include <QAbstractItemView>
 #include <QComboBox>
 #include <QDialogButtonBox>
@@ -12,8 +14,11 @@
 #include <QLabel>
 #include <QPainter>
 #include <QPainterPath>
+#include <QScreen>
 #include <QScrollArea>
+#include <QStyle>
 #include <QStyledItemDelegate>
+#include <QTimer>
 #include <QVBoxLayout>
 
 namespace {
@@ -451,7 +456,7 @@ void BoardView::openCard(const QString& rowId) {
 
 CardDialog::CardDialog(const pm::Field& field, const pm::Row& row, QWidget* parent)
     : QDialog(parent), field_(field), row_(row) {
-    setWindowTitle("Card");
+    setWindowTitle(QString::fromStdString(field.label));
     setMinimumWidth(560);
     setStyleSheet(parent ? parent->window()->styleSheet() : QString());
 
@@ -460,9 +465,19 @@ CardDialog::CardDialog(const pm::Field& field, const pm::Row& row, QWidget* pare
     layout->setSpacing(14);
 
     layout->addWidget(new chrome::Eyebrow(QString::fromStdString(field.label)));
-    layout->addWidget(new chrome::Heading("Card detail", 22));
+    layout->addWidget(new chrome::Heading(field.view == "board" ? "Card detail" : "Edit entry", 22));
 
-    auto* form = new QFormLayout;
+    // The fields scroll and the heading and buttons stay put. A row with a
+    // dozen columns is taller than a laptop screen, and a dialog that runs off
+    // the bottom takes its Save button with it.
+    auto* scroll = new QScrollArea(this);
+    scroll->setWidgetResizable(true);
+    scroll->setFrameShape(QFrame::NoFrame);
+    scroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    auto* formHolder = new QWidget(scroll);
+    formHolder->setAutoFillBackground(false);
+    auto* form = new QFormLayout(formHolder);
+    form->setContentsMargins(0, 0, 10, 0);
     form->setSpacing(11);
     form->setLabelAlignment(Qt::AlignLeft | Qt::AlignTop);
     form->setFieldGrowthPolicy(QFormLayout::ExpandingFieldsGrow);
@@ -473,7 +488,11 @@ CardDialog::CardDialog(const pm::Field& field, const pm::Row& row, QWidget* pare
         if (auto* growing = qobject_cast<editors::GrowingTextEdit*>(editor))
             growing->setMinimumLines(2);
         editors::setEditorValue(editor, QString::fromStdString(row_.cell(column.id)));
-        form->addRow(chrome::label(QString::fromStdString(column.label), 10), editor);
+        // Long labels wrap rather than push the fields past the right edge.
+        auto* name = chrome::label(QString::fromStdString(column.label), 10);
+        name->setWordWrap(true);
+        name->setFixedWidth(130);
+        form->addRow(name, editor);
         editors_.emplace_back(column.id, editor);
     }
 
@@ -490,8 +509,23 @@ CardDialog::CardDialog(const pm::Field& field, const pm::Row& row, QWidget* pare
     connect(buttons, &QDialogButtonBox::accepted, this, &QDialog::accept);
     connect(buttons, &QDialogButtonBox::rejected, this, &QDialog::reject);
 
-    layout->addLayout(form);
+    scroll->setWidget(formHolder);
+    layout->addWidget(scroll, 1);
     layout->addWidget(buttons);
+
+    // As wide as the fields need and as tall, up to what the screen can show.
+    // The text editors only know their heights once laid out at their real
+    // width, so the height is measured again after the first show.
+    const QRect available = (parent ? parent->screen() : screen())->availableGeometry();
+    const int scrollbar = style()->pixelMetric(QStyle::PM_ScrollBarExtent);
+    const int wide = formHolder->sizeHint().width() + 26 * 2 + scrollbar;
+    const auto fit = [this, scroll, formHolder, available] {
+        const int outside = height() - scroll->viewport()->height();
+        const int wanted = formHolder->sizeHint().height() + outside;
+        resize(width(), std::min(wanted, available.height() * 9 / 10));
+    };
+    resize(std::max(minimumWidth(), wide), available.height() * 9 / 10);
+    QTimer::singleShot(0, this, fit);
 }
 
 pm::Row CardDialog::row() const {

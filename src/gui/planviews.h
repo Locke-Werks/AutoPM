@@ -74,6 +74,9 @@ public:
     void setRows(const std::vector<pm::Row>& rows) override;
 
 private:
+    void addEntry();
+
     const pm::Field field_;
+    std::vector<pm::Row> rows_;
     QVBoxLayout* stack_ = nullptr;
 };
