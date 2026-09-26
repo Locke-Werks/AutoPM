@@ -36,6 +36,7 @@ target_link_libraries(autopm_mcp PRIVATE autopm_core)
 set_target_properties(autopm_mcp PROPERTIES OUTPUT_NAME "autopm-mcp")
 if(WIN32)
     target_link_libraries(autopm_mcp PRIVATE shell32 ole32)
+    target_sources(autopm_mcp PRIVATE src/mcp/autopm-mcp.rc)
 endif()
 
 add_custom_command(TARGET autopm_mcp POST_BUILD
