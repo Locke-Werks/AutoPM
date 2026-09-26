@@ -8,10 +8,13 @@
 #include "screenview.h"
 #include "theme.h"
 
+#include <algorithm>
+
 #include <QAction>
 #include <QApplication>
 #include <QCloseEvent>
 #include <QDesktopServices>
+#include <QFileInfo>
 #include <QHBoxLayout>
 #include <QInputDialog>
 #include <QLabel>
@@ -74,6 +77,83 @@ private:
     bool child_ = false;
 };
 
+// A project in the far-left list: its own colour as a dot, so the list reads
+// at a glance before any name is, and the phase underneath.
+class ProjectButton : public QPushButton {
+public:
+    ProjectButton(const pm::ProjectSummary& summary, QWidget* parent = nullptr)
+        : QPushButton(QString::fromStdString(summary.name), parent),
+          phase_(QString::fromStdString(summary.phase)),
+          colour_(QString::fromStdString(summary.accent)) {
+        if (!colour_.isValid()) colour_ = theme::textFaint();
+        setCheckable(true);
+        setCursor(Qt::PointingHandCursor);
+        setFont(theme::bodyFont(13));
+        setFixedHeight(phase_.isEmpty() ? 32 : 44);
+        setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        setToolTip(text());
+    }
+
+protected:
+    void paintEvent(QPaintEvent*) override {
+        QPainter painter(this);
+        painter.setRenderHint(QPainter::Antialiasing, true);
+
+        const bool on = isChecked();
+        const bool hot = underMouse();
+
+        if (on || hot) {
+            painter.setPen(Qt::NoPen);
+            painter.setBrush(theme::accentAt(on ? 26 : 16));
+            painter.drawRoundedRect(QRectF(6, 1, width() - 8, height() - 2), 5, 5);
+        }
+        if (on) {
+            painter.setBrush(colour_);
+            painter.drawRoundedRect(QRectF(0, 6, 2.5, height() - 12), 1.2, 1.2);
+        }
+
+        const int left = 30;
+        const int textWidth = width() - left - 10;
+        const int nameTop = phase_.isEmpty() ? 0 : 5;
+        const int nameHeight = phase_.isEmpty() ? height() : 20;
+
+        painter.setPen(Qt::NoPen);
+        painter.setBrush(colour_);
+        painter.drawEllipse(QPointF(18, nameTop + nameHeight / 2.0), 4, 4);
+
+        painter.setPen(on ? theme::textPrimary() : (hot ? theme::textBody() : theme::textSecondary()));
+        painter.setFont(font());
+        painter.drawText(QRect(left, nameTop, textWidth, nameHeight), Qt::AlignLeft | Qt::AlignVCenter,
+                         painter.fontMetrics().elidedText(text(), Qt::ElideRight, textWidth));
+
+        if (!phase_.isEmpty()) {
+            painter.setPen(theme::textFaint());
+            painter.setFont(theme::bodyFont(11));
+            painter.drawText(QRect(left, nameTop + nameHeight, textWidth, 15),
+                             Qt::AlignLeft | Qt::AlignVCenter,
+                             painter.fontMetrics().elidedText(phase_, Qt::ElideRight, textWidth));
+        }
+    }
+
+private:
+    QString phase_;
+    QColor colour_;
+};
+
+// The project column's ground, with a hairline between it and the rail. Both
+// are the raised surface, and without the line they read as one wide rail.
+class ProjectColumn : public QWidget {
+public:
+    using QWidget::QWidget;
+
+protected:
+    void paintEvent(QPaintEvent*) override {
+        QPainter painter(this);
+        painter.fillRect(rect(), theme::surface());
+        painter.fillRect(QRect(width() - 1, 0, 1, height()), theme::hairline());
+    }
+};
+
 QString elide(const QString& text, int length) {
     return text.size() <= length ? text : text.left(length - 1) + "…";
 }
@@ -98,8 +178,8 @@ MainWindow::MainWindow(const QString& definitionsDir, const QString& projectsDir
 
 void MainWindow::buildChrome() {
     setWindowTitle("AutoPM");
-    resize(1500, 950);
-    setMinimumSize(1100, 700);
+    resize(1720, 950);
+    setMinimumSize(1320, 700);
 
     shell_ = new QStackedWidget(this);
 
@@ -107,6 +187,33 @@ void MainWindow::buildChrome() {
     auto* row = new QHBoxLayout(central);
     row->setContentsMargins(0, 0, 0, 0);
     row->setSpacing(0);
+
+    // ── projects ──
+    auto* projects = new ProjectColumn(central);
+    projects->setFixedWidth(220);
+    auto* projectsLayout = new QVBoxLayout(projects);
+    projectsLayout->setContentsMargins(8, 24, 9, 14);
+    projectsLayout->setSpacing(4);
+
+    auto* projectsHeader = chrome::label("Projects", 9, theme::textFaint());
+    projectsHeader->setContentsMargins(14, 0, 6, 6);
+    projectsLayout->addWidget(projectsHeader);
+
+    auto* projectScroll = new QScrollArea(projects);
+    projectScroll->setWidgetResizable(true);
+    projectScroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    projectScroll->setFrameShape(QFrame::NoFrame);
+    auto* projectHolder = new QWidget(projectScroll);
+    projectItems_ = new QVBoxLayout(projectHolder);
+    projectItems_->setContentsMargins(0, 0, 0, 0);
+    projectItems_->setSpacing(2);
+    projectItems_->addStretch(1);
+    projectScroll->setWidget(projectHolder);
+    projectsLayout->addWidget(projectScroll, 1);
+
+    auto* create = chrome::button("new project", "quiet", projects);
+    connect(create, &QPushButton::clicked, this, &MainWindow::newProject);
+    projectsLayout->addWidget(create);
 
     // ── rail ──
     rail_ = new QWidget(central);
@@ -152,6 +259,7 @@ void MainWindow::buildChrome() {
     // ── help ──
     help_ = new HelpPanel(central);
 
+    row->addWidget(projects);
     row->addWidget(rail_);
     row->addWidget(pages_, 1);
     row->addWidget(help_);
@@ -186,6 +294,8 @@ void MainWindow::buildChrome() {
 
     new QShortcut(QKeySequence::Save, this, [this] { save(); });
     new QShortcut(QKeySequence::New, this, [this] { newProject(); });
+    new QShortcut(QKeySequence(Qt::CTRL | Qt::Key_PageUp), this, [this] { stepProject(-1); });
+    new QShortcut(QKeySequence(Qt::CTRL | Qt::Key_PageDown), this, [this] { stepProject(1); });
 }
 
 bool MainWindow::openProject(const QString& path) {
@@ -204,6 +314,7 @@ bool MainWindow::openProject(const QString& path) {
 
     rebuildPages();
     buildRail();
+    buildProjectList();
     refreshStatus();
     return true;
 }
@@ -243,34 +354,48 @@ void MainWindow::rebuildPages() {
             [this](const QString& screenId) { startWalkthrough(screenId); });
     pages_->addWidget(wrap(dashboard_));
 
+    // Empty pages, filled on first visit. Building every screen up front cost
+    // most of a second per project switch, for screens that mostly go unseen.
     for (const pm::Screen& screen : workspace_.definitions().screens()) {
-        auto* view = new ScreenView(screen, record_, &workspace_.definitions(), pages_);
-        const QString screenId = QString::fromStdString(screen.id);
-
-        connect(view, &ScreenView::fieldFocused, this, [this, screenId](const QString& fieldId) {
-            const pm::Screen* screen = workspace_.definitions().screen(screenId.toStdString());
-            if (!screen) return;
-            if (const pm::Field* field = screen->field(fieldId.toStdString()))
-                help_->showField(*screen, *field);
-        });
-        connect(view, &ScreenView::columnFocused, this,
-                [this, screenId](const QString& fieldId, const QString& columnId) {
-                    const pm::Screen* screen = workspace_.definitions().screen(screenId.toStdString());
-                    if (!screen) return;
-                    const pm::Field* field = screen->field(fieldId.toStdString());
-                    if (!field) return;
-                    if (const pm::Column* column = field->column(columnId.toStdString()))
-                        help_->showColumn(*screen, *field, *column);
-                });
-        connect(view, &ScreenView::recordEdited, this, &MainWindow::markDirty);
-        connect(view, &ScreenView::walkThrough, this,
-                [this, screenId] { startWalkthrough(screenId); });
-
-        pageForScreen_.insert(screenId, pages_->count());
-        viewForScreen_.insert(screenId, view);
-        pages_->addWidget(wrap(view));
+        pageForScreen_.insert(QString::fromStdString(screen.id), pages_->count());
+        pages_->addWidget(wrap(new QWidget));
     }
     showPage(0);
+}
+
+ScreenView* MainWindow::ensureView(int index) {
+    const auto& screens = workspace_.definitions().screens();
+    if (index < 1 || index - 1 >= static_cast<int>(screens.size())) return nullptr;
+    const pm::Screen& screen = screens[index - 1];
+    const QString screenId = QString::fromStdString(screen.id);
+    if (ScreenView* existing = viewForScreen_.value(screenId)) return existing;
+
+    auto* scroll = qobject_cast<QScrollArea*>(pages_->widget(index));
+    if (!scroll) return nullptr;
+
+    auto* view = new ScreenView(screen, record_, &workspace_.definitions(), scroll);
+    connect(view, &ScreenView::fieldFocused, this, [this, screenId](const QString& fieldId) {
+        const pm::Screen* screen = workspace_.definitions().screen(screenId.toStdString());
+        if (!screen) return;
+        if (const pm::Field* field = screen->field(fieldId.toStdString()))
+            help_->showField(*screen, *field);
+    });
+    connect(view, &ScreenView::columnFocused, this,
+            [this, screenId](const QString& fieldId, const QString& columnId) {
+                const pm::Screen* screen = workspace_.definitions().screen(screenId.toStdString());
+                if (!screen) return;
+                const pm::Field* field = screen->field(fieldId.toStdString());
+                if (!field) return;
+                if (const pm::Column* column = field->column(columnId.toStdString()))
+                    help_->showColumn(*screen, *field, *column);
+            });
+    connect(view, &ScreenView::recordEdited, this, &MainWindow::markDirty);
+    connect(view, &ScreenView::walkThrough, this,
+            [this, screenId] { startWalkthrough(screenId); });
+
+    viewForScreen_.insert(screenId, view);
+    scroll->setWidget(view);   // deletes the placeholder
+    return view;
 }
 
 void MainWindow::buildRail() {
@@ -307,8 +432,43 @@ void MainWindow::buildRail() {
     projectButton_->setText(elide(QString::fromStdString(record_->name), 24));
 }
 
+// By name, not by last edit. The records are sorted newest first everywhere
+// else, but a list you click through by position should not reorder itself
+// every time you save.
+void MainWindow::buildProjectList() {
+    while (projectItems_->count() > 1) {
+        QLayoutItem* item = projectItems_->takeAt(0);
+        if (item->widget()) item->widget()->deleteLater();
+        delete item;
+    }
+    projectPaths_.clear();
+
+    std::vector<pm::ProjectSummary> projects = workspace_.list();
+    std::stable_sort(projects.begin(), projects.end(),
+                     [](const pm::ProjectSummary& a, const pm::ProjectSummary& b) {
+                         return QString::fromStdString(a.name).compare(
+                                    QString::fromStdString(b.name), Qt::CaseInsensitive) < 0;
+                     });
+
+    const QString current = record_ ? QString::fromStdString(record_->path) : QString();
+    for (const pm::ProjectSummary& summary : projects) {
+        const QString path = QString::fromStdString(summary.path);
+        auto* item = new ProjectButton(summary);
+        item->setChecked(QFileInfo(path) == QFileInfo(current));
+        connect(item, &QPushButton::clicked, this, [this, item, path] {
+            // A checkable button unchecks itself on click; the list only
+            // changes when the switch actually happens.
+            item->setChecked(record_ && QFileInfo(path) == QFileInfo(QString::fromStdString(record_->path)));
+            switchTo(path);
+        });
+        projectItems_->insertWidget(projectItems_->count() - 1, item);
+        projectPaths_ << path;
+    }
+}
+
 void MainWindow::showPage(int index) {
     if (index < 0 || index >= pages_->count()) return;
+    ensureView(index);
     pages_->setCurrentIndex(index);
 
     for (int i = 0; i < navButtons_.size(); ++i)
@@ -393,10 +553,7 @@ void MainWindow::switchProject() {
         const QString path = QString::fromStdString(summary.path);
         action->setCheckable(true);
         action->setChecked(record_ && QString::fromStdString(record_->path) == path);
-        connect(action, &QAction::triggered, this, [this, path] {
-            if (!confirmDiscard()) return;
-            openProject(path);
-        });
+        connect(action, &QAction::triggered, this, [this, path] { switchTo(path); });
     }
     menu.addSeparator();
     connect(menu.addAction("Project colour…"), &QAction::triggered, this, &MainWindow::chooseAccent);
@@ -406,8 +563,34 @@ void MainWindow::switchProject() {
     menu.exec(projectButton_->mapToGlobal(QPoint(0, projectButton_->height() + 4)));
 }
 
+// Staying on the same screen is what makes comparing two projects quick: the
+// risks of one, then the risks of the next, without a trip through Overview.
+void MainWindow::switchTo(const QString& path) {
+    if (record_ && QFileInfo(path) == QFileInfo(QString::fromStdString(record_->path))) return;
+    if (!confirmDiscard()) return;
+    const int page = pages_ ? pages_->currentIndex() : 0;
+    if (openProject(path)) showPage(page);
+}
+
+void MainWindow::stepProject(int delta) {
+    if (projectPaths_.isEmpty() || shell_->currentIndex() != 0) return;
+    int at = -1;
+    if (record_) {
+        const QFileInfo current(QString::fromStdString(record_->path));
+        for (int i = 0; i < projectPaths_.size(); ++i)
+            if (QFileInfo(projectPaths_[i]) == current) at = i;
+    }
+    if (at < 0) at = delta > 0 ? -1 : 0;
+    const int count = static_cast<int>(projectPaths_.size());
+    switchTo(projectPaths_[((at + delta) % count + count) % count]);
+}
+
 bool MainWindow::event(QEvent* event) {
-    if (event->type() == QEvent::WindowActivate) reloadIfChangedElsewhere();
+    if (event->type() == QEvent::WindowActivate) {
+        reloadIfChangedElsewhere();
+        // The MCP server can create projects too.
+        if (projectItems_) buildProjectList();
+    }
     return QMainWindow::event(event);
 }
 
@@ -469,6 +652,7 @@ void MainWindow::save() {
         return;
     }
     dashboard_->refresh();
+    buildProjectList();   // the phase under the name may have moved
     refreshStatus();
 }
 

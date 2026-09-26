@@ -1,11 +1,12 @@
-// The window: a lifecycle rail on the left, the screen in the middle, the
-// "why" panel on the right.
+// The window: every project down the far left, the lifecycle rail beside it,
+// the screen in the middle, the "why" panel on the right.
 #pragma once
 
 #include "core/workspace.h"
 
 #include <QHash>
 #include <QMainWindow>
+#include <QStringList>
 #include <memory>
 
 class QLabel;
@@ -41,11 +42,16 @@ protected:
 private:
     void buildChrome();
     void buildRail();
+    void buildProjectList();
     void rebuildPages();
     void showPage(int index);
+    ScreenView* ensureView(int index);
 
     void newProject();
     void switchProject();
+    // Another project, landing on the screen you were already on.
+    void switchTo(const QString& path);
+    void stepProject(int delta);
     void save();
     bool confirmDiscard();
     void markDirty();
@@ -60,6 +66,8 @@ private:
     GuidedView* guided_ = nullptr;
     QWidget* rail_ = nullptr;
     QVBoxLayout* railItems_ = nullptr;
+    QVBoxLayout* projectItems_ = nullptr;
+    QStringList projectPaths_;   // in the order the list shows them
     QPushButton* projectButton_ = nullptr;
     QStackedWidget* pages_ = nullptr;
     HelpPanel* help_ = nullptr;
