@@ -118,6 +118,14 @@ QLabel* bodyText(const QString& text, const QColor& colour = theme::textSecondar
                  int pixelSize = 14);
 QFrame* rule(QWidget* parent = nullptr);
 
+// Makes a widget open something on a single left click, with the cursor to
+// say so. Selectable text inside it would take the click for itself, so its
+// labels stop being selectable: the thing the click opens is where the text
+// gets edited.
+void onClick(QWidget* widget, std::function<void()> handler);
+// The label half of that on its own, for a Card that already handles clicks.
+void passClicksThrough(QWidget* widget);
+
 // The hairline as a style sheet colour, so widgets that need it in a sheet do
 // not restate the numbers.
 QString hairlineCss(int alpha = 41);

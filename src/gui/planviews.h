@@ -10,6 +10,7 @@
 #include "core/definition.h"
 #include "core/record.h"
 
+#include <QRectF>
 #include <QWidget>
 #include <vector>
 
@@ -36,7 +37,7 @@ public:
 
 protected:
     void paintEvent(QPaintEvent* event) override;
-    void mouseDoubleClickEvent(QMouseEvent* event) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
 
 private:
     const pm::Field field_;
@@ -52,10 +53,18 @@ public:
 
 protected:
     void paintEvent(QPaintEvent* event) override;
+    void mouseMoveEvent(QMouseEvent* event) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
 
 private:
+    struct Hit {
+        QRectF rect;
+        std::vector<int> rows;
+    };
+
     const pm::Field field_;
     std::vector<pm::Row> rows_;
+    std::vector<Hit> hits_;   // where the last paint put each name
 };
 
 class LogView : public RichView {
@@ -63,9 +72,6 @@ class LogView : public RichView {
 public:
     explicit LogView(const pm::Field& field, QWidget* parent = nullptr);
     void setRows(const std::vector<pm::Row>& rows) override;
-
-protected:
-    bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:
     const pm::Field field_;

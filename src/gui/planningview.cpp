@@ -215,7 +215,7 @@ PlanningView::PlanningView(const pm::Field& field, QWidget* parent)
             rebuild();
             emit recordChanged();
         });
-        connect(list, &QListWidget::itemDoubleClicked, this, [this](QListWidgetItem* item) {
+        connect(list, &QListWidget::itemClicked, this, [this](QListWidgetItem* item) {
             openCard(item->data(card::RowId).toString());
         });
     }

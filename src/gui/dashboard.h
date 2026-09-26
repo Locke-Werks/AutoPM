@@ -28,6 +28,8 @@ signals:
     // useful if clicking it lands on one of the things it counted.
     void openEntry(const QString& screenId, const QString& fieldId);
     void walkThrough(const QString& screenId);
+    // The phase or summary was changed here.
+    void recordEdited();
 
 protected:
     void paintEvent(QPaintEvent* event) override;
@@ -38,6 +40,8 @@ private:
     QWidget* buildStats();
     QWidget* buildPhases();
     QWidget* buildGaps();
+    void choosePhase(QWidget* anchor);
+    void editSummary();
 
     const pm::Definitions& definitions_;
     std::shared_ptr<pm::Record> record_;

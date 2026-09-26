@@ -279,7 +279,7 @@ TableEditor::TableEditor(const pm::Field& field, QWidget* parent)
     table_->setSelectionBehavior(QAbstractItemView::SelectRows);
     table_->setSelectionMode(QAbstractItemView::ExtendedSelection);
     table_->setItemDelegate(new CellDelegate(&field_, table_));
-    table_->setEditTriggers(QAbstractItemView::DoubleClicked | QAbstractItemView::SelectedClicked |
+    table_->setEditTriggers(QAbstractItemView::SelectedClicked | QAbstractItemView::DoubleClicked |
                             QAbstractItemView::EditKeyPressed | QAbstractItemView::AnyKeyPressed);
     table_->setWordWrap(false);
     table_->setShowGrid(true);
@@ -298,9 +298,12 @@ TableEditor::TableEditor(const pm::Field& field, QWidget* parent)
     auto* toolbar = new QHBoxLayout;
     toolbar->setSpacing(8);
     auto* add = chrome::button("+ row", "primary", this);
+    // The whole row, for the columns a single-line cell cannot show well.
+    auto* open = chrome::button("edit row", "quiet", this);
     auto* remove = chrome::button("remove", "danger", this);
     count_ = chrome::label("0 rows", 10, theme::textFaint());
     toolbar->addWidget(add);
+    toolbar->addWidget(open);
     toolbar->addWidget(remove);
     toolbar->addStretch(1);
     toolbar->addWidget(count_);
@@ -318,8 +321,21 @@ TableEditor::TableEditor(const pm::Field& field, QWidget* parent)
                 if (column >= 0 && column < static_cast<int>(field_.columns.size()))
                     emit columnFocused(QString::fromStdString(field_.columns[column].id));
             });
-    connect(table_, &QTableWidget::cellDoubleClicked, this,
-            [this](int row, int) { emit rowActivated(row); });
+    // One click edits the cell under it. A cell that needs a second click
+    // first reads as a cell that cannot be edited. This is on the click rather
+    // than an edit trigger on the current cell, which also fires every time
+    // the rows are reloaded and would open an editor nobody asked for.
+    connect(table_, &QTableWidget::cellClicked, this, [this](int row, int column) {
+        // A no-op when the cell's editor is already open.
+        table_->edit(table_->model()->index(row, column));
+    });
+    connect(open, &QPushButton::clicked, this, [this] {
+        if (table_->currentRow() >= 0) emit rowActivated(table_->currentRow());
+    });
+    // The row stays open to its cells; the button follows whether there is one.
+    open->setEnabled(false);
+    connect(table_, &QTableWidget::currentCellChanged, this,
+            [open](int row, int, int, int) { open->setEnabled(row >= 0); });
 }
 
 void TableEditor::addRow(const pm::Row& row) {

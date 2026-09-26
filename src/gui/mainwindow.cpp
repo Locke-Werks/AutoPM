@@ -350,6 +350,7 @@ void MainWindow::rebuildPages() {
     dashboard_ = new Dashboard(workspace_.definitions(), record_, pages_);
     connect(dashboard_, &Dashboard::openScreen, this, &MainWindow::showScreenById);
     connect(dashboard_, &Dashboard::openEntry, this, &MainWindow::showEntry);
+    connect(dashboard_, &Dashboard::recordEdited, this, &MainWindow::markDirty);
     connect(dashboard_, &Dashboard::walkThrough, this,
             [this](const QString& screenId) { startWalkthrough(screenId); });
     pages_->addWidget(wrap(dashboard_));

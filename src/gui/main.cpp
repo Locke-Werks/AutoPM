@@ -104,8 +104,13 @@ int main(int argc, char** argv) {
         return 1;
     }
 
+    // --records <dir> reads and writes somewhere other than Documents\AutoPM,
+    // the same flag the MCP server takes. For trying things on a copy.
+    const int recordsAt = early.indexOf("--records");
     const QString projectsDir =
-        QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/AutoPM";
+        recordsAt >= 0 && recordsAt + 1 < early.size()
+            ? QDir(early[recordsAt + 1]).absolutePath()
+            : QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/AutoPM";
     QDir().mkpath(projectsDir);
     seedFirstRun(assetsDir, projectsDir);
 
