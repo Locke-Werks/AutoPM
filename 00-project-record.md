@@ -4,7 +4,7 @@
 **Opened:** 2026-09-15
 **Sponsor / PM:** Nyx
 **Product name:** **AutoPM** (D20, 09-15, "for now")
-**Repository:** `Locke-Werks/AutoPM`, private (D21)
+**Repository:** `Locke-Werks/AutoPM`, public (D43)
 **Files:** `00-project-record.md` (this file) · `01-charter.md` · `02-handoff-m2.md` · `03-handback-m2.md`
 
 This file is the record for building your own project management software, run as a managed project from day one. Nothing below is a decision unless the Decision Log says so.
@@ -90,6 +90,7 @@ Every entry records where the decision came from, using one of these four source
 | D40 | 09-15 | **Success criteria are rows and closeout must answer all of them.** New `covers:` check kind; `reviewField` takes the record so a check can see the field it covers. Closeout rows trace to the criterion they answer | agreed | Archon's PM review, finding 3. Closeout claimed to answer the charter "one line at a time" against a paragraph, and a closeout omitting the two criteria that went badly passed the coach silently |
 | D41 | 09-15 | **Quality gets a screen; procurement gets a written exclusion.** Quality was absent and unexcluded, which teaches that the knowledge area does not exist. Procurement is excluded on the record rather than left silent | specified | "Quality screen, procurement excluded" |
 | D42 | 09-15 | **The repository was made public and then private again**, a window of about ten minutes on 09-15 for the purpose below, reversing and then restoring D21's "private for now". The purpose is read access for another AI, which can reach a public repository and not a private one. Archon agreed to it, which also covers his review being published. The licence does not change with it: D25 stands, so the source is readable and still all rights reserved. R9 is unchanged and still open: the PM review was explicitly not a security review | specified | "Make it public." · "he said we could go public- it's for my other ai to be able to see it" · "Ok she's seen it- back private" |
+| D43 | 09-25 | **The repository is public**, reversing D21 for the second time and, unlike D42, with no return to private planned. The licence does not change: D25 stands, so the source is readable and still all rights reserved. R9 is unchanged and still open | specified | "then make the AutoPM repo Public" |
 
 ⚠ Your "yes exatly" answered a message that contained P1–P5. P1 and P2 were what the reply echoed ("study guide"), so only they are logged as agreed. P3–P5 are still proposed.
 
@@ -190,6 +191,8 @@ Charter → stakeholder register → requirements + acceptance criteria → scop
 - 09-16 · **Forge v0.4.1 released and the pin moved.** Signed on the runner, both assets verified against the Specter Point certificate, and the shipped stub checked rather than assumed: a throwaway package forged with the released `lwforge.exe` and `lwstub.exe`, installed, a payload file held open, and the uninstaller named it. `release.yml` now pins v0.4.1, so the next AutoPM release embeds an uninstaller that reports what it could not remove. The installer sitting in `dist/` was forged against v0.4.0 and does not have it
 - 09-17 · The overview's four stat tiles became controls, on the sponsor's reading that a number you cannot act on is decoration. Each opens the first entry it counted and scrolls to it, so "14 proposed, unanswered" lands on one of the fourteen rather than at the top of a page holding one. The completion tile is the exception and opens the next screen worth working on, because there is no single blank entry to point at and because the first screen with a blank field is how the overview used to propose Closeout on a running project. Cards are focusable and answer Enter or Space, not just the mouse
 - 09-15 · Repository returned to private (D42). The public window was about ten minutes and served its purpose; anything fetched or indexed in it is still out, which is why the decision records the window rather than pretending it did not happen
+- 09-25 · **v0.1.0 released**, the first release. The release job had never run: AutoPM carried the signing secret but not the tenant and client IDs, so they were copied from Forge's repository variables. Tagged at the stat-tiles commit; the far-left project list in the working tree is not in it. Payload and installer signed on the runner, uninstaller from Forge v0.4.1
+- 09-25 · **Repository made public** (D43), after the release
 
 ## 11. Open from the PM review
 
