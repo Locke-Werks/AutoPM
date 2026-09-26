@@ -7,6 +7,7 @@
 #include <QHBoxLayout>
 #include <QHeaderView>
 #include <QLabel>
+#include <QMenu>
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPainterPath>
@@ -48,13 +49,14 @@ TreeView::TreeView(const pm::Field& field, QWidget* parent) : RichView(parent), 
     tree_->setUniformRowHeights(false);
     tree_->setAlternatingRowColors(false);
     tree_->setMinimumHeight(260);
+    tree_->setCursor(Qt::PointingHandCursor);
     tree_->header()->setSectionResizeMode(0, QHeaderView::Stretch);
     tree_->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
     tree_->header()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
     tree_->header()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
     layout->addWidget(tree_);
 
-    connect(tree_, &QTreeWidget::itemDoubleClicked, this, [this](QTreeWidgetItem* item, int) {
+    connect(tree_, &QTreeWidget::itemClicked, this, [this](QTreeWidgetItem* item, int) {
         emit rowActivated(item->data(0, Qt::UserRole).toInt());
     });
 }
@@ -113,6 +115,7 @@ TimelineView::TimelineView(const pm::Field& field, QWidget* parent)
     : RichView(parent), field_(field) {
     setMinimumHeight(200);
     setMouseTracking(true);
+    setCursor(Qt::PointingHandCursor);
 }
 
 void TimelineView::setRows(const std::vector<pm::Row>& rows) {
@@ -125,7 +128,8 @@ QSize TimelineView::sizeHint() const {
     return QSize(600, 56 + static_cast<int>(rows_.size()) * 30 + 14);
 }
 
-void TimelineView::mouseDoubleClickEvent(QMouseEvent* event) {
+void TimelineView::mouseReleaseEvent(QMouseEvent* event) {
+    if (event->button() != Qt::LeftButton) return;
     const int index = (event->pos().y() - 56) / 30;
     if (index >= 0 && index < static_cast<int>(rows_.size())) emit rowActivated(index);
 }
@@ -264,6 +268,7 @@ void TimelineView::paintEvent(QPaintEvent*) {
 MatrixView::MatrixView(const pm::Field& field, QWidget* parent)
     : RichView(parent), field_(field) {
     setMinimumHeight(260);
+    setMouseTracking(true);
 }
 
 void MatrixView::setRows(const std::vector<pm::Row>& rows) {
@@ -273,11 +278,43 @@ void MatrixView::setRows(const std::vector<pm::Row>& rows) {
 
 QSize MatrixView::sizeHint() const { return QSize(600, 320); }
 
+void MatrixView::mouseMoveEvent(QMouseEvent* event) {
+    const bool over = std::any_of(hits_.begin(), hits_.end(), [&](const Hit& hit) {
+        return hit.rect.contains(event->position());
+    });
+    setCursor(over ? Qt::PointingHandCursor : Qt::ArrowCursor);
+}
+
+// A name opens its entry. "+3 more" lists the three, because a cell too full
+// to draw them is exactly where one needs finding.
+void MatrixView::mouseReleaseEvent(QMouseEvent* event) {
+    if (event->button() != Qt::LeftButton) return;
+    for (const Hit& hit : hits_) {
+        if (!hit.rect.contains(event->position())) continue;
+        if (hit.rows.size() == 1) {
+            emit rowActivated(hit.rows.front());
+            return;
+        }
+        QMenu menu(this);
+        for (int index : hit.rows) {
+            const pm::Row& row = rows_[static_cast<size_t>(index)];
+            QString name = cell(row, field_.titleColumn);
+            const QString ref = cell(row, "ref");
+            if (!ref.isEmpty()) name = ref + " " + name;
+            connect(menu.addAction(name), &QAction::triggered, this,
+                    [this, index] { emit rowActivated(index); });
+        }
+        menu.exec(event->globalPosition().toPoint());
+        return;
+    }
+}
+
 void MatrixView::paintEvent(QPaintEvent*) {
     const pm::Column* rowAxis = field_.column(field_.rowsColumn);
     const pm::Column* colAxis = field_.column(field_.colsColumn);
     if (!rowAxis || !colAxis || rowAxis->options.empty() || colAxis->options.empty()) return;
 
+    hits_.clear();
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
 
@@ -327,7 +364,9 @@ void MatrixView::paintEvent(QPaintEvent*) {
             painter.drawRoundedRect(box, 6, 6);
 
             QStringList names;
-            for (const pm::Row& row : rows_) {
+            std::vector<int> indices;
+            for (int i = 0; i < static_cast<int>(rows_.size()); ++i) {
+                const pm::Row& row = rows_[static_cast<size_t>(i)];
                 if (cell(row, rowAxis->id) != QString::fromStdString(rowAxis->options[r].value))
                     continue;
                 if (cell(row, colAxis->id) != QString::fromStdString(colAxis->options[c].value))
@@ -336,6 +375,7 @@ void MatrixView::paintEvent(QPaintEvent*) {
                 const QString ref = cell(row, "ref");
                 if (!ref.isEmpty()) name = ref + " " + name;
                 names << name;
+                indices.push_back(i);
             }
             if (names.isEmpty()) continue;
 
@@ -345,17 +385,18 @@ void MatrixView::paintEvent(QPaintEvent*) {
             int line = 0;
             const int lineHeight = painter.fontMetrics().lineSpacing();
             for (const QString& name : names) {
+                const QRectF slot(text.left(), text.top() + line * lineHeight, text.width(),
+                                  lineHeight);
                 if ((line + 1) * lineHeight > text.height()) {
+                    hits_.push_back({slot, std::vector<int>(indices.begin() + line, indices.end())});
                     painter.setPen(theme::textFaint());
-                    painter.drawText(QRectF(text.left(), text.top() + line * lineHeight,
-                                            text.width(), lineHeight),
+                    painter.drawText(slot,
                                      Qt::AlignLeft | Qt::AlignVCenter,
                                      QString("+%1 more").arg(names.size() - line));
                     break;
                 }
-                painter.drawText(QRectF(text.left(), text.top() + line * lineHeight, text.width(),
-                                        lineHeight),
-                                 Qt::AlignLeft | Qt::AlignVCenter,
+                hits_.push_back({slot, {indices[static_cast<size_t>(line)]}});
+                painter.drawText(slot, Qt::AlignLeft | Qt::AlignVCenter,
                                  painter.fontMetrics().elidedText(name, Qt::ElideRight,
                                                                   static_cast<int>(text.width())));
                 ++line;
@@ -365,17 +406,6 @@ void MatrixView::paintEvent(QPaintEvent*) {
 }
 
 // ── LogView ──────────────────────────────────────────────────────────────
-
-bool LogView::eventFilter(QObject* watched, QEvent* event) {
-    if (event->type() == QEvent::MouseButtonDblClick) {
-        const QVariant index = watched->property("rowIndex");
-        if (index.isValid()) {
-            emit rowActivated(index.toInt());
-            return true;
-        }
-    }
-    return RichView::eventFilter(watched, event);
-}
 
 LogView::LogView(const pm::Field& field, QWidget* parent) : RichView(parent), field_(field) {
     stack_ = new QVBoxLayout(this);
@@ -451,9 +481,8 @@ void LogView::setRows(const std::vector<pm::Row>& rows) {
             card->body()->addWidget(evidence);
         }
 
-        card->setCursor(Qt::PointingHandCursor);
-        card->installEventFilter(this);
-        card->setProperty("rowIndex", static_cast<int>(index));
+        chrome::passClicksThrough(card);
+        card->setOnClick([this, index] { emit rowActivated(static_cast<int>(index)); });
         stack_->addWidget(card);
     }
 }

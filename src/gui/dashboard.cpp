@@ -6,7 +6,9 @@
 
 #include <QGridLayout>
 #include <QHBoxLayout>
+#include <QInputDialog>
 #include <QLabel>
+#include <QMenu>
 #include <QPainter>
 #include <QVBoxLayout>
 
@@ -171,6 +173,45 @@ void Dashboard::refresh() {
     column_->addStretch(1);
 }
 
+void Dashboard::choosePhase(QWidget* anchor) {
+    // The phases the screens are filed under, in lifecycle order.
+    QStringList phases;
+    for (const pm::Screen& screen : definitions_.screens()) {
+        const QString phase = QString::fromStdString(screen.phase);
+        if (!phases.contains(phase)) phases << phase;
+    }
+    const QString current = QString::fromStdString(record_->phase);
+    if (!current.isEmpty() && !phases.contains(current)) phases << current;
+
+    QMenu menu(this);
+    for (const QString& phase : phases) {
+        QAction* action = menu.addAction(phase);
+        action->setCheckable(true);
+        action->setChecked(phase == current);
+        connect(action, &QAction::triggered, this, [this, phase, current] {
+            if (phase == current) return;
+            record_->phase = phase.toStdString();
+            record_->markDirty();
+            emit recordEdited();
+            refresh();
+        });
+    }
+    menu.exec(anchor->mapToGlobal(QPoint(0, anchor->height() + 4)));
+}
+
+void Dashboard::editSummary() {
+    bool accepted = false;
+    const QString current = QString::fromStdString(record_->summary);
+    const QString text = QInputDialog::getMultiLineText(this, "Summary",
+                                                        "What this project is, in a sentence or two",
+                                                        current, &accepted).trimmed();
+    if (!accepted || text == current.trimmed()) return;
+    record_->summary = text.toStdString();
+    record_->markDirty();
+    emit recordEdited();
+    refresh();
+}
+
 QWidget* Dashboard::buildHeader() {
     auto* header = new QWidget(this);
     auto* layout = new QVBoxLayout(header);
@@ -182,11 +223,15 @@ QWidget* Dashboard::buildHeader() {
 
     auto* meta = new QHBoxLayout;
     meta->setSpacing(8);
-    if (!record_->phase.empty()) {
-        auto* phase = new chrome::Badge(QString::fromStdString(record_->phase), header);
-        phase->setColour(theme::accent());
-        meta->addWidget(phase);
-    }
+    // The phase is the project's own claim about where it is, and the rest of
+    // the overview reads it, so it is set here where it is shown.
+    auto* phase = new chrome::Badge(record_->phase.empty() ? QString("set the phase")
+                                                           : QString::fromStdString(record_->phase),
+                                    header);
+    phase->setColour(record_->phase.empty() ? theme::textFaint() : theme::accent());
+    phase->setToolTip("The lifecycle phase this project is in now");
+    chrome::onClick(phase, [this, phase] { choosePhase(phase); });
+    meta->addWidget(phase);
     auto* opened = new chrome::Badge(QString("opened %1").arg(QString::fromStdString(record_->created)),
                                      header);
     opened->setColour(theme::textLabel());
@@ -201,9 +246,13 @@ QWidget* Dashboard::buildHeader() {
     layout->addLayout(meta);
 
     const QString summary = QString::fromStdString(record_->summary).trimmed();
-    if (!summary.isEmpty()) {
-        layout->addWidget(chrome::bodyText(summary, theme::textSecondary(), 14));
-    }
+    auto* summaryText = chrome::bodyText(
+        summary.isEmpty() ? QString("Add a summary: what this project is, in a sentence or two.")
+                          : summary,
+        summary.isEmpty() ? theme::textFaint() : theme::textSecondary(), 14);
+    summaryText->setToolTip("Edit the summary");
+    chrome::onClick(summaryText, [this] { editSummary(); });
+    layout->addWidget(summaryText);
     layout->addSpacing(4);
     layout->addWidget(chrome::rule(header));
     return header;
@@ -439,6 +488,9 @@ QWidget* Dashboard::buildGaps() {
             head->addStretch(1);
             layout->addLayout(head);
             layout->addWidget(chrome::bodyText(consequence, theme::textFaint(), 12));
+            const QString screenId = QString::fromStdString(screen.id);
+            const QString fieldId = QString::fromStdString(field.id);
+            chrome::onClick(line, [this, screenId, fieldId] { emit openEntry(screenId, fieldId); });
             card->body()->addWidget(line);
         }
         if (shown > 8) break;

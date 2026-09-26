@@ -325,6 +325,53 @@ QLabel* bodyText(const QString& text, const QColor& colour, int pixelSize) {
     return l;
 }
 
+namespace {
+class ClickFilter : public QObject {
+public:
+    ClickFilter(std::function<void()> handler, QObject* parent)
+        : QObject(parent), handler_(std::move(handler)) {}
+
+protected:
+    bool eventFilter(QObject* watched, QEvent* event) override {
+        auto* widget = static_cast<QWidget*>(watched);
+        if (event->type() == QEvent::MouseButtonPress &&
+            static_cast<QMouseEvent*>(event)->button() == Qt::LeftButton) {
+            pressed_ = true;
+            return true;
+        }
+        if (event->type() == QEvent::MouseButtonRelease &&
+            static_cast<QMouseEvent*>(event)->button() == Qt::LeftButton) {
+            // Released outside is a cancelled click, as with any button.
+            const bool fire = pressed_ &&
+                widget->rect().contains(static_cast<QMouseEvent*>(event)->position().toPoint());
+            pressed_ = false;
+            if (fire) handler_();
+            return true;
+        }
+        return QObject::eventFilter(watched, event);
+    }
+
+private:
+    std::function<void()> handler_;
+    bool pressed_ = false;
+};
+} // namespace
+
+void passClicksThrough(QWidget* widget) {
+    for (QLabel* label : widget->findChildren<QLabel*>()) {
+        label->setTextInteractionFlags(Qt::NoTextInteraction);
+        label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+    }
+}
+
+void onClick(QWidget* widget, std::function<void()> handler) {
+    if (auto* label = qobject_cast<QLabel*>(widget))
+        label->setTextInteractionFlags(Qt::NoTextInteraction);
+    passClicksThrough(widget);
+    widget->setCursor(Qt::PointingHandCursor);
+    widget->installEventFilter(new ClickFilter(std::move(handler), widget));
+}
+
 QString hairlineCss(int alpha) {
     const QColor c = theme::hairline();
     return QString("rgba(%1,%2,%3,%4)").arg(c.red()).arg(c.green()).arg(c.blue()).arg(alpha);
