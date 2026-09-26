@@ -2,11 +2,15 @@
 
 #include "chrome.h"
 #include "core/coach.h"
+#include "fieldeditors.h"
 #include "theme.h"
 
 #include <QGridLayout>
 #include <QHBoxLayout>
-#include <QInputDialog>
+#include <QDialog>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QTimer>
 #include <QLabel>
 #include <QMenu>
 #include <QPainter>
@@ -200,12 +204,40 @@ void Dashboard::choosePhase(QWidget* anchor) {
 }
 
 void Dashboard::editSummary() {
-    bool accepted = false;
     const QString current = QString::fromStdString(record_->summary);
-    const QString text = QInputDialog::getMultiLineText(this, "Summary",
-                                                        "What this project is, in a sentence or two",
-                                                        current, &accepted).trimmed();
-    if (!accepted || text == current.trimmed()) return;
+
+    // Wrapped, and as wide as the other editors: the summary is a paragraph,
+    // and a one-line box turns rewording it into scrolling sideways.
+    QDialog dialog(this);
+    dialog.setWindowTitle("Summary");
+    dialog.setStyleSheet(window()->styleSheet());
+    dialog.setMinimumWidth(560);
+    auto* layout = new QVBoxLayout(&dialog);
+    layout->setContentsMargins(26, 24, 26, 22);
+    layout->setSpacing(14);
+    layout->addWidget(new chrome::Eyebrow("project record"));
+    layout->addWidget(new chrome::Heading("Summary", 22));
+    layout->addWidget(chrome::bodyText("What this project is, in a sentence or two.",
+                                       theme::textSecondary(), 13));
+    auto* editor = new editors::GrowingTextEdit(&dialog);
+    editor->setMinimumLines(4);
+    editor->setPlainText(current);
+    layout->addWidget(editor);
+    auto* buttons = new QDialogButtonBox(QDialogButtonBox::Save | QDialogButtonBox::Cancel, &dialog);
+    buttons->button(QDialogButtonBox::Save)->setProperty("house", "primary");
+    connect(buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+    connect(buttons, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+    layout->addStretch(1);
+    layout->addWidget(buttons);
+    editor->setFocus();
+    // The editor only knows its height once it is laid out at its real width,
+    // so the dialog fits itself to it after the first show rather than to the
+    // guess it started with.
+    QTimer::singleShot(0, &dialog, [&dialog] { dialog.adjustSize(); });
+    if (dialog.exec() != QDialog::Accepted) return;
+
+    const QString text = editor->toPlainText().trimmed();
+    if (text == current.trimmed()) return;
     record_->summary = text.toStdString();
     record_->markDirty();
     emit recordEdited();
