@@ -240,7 +240,7 @@ void MainWindow::buildChrome() {
     projectButton_->setFont(theme::bodyFont(13));
     projectButton_->setProperty("house", "primary");
     projectButton_->setMinimumHeight(38);
-    connect(projectButton_, &QPushButton::clicked, this, &MainWindow::switchProject);
+    connect(projectButton_, &QPushButton::clicked, this, &MainWindow::projectMenu);
     railLayout->addWidget(projectButton_);
     railLayout->addSpacing(14);
 
@@ -544,23 +544,33 @@ void MainWindow::newProject() {
     openProject(QString::fromStdString(record->path));
 }
 
-void MainWindow::switchProject() {
+// Settings for the open project only. Choosing a project is the list's job.
+void MainWindow::projectMenu() {
+    if (!record_) return;
     QMenu menu(this);
-    for (const pm::ProjectSummary& summary : workspace_.list()) {
-        QAction* action = menu.addAction(QString("%1    %2")
-                                             .arg(QString::fromStdString(summary.name))
-                                             .arg(QString::fromStdString(summary.modified)));
-        const QString path = QString::fromStdString(summary.path);
-        action->setCheckable(true);
-        action->setChecked(record_ && QString::fromStdString(record_->path) == path);
-        connect(action, &QAction::triggered, this, [this, path] { switchTo(path); });
-    }
-    menu.addSeparator();
-    connect(menu.addAction("Project colour…"), &QAction::triggered, this, &MainWindow::chooseAccent);
-    connect(menu.addAction("New project…"), &QAction::triggered, this, &MainWindow::newProject);
+    connect(menu.addAction("Colour…"), &QAction::triggered, this, &MainWindow::chooseAccent);
+    connect(menu.addAction("Rename…"), &QAction::triggered, this, &MainWindow::renameProject);
     connect(menu.addAction("Open the records folder"), &QAction::triggered, this,
             &MainWindow::openRecordsFolder);
     menu.exec(projectButton_->mapToGlobal(QPoint(0, projectButton_->height() + 4)));
+}
+
+// The record file is named by id, not by name, so a rename touches nothing
+// on disk until the next save writes the new name into it.
+void MainWindow::renameProject() {
+    if (!record_) return;
+    bool accepted = false;
+    const QString current = QString::fromStdString(record_->name);
+    const QString name = QInputDialog::getText(this, "Rename project", "Project name",
+                                               QLineEdit::Normal, current, &accepted).trimmed();
+    if (!accepted || name.isEmpty() || name == current) return;
+
+    record_->name = name.toStdString();
+    record_->markDirty();
+    // The overview's heading is the name, painted once when the page is built.
+    rebuildPages();
+    buildRail();
+    refreshStatus();
 }
 
 // Staying on the same screen is what makes comparing two projects quick: the

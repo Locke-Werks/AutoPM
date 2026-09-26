@@ -48,7 +48,8 @@ private:
     ScreenView* ensureView(int index);
 
     void newProject();
-    void switchProject();
+    void projectMenu();
+    void renameProject();
     // Another project, landing on the screen you were already on.
     void switchTo(const QString& path);
     void stepProject(int delta);
