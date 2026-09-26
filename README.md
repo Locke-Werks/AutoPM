@@ -225,6 +225,7 @@ field milestones
 | `--screen <id>` | Open on that screen |
 | `--walk [id]` | Open the walkthrough, optionally at a screen |
 | `--colour` | Open the project's colour picker |
+| `--records <dir>` | Read and write records somewhere other than `Documents\AutoPM` |
 | `--fonts <file>` | Write which font faces actually resolved, then exit |
 
 They combine:
