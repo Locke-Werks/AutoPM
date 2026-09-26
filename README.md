@@ -22,6 +22,30 @@ answer back and tells you what is thin about it.
 
 It keeps the record too. That is the side effect, not the point.
 
+It exists because PM work done by intuition does not show you how it maps onto
+the job, and because nothing else on the desk held project-level truth.
+ProjectMan tracks git state. MemoryBook holds memory and loops. Neither holds
+intent: the charter, the scope, the decisions, the risks, and the status
+against a plan.
+
+## Where it stands
+
+v0.3.0 is released. AutoPM is also its own first project: it is being run
+inside itself, charter through closeout, and its record ships as the example.
+
+- **M1**, charter approved: reached 2026-09-15.
+- **M2 to M4**, the Initiating, Planning and Executing screens: built, and
+  accepted 2026-09-23. Accepted means the sponsor used each screen on this
+  project and understood every field, not that it compiled.
+- **S3**, a second real project managed in it: met 2026-09-23. Ten other
+  projects had their charters answered and signed off in AutoPM, not imported.
+- **Next: M5, closeout**, targeted 2026-10-15. Then one review by Archon, whose
+  verdict decides whether the product is right.
+
+The last success criterion is that the PM can explain every artifact, and when
+it is used, with the tool closed. A study guide you need open during the exam
+has failed.
+
 ## Install
 
 Download `AutoPM-Setup.exe` from the
@@ -233,6 +257,18 @@ They combine:
 ```bash
 AutoPM.exe --project SmallHours --walk charter
 ```
+
+## What this is not
+
+- **Not an accounting package.** Budget is one field on the charter. Cost
+  tracking beyond that is out of scope.
+- **Not multi-user.** Each person runs their own install, with their own
+  records. There are no permissions, because there is nobody to deny.
+- **Not a git tracker.** It reads git for evidence and nothing else. Tracking
+  repository state is ProjectMan's job.
+- **Not a scheduling engine.** No resource leveling, no Gantt math. The
+  schedule draws a timeline of the dates you gave it and does not argue with
+  them.
 
 ## Building
 
