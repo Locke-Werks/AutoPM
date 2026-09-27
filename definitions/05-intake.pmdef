@@ -68,7 +68,7 @@ field request
     Nobody can say later why the project was started, so nobody can say whether
     it still needs to exist.
   example: |
-    the sponsor, 2026-09-15: "I want to build my own PM software." Does PM work by
+    Sponsor, 2026-09-15: "I want to build my own PM software." Does PM work by
     intuition and wants to see how it fits a PM job.
 
 field need
@@ -175,7 +175,7 @@ field benefits
     was worth building never gets asked, which is how the same unwanted thing
     gets built twice.
   example: |
-    B1 | Can explain each PM artifact with the tool closed | Answer a question on each of the 13 artifacts, unaided | 2026-11-01 | the sponsor | Not yet measured
+    B1 | Can explain each PM artifact with the tool closed | Answer a question on each of the 13 artifacts, unaided | 2026-11-01 | Sponsor | Not yet measured
   column ref
     label: ID
     type: line

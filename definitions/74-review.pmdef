@@ -110,7 +110,7 @@ field retro
   if_blank: |
     The same problem recurs every sprint and each time it feels like bad luck.
   example: |
-    Sprint 1 | Scope changed twice mid-sprint | What to change | Log a change request the moment scope moves, before building | the sponsor
+    Sprint 1 | Scope changed twice mid-sprint | What to change | Log a change request the moment scope moves, before building | PM
   column sprint
     label: Sprint
     type: line

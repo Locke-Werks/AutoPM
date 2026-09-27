@@ -31,7 +31,7 @@ against a plan.
 ## Where it stands
 
 v0.3.0 is released. AutoPM is also its own first project: it is being run
-inside itself, charter through closeout, and its record ships as the example.
+inside itself, charter through closeout.
 
 - **M1**, charter approved: reached 2026-09-15.
 - **M2 to M4**, the Initiating, Planning and Executing screens: built, and
@@ -221,8 +221,9 @@ defaults.
 ## Records and definitions
 
 Records are plain text, one `.pmproj` file per project in `Documents\AutoPM`,
-one line per changed cell so a diff is readable. On first run AutoPM's own
-project record is copied in, so there is a filled-in example to read.
+one line per changed cell so a diff is readable. On first run a fictional demo
+project is copied in, filled in partway through Executing, so every screen has
+a worked answer to read. Delete it whenever you like.
 
 Every screen is generated from a file in `definitions/`. A field's label, type,
 allowed values, help text, question and checks all live there. Adding a screen
@@ -337,8 +338,8 @@ not from the standard.
 
 ## Project documentation
 
-AutoPM is run as a managed project, and its own record ships as the first-run
-example. The written record lives beside the code:
+AutoPM is run as a managed project. Its record, `autopm.pmproj`, and the
+written record live beside the code:
 
 | File | What it is |
 |---|---|

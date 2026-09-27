@@ -60,7 +60,7 @@ field register
     The person with the most power over the outcome is the one you forgot to
     ask.
   example: |
-    the reviewer | Final reviewer | Says whether it is right | High | High | Neutral | Supportive
+    External reviewer | Final reviewer | Says whether it is right | High | High | Neutral | Supportive
   column name
     label: Name
     type: line

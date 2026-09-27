@@ -116,7 +116,7 @@ field benefits_realized
     The project is judged only on whether it did what it said, and the reason it
     was funded goes unexamined.
   example: |
-    B1 | Can explain each artifact unaided | Too early | Retest 2026-11-01 | the sponsor
+    B1 | Can explain each artifact unaided | Too early | Retest 2026-11-01 | Sponsor
   column benefit
     label: Benefit
     type: text

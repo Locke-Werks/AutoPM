@@ -1,0 +1,1678 @@
+# AutoPM project record. Plain text on purpose: it is meant to be read
+# and diffed. Keys are screen.field, matching the files in definitions/.
+# provenance is one of specified, agreed, unobjected. Anything else is
+# untagged, and only specified and agreed count as decisions.
+
+project: demo
+name: Demo: Library Room Booking
+accent: #B05CF6
+created: 2026-09-01
+modified: 2026-09-25
+phase: Executing
+summary: |
+  A worked example. The library, the people and the project are invented.
+  It is filled in the way a real record would be, partway through Executing,
+  so every screen has something to read against its help panel.
+
+  Closeout is empty on purpose: the project has not closed. Delete this record
+  whenever you like; your own projects are unaffected.
+field board.cards
+  provenance: agreed
+  evidence: Sprint planning
+  row c1
+    cell acceptance
+      value: Both rooms show correct hours and capacity.
+    cell blocked
+      value: No
+    cell owner
+      value: Leo Martin
+    cell points
+      value: 3
+    cell priority
+      value: High
+    cell ready
+      value: Refined
+    cell ref
+      value: C1
+    cell sprint
+      value: Sprint 1
+    cell state
+      value: Done
+    cell title
+      value: Rooms, hours and capacity configured
+  row c2
+    cell acceptance
+      value: A patron books a slot on a phone in under a minute.
+    cell blocked
+      value: No
+    cell detail
+      value: R1, R2.
+    cell owner
+      value: Leo Martin
+    cell points
+      value: 5
+    cell priority
+      value: High
+    cell ready
+      value: Refined
+    cell ref
+      value: C2
+    cell sprint
+      value: Sprint 1
+    cell state
+      value: Done
+    cell title
+      value: Public booking page
+  row c3
+    cell acceptance
+      value: Two simultaneous bookings: the second is refused.
+    cell blocked
+      value: No
+    cell detail
+      value: R3. Tested by Sam, not by Leo, per the quality plan.
+    cell owner
+      value: Sam Okafor
+    cell points
+      value: 2
+    cell priority
+      value: High
+    cell ready
+      value: Refined
+    cell ref
+      value: C3
+    cell sprint
+      value: Sprint 1
+    cell state
+      value: Done
+    cell title
+      value: Double-booking guard tested
+  row c4
+    cell acceptance
+      value: Rules text appears and must be ticked before booking.
+    cell blocked
+      value: No
+    cell detail
+      value: Carried over: Dana wants the wording checked against the council policy.
+    cell owner
+      value: Leo Martin
+    cell points
+      value: 2
+    cell priority
+      value: Medium
+    cell ready
+      value: Refined
+    cell ref
+      value: C4
+    cell sprint
+      value: Sprint 1
+    cell state
+      value: Review
+    cell title
+      value: Room rules shown before booking
+  row c5
+    cell acceptance
+      value: Priya moves a booking to another day unaided.
+    cell blocked
+      value: No
+    cell detail
+      value: R4.
+    cell owner
+      value: Leo Martin
+    cell points
+      value: 5
+    cell priority
+      value: High
+    cell ready
+      value: Refined
+    cell ref
+      value: C5
+    cell sprint
+      value: Sprint 2
+    cell state
+      value: Ready
+    cell title
+      value: Staff calendar view with edit and cancel
+  row c6
+    cell acceptance
+      value: A desk booking shows identically to a web one.
+    cell blocked
+      value: No
+    cell detail
+      value: R6. Added by CR1.
+    cell owner
+      value: Leo Martin
+    cell points
+      value: 3
+    cell priority
+      value: High
+    cell ready
+      value: Refined
+    cell ref
+      value: C6
+    cell sprint
+      value: Sprint 2
+    cell state
+      value: Ready
+    cell title
+      value: Phone booking entry for staff
+  row c7
+    cell acceptance
+      value: Both emails arrive at three common providers.
+    cell blocked
+      value: Yes
+    cell detail
+      value: R5. Blocked: waiting for County IT to allow sending from the county mail server (I2).
+    cell owner
+      value: Leo Martin
+    cell points
+      value: 3
+    cell priority
+      value: Medium
+    cell ready
+      value: Refined
+    cell ref
+      value: C7
+    cell sprint
+      value: Sprint 2
+    cell state
+      value: Doing
+    cell title
+      value: Confirmation and reminder emails
+  row c8
+    cell acceptance
+      value: A desk volunteer who has not seen the system takes a phone booking using only the guide.
+    cell blocked
+      value: No
+    cell owner
+      value: Priya Chen
+    cell points
+      value: 2
+    cell priority
+      value: Medium
+    cell ready
+      value: Refined
+    cell ref
+      value: C8
+    cell sprint
+      value: Sprint 2
+    cell state
+      value: Doing
+    cell title
+      value: Staff guide, one page
+  row c9
+    cell blocked
+      value: No
+    cell detail
+      value: R9, a Could. First to drop.
+    cell owner
+      value: Leo Martin
+    cell points
+      value: 5
+    cell priority
+      value: Low
+    cell ready
+      value: Needs refinement
+    cell ref
+      value: C9
+    cell state
+      value: Backlog
+    cell title
+      value: Recurring weekly bookings
+  row c10
+    cell blocked
+      value: No
+    cell detail
+      value: R8.
+    cell owner
+      value: Priya Chen
+    cell points
+      value: 2
+    cell priority
+      value: Medium
+    cell ready
+      value: Needs refinement
+    cell ref
+      value: C10
+    cell state
+      value: Backlog
+    cell title
+      value: Binder migration checklist
+field board.definition_of_done
+  provenance: agreed
+  evidence: Sprint planning, 2026-09-14
+  value: |
+    Meets its acceptance test, checked by someone other than the person who built
+    it. Works on a phone and a desk computer. The staff guide is updated if staff
+    see the change.
+field board.sprint_goal
+  provenance: agreed
+  evidence: Sprint 2 planning, 2026-09-25
+  value: |
+    Sprint 2: staff can run every booking, web and phone, from one calendar, so
+    the pilot can start on 10-12 with the binder retired.
+field changes.log
+  provenance: agreed
+  evidence: Change log
+  row x1
+    cell change
+      value: Add phone bookings to the staff calendar (new requirement R6).
+    cell decided_by
+      value: Dana Reyes
+    cell decided_on
+      value: 2026-09-22
+    cell impact
+      value: About 3 points of work. Pilot extended one week to 10-23. Launch unchanged; the week comes out of slack. Closes the gap that would have kept the binder alive (risk R2).
+    cell kind
+      value: Scope
+    cell raised_by
+      value: Priya Chen
+    cell raised_on
+      value: 2026-09-18
+    cell ref
+      value: CR1
+    cell status
+      value: Approved
+  row x2
+    cell change
+      value: Let patrons pay room hire fees online.
+    cell decided_by
+      value: Dana Reyes
+    cell decided_on
+      value: 2026-09-24
+    cell impact
+      value: Needs a payment provider and council finance approval. Would move launch past the winter programme. Excluded in the charter.
+    cell kind
+      value: Scope
+    cell raised_by
+      value: Friends of the Library
+    cell raised_on
+      value: 2026-09-23
+    cell ref
+      value: CR2
+    cell status
+      value: Rejected
+field changes.process
+  provenance: agreed
+  evidence: Charter review, 2026-09-08
+  value: |
+    Anyone can raise a change with Sam. Sam writes down what it costs in scope,
+    schedule and budget before anyone decides. Wording and layout inside an agreed
+    page are Sam's call. Anything that adds a requirement, moves a milestone, or
+    spends contingency over $200 goes to Dana.
+field charter.approval
+  provenance: specified
+  evidence: Signed charter, 2026-09-08
+  value: Approved by Dana Reyes, 2026-09-08.
+field charter.approval_requirements
+  provenance: agreed
+  evidence: Charter review, 2026-09-08
+  value: |
+    Dana signs off each milestone. The pilot (M3) is accepted when the front desk
+    has run two weeks of real bookings through the system with no double booking
+    and Priya confirms her team can use it unaided. Launch (M4) needs Dana's
+    written go-ahead.
+field charter.budget
+  provenance: specified
+  evidence: Dana, charter review 2026-09-08
+  value: $1,200: $600 plugin licence, $600 contingency. Volunteer time is not charged.
+field charter.business_case
+  provenance: agreed
+  evidence: Charter review, 2026-09-08
+  value: |
+    The binder costs about five staff hours a week and caused two double bookings
+    in August. A plugin on the website we already host costs $600 a year, which
+    is less than a month of the staff time it replaces. Doing nothing gets worse
+    in winter, when room demand roughly doubles.
+field charter.decision_rule
+  provenance: agreed
+  evidence: Charter review, 2026-09-08
+  value: |
+    A decision is recorded with its source: specified (someone with the authority
+    said it, and we can quote them), agreed (they approved a written summary), or
+    unobjected (proposed, no reply yet). Only specified and agreed count.
+field charter.description_deliverables
+  provenance: agreed
+  evidence: Charter review, 2026-09-08
+  value: |
+    A public booking page on the library website for the community room and the
+    study room, a staff calendar view, email templates, a one-page staff guide,
+    and the binder's future bookings moved into the new system.
+field charter.exit_criteria
+  provenance: agreed
+  evidence: Charter review, 2026-09-08
+  value: |
+    Close: launched, six weeks of live use, and all four success criteria answered.
+    Cancel: County IT refuses the plugin and no approved alternative exists by
+    2026-10-02, or the pilot shows the desk spending more time than with the binder.
+field charter.high_level_requirements
+  provenance: agreed
+  evidence: Charter review, 2026-09-08
+  value: |
+    Patrons see which rooms are free and book a slot without an account.
+    Staff see every booking in one calendar and can edit or cancel.
+    Confirmation and reminder emails to the person who booked.
+    Room rules (capacity, hours, no commercial use) shown before booking.
+field charter.key_stakeholders
+  provenance: agreed
+  evidence: Charter review, 2026-09-08
+  value: |
+    Sponsor: Dana Reyes, branch manager.
+    PM: Sam Okafor, adult services librarian.
+    Front desk team, led by Priya Chen: the heaviest users.
+    Leo Martin, IT volunteer: builds and configures.
+    County IT web team: approves anything installed on the website.
+    Community groups who book regularly, represented by the Friends of the Library.
+
+    Details on the Stakeholder Register screen.
+field charter.milestones
+  provenance: agreed
+  evidence: Charter review, 2026-09-08
+  row m1
+    cell milestone
+      value: M1 Charter approved
+    cell status
+      value: Reached
+    cell target
+      value: 2026-09-08
+  row m2
+    cell milestone
+      value: M2 Plugin approved by County IT
+    cell notes
+      value: Approved 09-24, one day early
+    cell status
+      value: Reached
+    cell target
+      value: 2026-09-25
+  row m3
+    cell milestone
+      value: M3 Staff pilot
+    cell status
+      value: In progress
+    cell target
+      value: 2026-10-16
+  row m4
+    cell milestone
+      value: M4 Public launch
+    cell status
+      value: Not started
+    cell target
+      value: 2026-11-02
+  row m5
+    cell milestone
+      value: M5 Closeout
+    cell notes
+      value: After six weeks of live use, so S2 and S3 can be measured
+    cell status
+      value: Not started
+    cell target
+      value: 2026-12-18
+field charter.out_of_scope
+  provenance: specified
+  evidence: Dana, charter review 2026-09-08: "No money handling. That's a council matter."
+  value: |
+    Payments or room hire fees. Booking equipment or study carrels. Changes to the
+    rest of the website. A mobile app.
+field charter.overall_risk
+  provenance: agreed
+  evidence: Charter review, 2026-09-08
+  value: |
+    Low to moderate. The technology is off the shelf; the real exposure is County
+    IT's approval of the plugin, which we do not control and which sits on the
+    critical path.
+field charter.pm_authority
+  provenance: specified
+  evidence: Dana, charter review 2026-09-08
+  value: |
+    Sam can spend up to $200 of contingency without asking, assign volunteer and
+    desk time within the agreed pilot hours, and change configuration and wording.
+    Anything that moves a milestone, spends more, or changes who can book goes to
+    Dana.
+field charter.purpose
+  provenance: agreed
+  evidence: Charter review, 2026-09-08
+  value: |
+    Let patrons book the library's two meeting rooms online, from one shared
+    calendar the front desk also uses, so bookings stop depending on opening hours
+    and the paper binder.
+field charter.sponsor
+  provenance: specified
+  evidence: Staff meeting, 2026-09-01
+  value: Dana Reyes, branch manager.
+field charter.success_criteria
+  provenance: agreed
+  evidence: Charter review, 2026-09-08
+  row s1
+    cell criterion
+      value: Patrons book rooms online instead of by phone or at the desk.
+    cell measure
+      value: At least 80% of November bookings made through the website, from the booking log.
+    cell ref
+      value: S1
+  row s2
+    cell criterion
+      value: No double bookings.
+    cell measure
+      value: Zero double-booked slots in the six weeks after launch, from the desk incident log.
+    cell ref
+      value: S2
+  row s3
+    cell criterion
+      value: Front desk time on bookings drops.
+    cell measure
+      value: Under 1 hour a week, from a two-week time sample taken in November.
+    cell ref
+      value: S3
+  row s4
+    cell criterion
+      value: Live before the winter programme starts.
+    cell measure
+      value: Public booking page live on or before 2026-11-02.
+    cell ref
+      value: S4
+field closeout.outcome
+  evidence: The four success criteria from the charter, waiting to be answered at closeout
+  row o1
+    cell criterion
+      value: Patrons book rooms online instead of by phone or at the desk.
+    cell traces
+      value: S1
+  row o2
+    cell criterion
+      value: No double bookings.
+    cell traces
+      value: S2
+  row o3
+    cell criterion
+      value: Front desk time on bookings drops.
+    cell traces
+      value: S3
+  row o4
+    cell criterion
+      value: Live before the winter programme starts.
+    cell traces
+      value: S4
+field intake.authorization
+  provenance: specified
+  evidence: Email from Dana, 2026-09-04: "Go with the website plugin."
+  value: Option O2 selected by Dana Reyes, 2026-09-04.
+field intake.benefits
+  provenance: agreed
+  evidence: Agreed with Dana, 2026-09-04
+  row b1
+    cell baseline
+      value: 5 h/week
+    cell benefit
+      value: Front desk time freed from taking bookings
+    cell measure
+      value: Hours per week spent on bookings, from a two-week time sample
+    cell owner
+      value: Priya Chen (front desk lead)
+    cell realized_by
+      value: 2026-12-15
+    cell ref
+      value: B1
+    cell status
+      value: Not yet measured
+    cell target
+      value: Under 1 h/week
+  row b2
+    cell baseline
+      value: 61 h (August)
+    cell benefit
+      value: Rooms used more, because free slots are visible
+    cell measure
+      value: Booked hours per month across both rooms
+    cell owner
+      value: Dana Reyes (branch manager)
+    cell realized_by
+      value: 2027-01-31
+    cell ref
+      value: B2
+    cell status
+      value: Not yet measured
+    cell target
+      value: 80 h
+field intake.need
+  provenance: agreed
+  evidence: Summary confirmed by Dana, 2026-09-03
+  value: |
+    Patrons can only reserve a meeting room by phoning or visiting during opening
+    hours, and the paper binder at the front desk is the only record. Staff spend
+    about five hours a week taking bookings, and two double bookings in August
+    turned groups away at the door.
+field intake.options
+  provenance: agreed
+  evidence: Options review with Dana, 2026-09-04
+  row o1
+    cell benefit
+      value: No change for regulars who like phoning.
+    cell cost
+      value: No money. About 5 staff hours a week continues.
+    cell option
+      value: Do nothing: keep the binder
+    cell ref
+      value: O1
+    cell risk
+      value: More double bookings as winter demand rises.
+    cell verdict
+      value: Do-nothing baseline
+  row o2
+    cell benefit
+      value: Patrons book online; staff see one calendar; runs on hosting we already have.
+    cell cost
+      value: $600 licence for the first year, plus volunteer build time.
+    cell option
+      value: Booking plugin on the library's existing website
+    cell ref
+      value: O2
+    cell risk
+      value: Depends on County IT approving the plugin.
+    cell verdict
+      value: Recommended
+  row o3
+    cell benefit
+      value: Fastest to set up.
+    cell cost
+      value: About $90 a month, ongoing.
+    cell option
+      value: Hosted booking service (monthly subscription)
+    cell ref
+      value: O3
+    cell risk
+      value: Patron data held by a third party; ongoing cost outlives the budget.
+    cell verdict
+      value: Rejected
+  row o4
+    cell benefit
+      value: Fits exactly.
+    cell cost
+      value: Months of volunteer time.
+    cell option
+      value: Custom-built booking app
+    cell ref
+      value: O4
+    cell risk
+      value: Nobody to maintain it after the volunteer leaves.
+    cell verdict
+      value: Rejected
+field intake.request
+  provenance: specified
+  evidence: Staff meeting notes, 2026-09-01
+  value: |
+    Dana Reyes, branch manager, at the staff meeting on 2026-09-01: "The room
+    sign-up binder is costing the desk half a day a week and we double-booked the
+    community room twice in August. Find me something better before the winter
+    programme starts."
+field issues.decisions
+  provenance: agreed
+  evidence: Decision log
+  row d1
+    cell affects
+      value: Intake, Charter
+    cell decided_on
+      value: 2026-09-04
+    cell decision
+      value: Use a booking plugin on the existing website (O2).
+    cell evidence
+      value: Dana's email, 2026-09-04: "Go with the website plugin."
+    cell ref
+      value: D1
+    cell source_state
+      value: specified
+  row d2
+    cell affects
+      value: Scope
+    cell decided_on
+      value: 2026-09-08
+    cell decision
+      value: No payments or fees in this project.
+    cell evidence
+      value: Dana at charter review: "No money handling. That's a council matter."
+    cell ref
+      value: D2
+    cell source_state
+      value: specified
+  row d3
+    cell affects
+      value: Sprints
+    cell decided_on
+      value: 2026-09-11
+    cell decision
+      value: Two-week sprints.
+    cell evidence
+      value: Sprint cadence summary approved by Dana and Leo, 2026-09-11
+    cell ref
+      value: D3
+    cell source_state
+      value: agreed
+  row d4
+    cell affects
+      value: Requirements, Schedule
+    cell decided_on
+      value: 2026-09-22
+    cell decision
+      value: Approve CR1: phone bookings in scope, pilot ends 10-23.
+    cell evidence
+      value: CR1 impact summary approved by Dana, 2026-09-22
+    cell ref
+      value: D4
+    cell source_state
+      value: agreed
+  row d5
+    cell affects
+      value: Risks, Pilot
+    cell decided_on
+      value: 2026-09-24
+    cell decision
+      value: Retire the binder on pilot day one rather than at launch.
+    cell evidence
+      value: Proposed to Priya 09-24 as the response to risk R2. No reply yet, so this is not a decision until she agrees.
+    cell ref
+      value: D5
+    cell source_state
+      value: unobjected
+field issues.issues
+  provenance: agreed
+  evidence: Issue log
+  row i1
+    cell due
+      value: 2026-10-02
+    cell issue
+      value: Room rules wording does not match the council hire policy.
+    cell owner
+      value: Dana Reyes
+    cell priority
+      value: Medium
+    cell raised_on
+      value: 2026-09-25
+    cell ref
+      value: I1
+    cell resolution
+      value: Dana is checking the policy text with the council office.
+    cell status
+      value: In progress
+  row i2
+    cell due
+      value: 2026-10-01
+    cell escalated_on
+      value: 2026-09-25
+    cell escalated_to
+      value: Dana Reyes
+    cell issue
+      value: Emails cannot send from the county mail server until County IT allows it. Blocks C7.
+    cell owner
+      value: Sam Okafor
+    cell priority
+      value: High
+    cell raised_on
+      value: 2026-09-24
+    cell ref
+      value: I2
+    cell resolution
+      value: Request sent 09-24. Escalated because the pilot needs emails working by 10-12.
+    cell status
+      value: Escalated
+  row i3
+    cell due
+      value: 2026-09-19
+    cell issue
+      value: Plugin licence invoice went to the wrong department.
+    cell owner
+      value: Sam Okafor
+    cell priority
+      value: Low
+    cell raised_on
+      value: 2026-09-16
+    cell ref
+      value: I3
+    cell resolution
+      value: Reissued to the branch budget 09-17.
+    cell status
+      value: Closed
+field quality.assurance
+  provenance: agreed
+  evidence: Quality plan, 2026-09-12
+  value: |
+    Sam reviews test results at each sprint review. Priya runs the pilot and owns
+    the incident log. County IT runs the accessibility check. Nobody signs off
+    their own configuration.
+field quality.metrics
+  provenance: agreed
+  evidence: Quality plan, 2026-09-12
+  row q1
+    cell checked
+      value: Desk incident log, daily during the pilot
+    cell metric
+      value: Double bookings during the pilot
+    cell ref
+      value: Q1
+    cell state
+      value: Not measured yet
+    cell threshold
+      value: 0
+  row q2
+    cell checked
+      value: Five volunteers timed at the pilot
+    cell metric
+      value: Time for a first-time patron to complete a booking
+    cell ref
+      value: Q2
+    cell state
+      value: Not measured yet
+    cell threshold
+      value: Under 3 minutes
+  row q3
+    cell checked
+      value: County IT's checker, before launch
+    cell metric
+      value: Accessibility errors on the booking page
+    cell ref
+      value: Q3
+    cell state
+      value: Not measured yet
+    cell threshold
+      value: 0
+  row q4
+    cell checked
+      value: Sprint review
+    cell metric
+      value: Must requirements passing acceptance
+    cell ref
+      value: Q4
+    cell state
+      value: At risk
+    cell threshold
+      value: All
+field quality.standard
+  provenance: agreed
+  evidence: Quality plan, agreed with Dana 2026-09-12
+  value: |
+    Every Must requirement passes its acceptance test before the pilot, tested by
+    someone other than the person who configured it. The public page passes the
+    county's WCAG 2.1 AA check before launch.
+field requirements.assumptions
+  provenance: agreed
+  evidence: Requirements workshop, 2026-09-10
+  value: |
+    Most regular groups have someone with an email address. (Checked with the
+    Friends of the Library: true for all but two groups, who will keep phoning.)
+    The plugin's free tier does not cover two rooms, so the paid licence is needed.
+    Leo can give about six hours a week until launch.
+field requirements.constraints
+  provenance: specified
+  evidence: Charter, and County IT hosting policy
+  value: |
+    Must run on the library's existing website, hosted by the county.
+    County IT approves every plugin and change to the live site.
+    Budget capped at $1,200.
+    Live by 2026-11-02, before the winter programme.
+    No patron data leaves county hosting.
+field requirements.items
+  provenance: agreed
+  evidence: Requirements workshop, 2026-09-10
+  row r1
+    cell acceptance
+      value: A patron on a phone finds a free Tuesday evening slot in under a minute.
+    cell kind
+      value: Functional
+    cell priority
+      value: Must
+    cell ref
+      value: R1
+    cell requirement
+      value: Patrons see free and booked slots for both rooms, two months ahead.
+    cell status
+      value: Built
+    cell traces
+      value: S1
+  row r2
+    cell acceptance
+      value: Booking completes with those three fields and nothing else required.
+    cell kind
+      value: Functional
+    cell priority
+      value: Must
+    cell ref
+      value: R2
+    cell requirement
+      value: Booking needs a name, email and group name, and no account.
+    cell status
+      value: Built
+    cell traces
+      value: S1
+  row r3
+    cell acceptance
+      value: Two people booking the same slot at once: the second is refused with a clear message.
+    cell kind
+      value: Functional
+    cell priority
+      value: Must
+    cell ref
+      value: R3
+    cell requirement
+      value: A slot cannot be booked twice.
+    cell status
+      value: Verified
+    cell traces
+      value: S2
+  row r4
+    cell acceptance
+      value: Priya moves a booking to another day in under a minute, unaided.
+    cell kind
+      value: Functional
+    cell priority
+      value: Must
+    cell ref
+      value: R4
+    cell requirement
+      value: Staff create, edit and cancel any booking from one calendar.
+    cell status
+      value: Built
+    cell traces
+      value: S3
+  row r5
+    cell acceptance
+      value: Both emails arrive for a test booking, with the room rules attached.
+    cell kind
+      value: Functional
+    cell priority
+      value: Should
+    cell ref
+      value: R5
+    cell requirement
+      value: Confirmation email at booking, reminder two days before.
+    cell status
+      value: Agreed
+    cell traces
+      value: S1
+  row r6
+    cell acceptance
+      value: A desk booking and a web booking show identically in the staff view.
+    cell kind
+      value: Stakeholder
+    cell priority
+      value: Must
+    cell ref
+      value: R6
+    cell requirement
+      value: Staff can take a phone booking into the same calendar.
+    cell status
+      value: Built
+    cell traces
+      value: S2
+  row r7
+    cell acceptance
+      value: County IT's accessibility check passes with no errors.
+    cell kind
+      value: Non-functional
+    cell priority
+      value: Must
+    cell ref
+      value: R7
+    cell requirement
+      value: The booking page meets the county's accessibility standard (WCAG 2.1 AA).
+    cell status
+      value: Agreed
+    cell traces
+      value: S4
+  row r8
+    cell acceptance
+      value: Every binder entry dated after launch appears in the calendar, checked line by line.
+    cell kind
+      value: Transition
+    cell priority
+      value: Must
+    cell ref
+      value: R8
+    cell requirement
+      value: Future bookings in the binder moved into the new calendar before launch.
+    cell status
+      value: Proposed
+    cell traces
+      value: S2
+  row r9
+    cell acceptance
+      value: A weekly slot books eight weeks in one action.
+    cell kind
+      value: Functional
+    cell priority
+      value: Could
+    cell ref
+      value: R9
+    cell requirement
+      value: Recurring bookings for weekly groups.
+    cell status
+      value: Proposed
+    cell traces
+      value: S3
+field review.retro
+  provenance: agreed
+  evidence: Sprint 1 retrospective, 2026-09-25
+  row t1
+    cell action
+      value: Do the same for the mail server request: meet, don't email.
+    cell done
+      value: Not yet
+    cell kind
+      value: What worked
+    cell observation
+      value: Meeting County IT early got approval a day ahead of the date.
+    cell owner
+      value: Sam Okafor
+    cell sprint
+      value: Sprint 1
+  row t2
+    cell action
+      value: Priya attends sprint planning, so desk needs are heard before the sprint starts.
+    cell done
+      value: Yes
+    cell kind
+      value: What to change
+    cell observation
+      value: Phone bookings were missed at planning and arrived mid-sprint as CR1.
+    cell owner
+      value: Sam Okafor
+    cell sprint
+      value: Sprint 1
+  row t3
+    cell action
+      value: Ask Dana at planning which cards touch council policy.
+    cell done
+      value: Not yet
+    cell kind
+      value: Surprise
+    cell observation
+      value: Rules wording needed council sign-off nobody had planned for.
+    cell owner
+      value: Sam Okafor
+    cell sprint
+      value: Sprint 1
+field review.reviews
+  provenance: agreed
+  evidence: Sprint 1 review, 2026-09-25
+  row v1
+    cell accepted
+      value: Accepted with changes
+    cell decided_by
+      value: Dana Reyes
+    cell demonstrated
+      value: Public booking page on a phone; double-booking guard; rooms and hours.
+    cell feedback
+      value: Booking page accepted. Room rules (C4) come back: wording must match the council hire policy before it goes public.
+    cell held_on
+      value: 2026-09-25
+    cell sprint
+      value: Sprint 1
+field risks.register
+  provenance: agreed
+  evidence: Risk workshop, 2026-09-12
+  row k1
+    cell category
+      value: External
+    cell impact
+      value: High
+    cell owner
+      value: Sam Okafor
+    cell probability
+      value: Medium
+    cell ref
+      value: R1
+    cell response
+      value: Meet them before the build with the plugin's security notes; keep the hosted service (O3) as a fallback option.
+    cell response_type
+      value: Mitigate
+    cell risk
+      value: County IT does not approve the plugin, or approves it late.
+    cell status
+      value: Closed
+    cell trigger
+      value: No reply from County IT by 2026-09-19.
+  row k2
+    cell category
+      value: Quality
+    cell impact
+      value: High
+    cell owner
+      value: Priya Chen
+    cell probability
+      value: Medium
+    cell ref
+      value: R2
+    cell response
+      value: Priya's team designs the desk workflow; the binder is retired on pilot day one, not at launch.
+    cell response_type
+      value: Mitigate
+    cell risk
+      value: Front desk keeps using the binder alongside the system, recreating double bookings.
+    cell status
+      value: Open
+    cell trigger
+      value: Any booking found in the binder but not the calendar during the pilot.
+  row k3
+    cell category
+      value: Resource
+    cell impact
+      value: High
+    cell owner
+      value: Sam Okafor
+    cell probability
+      value: Low
+    cell ref
+      value: R3
+    cell response
+      value: Configuration documented as it is done, so a second volunteer could pick it up.
+    cell response_type
+      value: Mitigate
+    cell risk
+      value: Leo's volunteer hours drop before launch.
+    cell status
+      value: Watching
+    cell trigger
+      value: Two weeks under four hours.
+  row k4
+    cell category
+      value: Technical
+    cell impact
+      value: Medium
+    cell owner
+      value: Leo Martin
+    cell probability
+      value: Medium
+    cell ref
+      value: R4
+    cell response
+      value: Send from the county mail server; test with three common providers during the pilot.
+    cell response_type
+      value: Mitigate
+    cell risk
+      value: Reminder emails land in spam.
+    cell status
+      value: Open
+    cell trigger
+      value: Any pilot tester reports a missing email.
+  row k5
+    cell category
+      value: External
+    cell impact
+      value: Medium
+    cell owner
+      value: Sam Okafor
+    cell probability
+      value: Low
+    cell ref
+      value: R5
+    cell response
+      value: Phone booking stays (R6). Announced at the Friends' October meeting.
+    cell response_type
+      value: Avoid
+    cell risk
+      value: Regular groups object to booking online.
+    cell status
+      value: Watching
+    cell trigger
+      value: Complaint from a regular group.
+  row k6
+    cell category
+      value: Schedule
+    cell impact
+      value: Medium
+    cell owner
+      value: Dana Reyes
+    cell probability
+      value: Low
+    cell ref
+      value: R6
+    cell response
+      value: If launch slips, the desk keeps the binder for November and moves bookings over after.
+    cell response_type
+      value: Accept
+    cell risk
+      value: Winter programme starts before launch.
+    cell status
+      value: Open
+    cell trigger
+      value: Launch date at risk in any status report.
+field risks.thresholds
+  provenance: agreed
+  evidence: Risk workshop, 2026-09-12
+  value: |
+    Any risk rated High impact gets an owner and a response before the next sprint
+    starts. Anything that would move launch past 2026-11-02 goes to Dana the same
+    day. Medium-impact risks are reviewed at the sprint review; Low ones monthly.
+field schedule.activities
+  provenance: agreed
+  evidence: Schedule baselined 2026-09-12
+  row a1
+    cell activity
+      value: Charter and requirements
+    cell finish
+      value: 2026-09-11
+    cell owner
+      value: Sam Okafor
+    cell percent
+      value: 100
+    cell ref
+      value: A1
+    cell start
+      value: 2026-09-01
+    cell status
+      value: Done
+  row a2
+    cell activity
+      value: County IT plugin approval
+    cell depends
+      value: A1
+    cell finish
+      value: 2026-09-25
+    cell owner
+      value: Sam Okafor
+    cell percent
+      value: 100
+    cell ref
+      value: A2
+    cell start
+      value: 2026-09-10
+    cell status
+      value: Done
+  row a3
+    cell activity
+      value: Configure rooms, rules and calendar
+    cell depends
+      value: A1
+    cell finish
+      value: 2026-09-25
+    cell owner
+      value: Leo Martin
+    cell percent
+      value: 100
+    cell ref
+      value: A3
+    cell start
+      value: 2026-09-14
+    cell status
+      value: Done
+  row a4
+    cell activity
+      value: Emails, staff view and phone bookings
+    cell depends
+      value: A2, A3
+    cell finish
+      value: 2026-10-09
+    cell owner
+      value: Leo Martin
+    cell percent
+      value: 20
+    cell ref
+      value: A4
+    cell start
+      value: 2026-09-28
+    cell status
+      value: In progress
+  row a5
+    cell activity
+      value: Staff guide
+    cell depends
+      value: A3
+    cell finish
+      value: 2026-10-09
+    cell owner
+      value: Priya Chen
+    cell percent
+      value: 30
+    cell ref
+      value: A5
+    cell start
+      value: 2026-09-28
+    cell status
+      value: In progress
+  row a6
+    cell activity
+      value: Staff pilot
+    cell depends
+      value: A4, A5
+    cell finish
+      value: 2026-10-23
+    cell owner
+      value: Priya Chen
+    cell percent
+      value: 0
+    cell ref
+      value: A6
+    cell start
+      value: 2026-10-12
+    cell status
+      value: Not started
+  row a7
+    cell activity
+      value: Accessibility check and fixes
+    cell depends
+      value: A4
+    cell finish
+      value: 2026-10-28
+    cell owner
+      value: Leo Martin
+    cell percent
+      value: 0
+    cell ref
+      value: A7
+    cell start
+      value: 2026-10-19
+    cell status
+      value: Not started
+  row a8
+    cell activity
+      value: Binder migration
+    cell depends
+      value: A6
+    cell finish
+      value: 2026-10-30
+    cell owner
+      value: Priya Chen
+    cell percent
+      value: 0
+    cell ref
+      value: A8
+    cell start
+      value: 2026-10-26
+    cell status
+      value: Not started
+  row a9
+    cell activity
+      value: Public launch
+    cell depends
+      value: A7, A8
+    cell finish
+      value: 2026-11-02
+    cell owner
+      value: Sam Okafor
+    cell percent
+      value: 0
+    cell ref
+      value: A9
+    cell start
+      value: 2026-11-02
+    cell status
+      value: Not started
+field schedule.baseline
+  provenance: agreed
+  evidence: Baseline 2026-09-12; revision approved with CR1, 2026-09-22
+  value: |
+    Baselined 2026-09-12 with launch on 2026-11-02. The pilot originally ended
+    on 10-16; CR1 (2026-09-22) moved it to 10-23 to add phone bookings. Launch
+    did not move: the week came out of the slack before 11-02.
+field schedule.basis
+  provenance: agreed
+  evidence: Schedule review, 2026-09-12
+  value: |
+    Configuration estimated by Leo from the plugin's setup guide at six hours a
+    week. County IT's approval estimated at two weeks from their last two plugin
+    requests. The pilot is two weeks because one week would miss the fortnightly
+    groups.
+field scope.acceptance_criteria
+  provenance: agreed
+  evidence: Scope review, 2026-09-11
+  value: |
+    Every Must requirement meets its acceptance test. The two-week staff pilot
+    runs with no double booking. Priya signs off that the desk can use it unaided.
+    County IT's accessibility check passes.
+field scope.exclusions
+  provenance: agreed
+  evidence: Scope review, 2026-09-11
+  value: |
+    Fees and payments. Equipment booking. Patron accounts or logins. Any change to
+    other website pages. Recurring bookings are a Could (R9) and will be dropped
+    first if time runs short.
+field scope.product_scope
+  provenance: agreed
+  evidence: Scope review, 2026-09-11
+  value: |
+    A booking page on the library website listing the community room (40 people)
+    and the study room (8 people), with a calendar of free slots in 30-minute
+    steps during opening hours. Patrons book with name, email and group. Staff
+    manage all bookings, including phone bookings, from one calendar. Confirmation
+    and reminder emails go to the booker.
+field scope.wbs
+  provenance: agreed
+  evidence: Scope review, 2026-09-11
+  row w1
+    cell code
+      value: 1
+    cell item
+      value: Booking system
+    cell kind
+      value: Deliverable
+    cell owner
+      value: Leo Martin
+    cell status
+      value: In progress
+  row w2
+    cell code
+      value: 1.1
+    cell item
+      value: Plugin approval and install
+    cell kind
+      value: Work package
+    cell owner
+      value: Sam Okafor
+    cell status
+      value: Done
+  row w3
+    cell code
+      value: 1.2
+    cell item
+      value: Room, hours and rules configuration
+    cell kind
+      value: Work package
+    cell owner
+      value: Leo Martin
+    cell status
+      value: Done
+  row w4
+    cell code
+      value: 1.3
+    cell item
+      value: Email templates
+    cell kind
+      value: Work package
+    cell owner
+      value: Leo Martin
+    cell status
+      value: In progress
+  row w5
+    cell code
+      value: 1.4
+    cell item
+      value: Accessibility check
+    cell kind
+      value: Work package
+    cell owner
+      value: Leo Martin
+    cell status
+      value: Not started
+  row w6
+    cell code
+      value: 2
+    cell item
+      value: Desk readiness
+    cell kind
+      value: Deliverable
+    cell owner
+      value: Priya Chen
+    cell status
+      value: In progress
+  row w7
+    cell code
+      value: 2.1
+    cell item
+      value: Staff guide (one page)
+    cell kind
+      value: Work package
+    cell owner
+      value: Priya Chen
+    cell status
+      value: In progress
+  row w8
+    cell code
+      value: 2.2
+    cell item
+      value: Staff pilot
+    cell kind
+      value: Milestone
+    cell owner
+      value: Priya Chen
+    cell status
+      value: Not started
+  row w9
+    cell code
+      value: 3
+    cell item
+      value: Launch
+    cell kind
+      value: Deliverable
+    cell owner
+      value: Sam Okafor
+    cell status
+      value: Not started
+  row w10
+    cell code
+      value: 3.1
+    cell item
+      value: Binder migration
+    cell kind
+      value: Work package
+    cell notes
+      value: Two people, one reading and one checking, so nothing is missed
+    cell owner
+      value: Priya Chen
+    cell status
+      value: Not started
+  row w11
+    cell code
+      value: 3.2
+    cell item
+      value: Patron announcement
+    cell kind
+      value: Work package
+    cell owner
+      value: Sam Okafor
+    cell status
+      value: Not started
+field sprints.cadence
+  provenance: agreed
+  evidence: Agreed with Leo and Dana, 2026-09-11
+  value: |
+    Two-week sprints, Monday to Friday week two. Two weeks because Leo works about
+    six hours a week: one week would hold too little to demo.
+field sprints.definition_of_ready
+  provenance: agreed
+  evidence: Sprint planning, 2026-09-14
+  value: |
+    The card says what the patron or staff member can do when it is finished, has
+    acceptance written, is sized in points, and has nothing waiting on County IT.
+field sprints.sprints
+  provenance: agreed
+  evidence: Sprint planning
+  row p1
+    cell capacity
+      value: 12
+    cell end
+      value: 2026-09-25
+    cell goal
+      value: A patron can see free slots and book a room.
+    cell name
+      value: Sprint 1
+    cell ref
+      value: SP1
+    cell start
+      value: 2026-09-14
+    cell status
+      value: Done
+  row p2
+    cell capacity
+      value: 12
+    cell end
+      value: 2026-10-09
+    cell goal
+      value: Staff can run every booking, web and phone, from the calendar.
+    cell name
+      value: Sprint 2
+    cell ref
+      value: SP2
+    cell start
+      value: 2026-09-28
+    cell status
+      value: Planned
+  row p3
+    cell capacity
+      value: 10
+    cell end
+      value: 2026-10-23
+    cell goal
+      value: Pilot fixes and launch readiness.
+    cell name
+      value: Sprint 3
+    cell ref
+      value: SP3
+    cell start
+      value: 2026-10-12
+    cell status
+      value: Planned
+field stakeholders.register
+  provenance: agreed
+  evidence: Stakeholder session with Dana and Priya, 2026-09-09
+  row s1
+    cell current
+      value: Leading
+    cell desired
+      value: Leading
+    cell expectations
+      value: Fewer complaints, no double bookings, staff time back before winter.
+    cell interest
+      value: High
+    cell name
+      value: Dana Reyes
+    cell power
+      value: High
+    cell role
+      value: Sponsor; branch manager
+  row s2
+    cell current
+      value: Leading
+    cell desired
+      value: Leading
+    cell expectations
+      value: A launch the desk trusts, not one they route around.
+    cell interest
+      value: High
+    cell name
+      value: Sam Okafor
+    cell power
+      value: Low
+    cell role
+      value: Project manager
+  row s3
+    cell current
+      value: Neutral
+    cell desired
+      value: Supportive
+    cell expectations
+      value: Less phone time. Worried the new system will be slower for walk-ins.
+    cell interest
+      value: High
+    cell name
+      value: Priya Chen
+    cell power
+      value: Low
+    cell role
+      value: Front desk lead; main staff user
+  row s4
+    cell current
+      value: Supportive
+    cell desired
+      value: Supportive
+    cell expectations
+      value: Clear requirements and a fixed pilot date.
+    cell interest
+      value: High
+    cell name
+      value: Leo Martin
+    cell power
+      value: Low
+    cell role
+      value: IT volunteer; builds and configures
+  row s5
+    cell current
+      value: Unaware
+    cell desired
+      value: Supportive
+    cell expectations
+      value: Nothing that adds a security review burden or breaks the site theme.
+    cell interest
+      value: Low
+    cell name
+      value: County IT web team
+    cell power
+      value: High
+    cell role
+      value: Approves anything installed on the website
+  row s6
+    cell current
+      value: Resistant
+    cell desired
+      value: Neutral
+    cell expectations
+      value: Keep phoning as an option for members who do not use email.
+    cell interest
+      value: High
+    cell name
+      value: Friends of the Library
+    cell power
+      value: Low
+    cell role
+      value: Represents regular booking groups
+field stakeholders.strategy
+  provenance: agreed
+  evidence: Stakeholder session, 2026-09-09
+  value: |
+    County IT: high power, low interest, and unaware. Sam meets them before the
+    build, with the plugin's security notes, so approval is a known date rather
+    than a surprise. This is the biggest gap on the register.
+
+    Priya: involve her in the pilot design and let her team set the desk
+    workflow, so the system is hers rather than imposed.
+
+    Friends of the Library: phone booking stays (R6). Tell them at their October
+    meeting rather than letting them find out at launch.
+field status.reports
+  provenance: agreed
+  evidence: Weekly status to Dana
+  row p1
+    cell accomplished
+      value: Charter approved (M1). Requirements and scope agreed.
+    cell period
+      value: Week of Sep 7
+    cell planned_next
+      value: Schedule baseline. Meet County IT about the plugin.
+    cell rag
+      value: Green
+    cell reported_on
+      value: 2026-09-11
+    cell variance
+      value: None.
+  row p2
+    cell accomplished
+      value: Rooms configured. Booking page built. Double-booking guard tested.
+    cell escalations
+      value: County IT had not replied by the 09-19 trigger date; Sam chased in person.
+    cell period
+      value: Week of Sep 14
+    cell planned_next
+      value: Price CR1 (phone bookings) and take it to Dana.
+    cell rag
+      value: Amber
+    cell reported_on
+      value: 2026-09-18
+    cell variance
+      value: CR1 raised: phone bookings were never captured. Pilot may slip a week.
+  row p3
+    cell accomplished
+      value: County IT approved the plugin (M2, a day early). CR1 approved. Sprint 1 reviewed.
+    cell escalations
+      value: Mail server permission (I2) blocks emails. Needed by 10-12 for the pilot.
+    cell period
+      value: Week of Sep 21
+    cell planned_next
+      value: Sprint 2: staff calendar, phone bookings, emails, staff guide.
+    cell rag
+      value: Amber
+    cell reported_on
+      value: 2026-09-25
+    cell variance
+      value: Pilot ends 10-23 instead of 10-16 (CR1). Launch unchanged.
+field status.summary
+  provenance: agreed
+  evidence: Status report, 2026-09-25
+  value: |
+    On track for launch on 2026-11-02. Amber because the pilot needs County IT to
+    allow emails from the county mail server by 10-12, and that is not in our
+    hands. If it misses, the pilot runs without reminders and launch holds.

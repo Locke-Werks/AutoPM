@@ -34,8 +34,8 @@ QString findAssets(const QString& executableDir) {
     return executableDir + "/assets";
 }
 
-// Record #1: this project's own charter, so the tool is never empty on first
-// run and the first thing it shows is a real project managed in it.
+// A fictional demo project, filled in partway through Executing, so the tool is
+// never empty on first run and every screen has a worked answer to read.
 void seedFirstRun(const QString& assetsDir, const QString& projectsDir) {
     QDir projects(projectsDir);
     if (!projects.entryList({"*.pmproj"}, QDir::Files).isEmpty()) return;

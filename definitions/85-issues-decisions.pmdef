@@ -2,7 +2,7 @@
 #
 # The issue log is Process Groups: A Practice Guide, 4.3 Direct and Manage Project Work.
 # The decision log with its provenance states is not in the standard: it is
-# the sponsor's own rule, from 2026-08-27.
+# AutoPM's own rule.
 
 screen: issues
 title: Issues and Decisions

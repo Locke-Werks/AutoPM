@@ -399,9 +399,9 @@ void testCoversCheck() {
 }
 
 void testSeedRecord(const std::string& definitionsDir, const std::string& repoRoot) {
-    beginCase("record #1: the seeded record loads and answers its own charter");
+    beginCase("seed: the demo record loads and answers its own charter");
 
-    const std::string file = repoRoot + "/assets/seed/autopm.pmproj";
+    const std::string file = repoRoot + "/assets/seed/demo.pmproj";
     pm::Record seed;
     std::string error;
     CHECK(seed.load(file, error));
