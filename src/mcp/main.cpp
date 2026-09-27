@@ -724,7 +724,7 @@ int main(int argc, char** argv) {
             capabilities["tools"] = json::Value(json::Object{});
             json::Object info;
             info["name"] = json::Value("autopm");
-            info["version"] = json::Value("0.3.0");
+            info["version"] = json::Value("0.3.1");
             json::Object result;
             // Answer in the version the client asked for when it named one.
             const std::string asked = message["params"].str("protocolVersion");

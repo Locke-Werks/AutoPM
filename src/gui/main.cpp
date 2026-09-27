@@ -52,7 +52,7 @@ int main(int argc, char** argv) {
     QApplication app(argc, argv);
     app.setApplicationName("AutoPM");
     app.setOrganizationName("Locke Werks");
-    app.setApplicationVersion("0.3.0");
+    app.setApplicationVersion("0.3.1");
 
     const QString executableDir = QCoreApplication::applicationDirPath();
     const QString assetsDir = findAssets(executableDir);
