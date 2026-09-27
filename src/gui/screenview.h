@@ -1,5 +1,5 @@
 // One screen, built from its definition. Every field becomes a card: its
-// label, whether it is standard or her own, its editor, and its source tag.
+// label, whether it is standard or the tool's own, its editor, and its source tag.
 //
 // A table field whose definition names a view (board, tree, timeline, matrix)
 // gets that view alongside the grid, with a toggle between them.

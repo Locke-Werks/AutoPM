@@ -9,8 +9,9 @@
 //     child id
 //       key: value
 //
-// Chosen over JSON because the definition files are the study guide: the sponsor has to
-// be able to read them, and a record has to diff one line per changed cell.
+// Chosen over JSON because the definition files are the study guide: the person
+// learning from them has to be able to read them, and a record has to diff one
+// line per changed cell.
 #pragma once
 
 #include <string>

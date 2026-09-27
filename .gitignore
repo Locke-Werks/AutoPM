@@ -11,3 +11,8 @@ forge/*.ico
 # binaries it downloads.
 stage/
 forge-tools/
+
+# The project's own record and written documentation. Kept locally, not
+# published: they hold personal material.
+autopm.pmproj
+0*-*.md

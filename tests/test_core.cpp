@@ -172,7 +172,7 @@ void testRecordRoundTrip() {
     pm::Row risk;
     risk.id = "R1";
     risk.setCell("risk", "The tool gets learned instead of the job");
-    risk.setCell("owner", "the sponsor");
+    risk.setCell("owner", "PM");
     risk.provenance = pm::Provenance::Specified;
     written.mutableRows("risks.register").push_back(risk);
 
@@ -200,7 +200,7 @@ void testRecordRoundTrip() {
     if (rows && rows->size() == 1) {
         CHECK((*rows)[0].id == "R1");
         CHECK((*rows)[0].cell("risk") == "The tool gets learned instead of the job");
-        CHECK((*rows)[0].cell("owner") == "the sponsor");
+        CHECK((*rows)[0].cell("owner") == "PM");
         CHECK((*rows)[0].provenance == pm::Provenance::Specified);
     } else {
         CHECK(rows != nullptr && rows->size() == 1);

@@ -30,7 +30,7 @@ against a plan.
 
 ## Where it stands
 
-v0.3.0 is released. AutoPM is also its own first project: it is being run
+v0.3.1 is released. AutoPM is also its own first project: it is being run
 inside itself, charter through closeout.
 
 - **M1**, charter approved: reached 2026-09-15.
@@ -39,7 +39,7 @@ inside itself, charter through closeout.
   project and understood every field, not that it compiled.
 - **S3**, a second real project managed in it: met 2026-09-23. Ten other
   projects had their charters answered and signed off in AutoPM, not imported.
-- **Next: M5, closeout**, targeted 2026-10-15. Then one review by the reviewer, whose
+- **Next: M5, closeout**, targeted 2026-10-15. Then one outside review, whose
   verdict decides whether the product is right.
 
 The last success criterion is that the PM can explain every artifact, and when
@@ -338,16 +338,8 @@ not from the standard.
 
 ## Project documentation
 
-AutoPM is run as a managed project. Its record, `autopm.pmproj`, and the
-written record live beside the code:
-
-| File | What it is |
-|---|---|
-| `00-project-record.md` | Decisions with evidence, principles, open questions, risks, history |
-| `01-charter.md` | The approved charter (v1.0, 2026-09-15) |
-| `02-handoff-m2.md` | The work package the first build was made from |
-| `03-handback-m2.md` | What was built against it, and what differs |
-| `04-pm-review.md` | An outside PM review, and what it leaves open |
+AutoPM is run as a managed project. Its record and written documentation are
+kept outside this repository.
 
 ## Licence
 
